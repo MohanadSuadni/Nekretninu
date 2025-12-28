@@ -9,14 +9,6 @@ import TextSection from "@/app/components/property-details/text-section";
 import DiscoverProperties from "@/app/components/home/property-option";
 import ImageSlider from "@/app/components/property-details/ImageSlider";
 
-// ✅ Definisanje tipa za PageProps
-type PageProps = {
-  searchParams?: {
-    location?: string;
-    tag?: string;
-  };
-};
-
 // ✅ Tip za Property
 type Property = {
   id: string;
@@ -25,11 +17,11 @@ type Property = {
   images?: string[];
   property_img?: string;
   location?: string;
-  [key: string]: any; // Za ostale polja ako ih ima
+  [key: string]: any;
 };
 
-export default function Details({ searchParams }: PageProps) {
-  const { slug } = useParams();
+export default function Details() {
+  const { slug } = useParams<{ slug: string }>();
   const [properties, setProperties] = useState<Property[]>([]);
 
   useEffect(() => {
@@ -39,7 +31,7 @@ export default function Details({ searchParams }: PageProps) {
         if (!res.ok) throw new Error("Failed to fetch property data");
 
         const data = await res.json();
-        setProperties(Array.isArray(data) ? data : []); // ✅ osiguravamo da je niz
+        setProperties(Array.isArray(data) ? data : []);
       } catch (err) {
         console.error("Error fetching properties:", err);
       }
@@ -49,7 +41,17 @@ export default function Details({ searchParams }: PageProps) {
   }, []);
 
   const item = properties.find((p) => p.slug === slug);
-  if (!item) return <p>Property not found</p>;
+
+  if (!item) {
+    return <p className="text-center py-20">Property not found</p>;
+  }
+
+  const images =
+    item.images && item.images.length > 0
+      ? item.images
+      : item.property_img
+      ? [item.property_img]
+      : [];
 
   return (
     <div>
@@ -63,18 +65,15 @@ export default function Details({ searchParams }: PageProps) {
       </section>
 
       {/* SLIDER */}
-      <section>
-        <div className="container mx-auto">
-          <div className="relative w-full max-w-5xl mx-auto h-[240px] sm:h-[320px] md:h-[420px] lg:h-[580px]">
-            {(item.images?.length || item.property_img) && (
-              <ImageSlider
-                images={item.images?.length ? item.images : [item.property_img || ""]}
-                title={item.property_title}
-              />
-            )}
+      {images.length > 0 && (
+        <section>
+          <div className="container mx-auto">
+            <div className="relative w-full max-w-5xl mx-auto h-[240px] sm:h-[320px] md:h-[420px] lg:h-[580px]">
+              <ImageSlider images={images} title={item.property_title} />
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       <TextSection />
       <CompanyInfo />
