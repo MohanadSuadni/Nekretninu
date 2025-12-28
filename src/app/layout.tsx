@@ -17,27 +17,27 @@ const dmsans = DM_Sans({ subsets: ['latin'] });
 
 interface RootLayoutProps {
   children: React.ReactNode;
-  session: any;
 }
 
-export default function RootLayout({ children, session }: RootLayoutProps) {
+export default function RootLayout({ children }: RootLayoutProps) {
   const pathname = usePathname();
 
-  // Lista ruta gde navbar treba da bude sakriven
+  // Liste ruta gde navbar treba da bude sakriven
   const hideNavbarOn = ['/admin/login'];
-
   const shouldHideNavbar = hideNavbarOn.includes(pathname);
 
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={dmsans.className}>
         <AppContextProvider>
-          <SessionProviderComp session={session}>
+          {/* SessionProviderComp sada uzima session podatke iz API ili hook-a */}
+          <SessionProviderComp>
             <ThemeProvider attribute="class" enableSystem={false} defaultTheme="light">
               <Aoscompo>
                 {/* Navbar se prikazuje samo ako ruta nije u hide listi */}
                 {!shouldHideNavbar && <Header />}
 
+                {/* Top loader */}
                 <NextTopLoader />
 
                 {/* Glavni content */}
