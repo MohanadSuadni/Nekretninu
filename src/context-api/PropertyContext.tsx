@@ -1,15 +1,8 @@
 'use client';
 
+import React, { createContext, useState, useEffect, ReactNode, Dispatch, SetStateAction } from 'react';
 import { Filters } from '@/app/types/property/filtertypes';
 import { propertyData } from '@/app/types/property/propertyData';
-import React, {
-  createContext,
-  useState,
-  useEffect,
-  ReactNode,
-  Dispatch,
-  SetStateAction
-} from 'react';
 
 interface PropertyContextType {
   properties: propertyData[];
@@ -36,23 +29,20 @@ export const AppContextProvider: React.FC<{ children: ReactNode }> = ({ children
     tag: '',
   });
 
-  // Fetch properties from the API route
   useEffect(() => {
     const fetchProperties = async () => {
       try {
         const res = await fetch('/api/propertydata');
         const data: propertyData[] = await res.json();
         setAllProperties(data);
-        setProperties(data); // set initially unfiltered list
+        setProperties(data);
       } catch (error) {
         console.error('Failed to fetch properties:', error);
       }
     };
-
     fetchProperties();
   }, []);
 
-  // Apply filters whenever `filters` or `allProperties` change
   useEffect(() => {
     const filteredProperties = allProperties.filter((property) => {
       return (
@@ -70,22 +60,11 @@ export const AppContextProvider: React.FC<{ children: ReactNode }> = ({ children
   }, [filters, allProperties]);
 
   const updateFilter = (key: keyof Filters, value: string) => {
-    setFilters((prevFilters) => ({
-      ...prevFilters,
-      [key]: value,
-    }));
+    setFilters((prev) => ({ ...prev, [key]: value }));
   };
 
   return (
-    <PropertyContext.Provider
-      value={{
-        properties,
-        setProperties,
-        filters,
-        setFilters,
-        updateFilter
-      }}
-    >
+    <PropertyContext.Provider value={{ properties, setProperties, filters, setFilters, updateFilter }}>
       {children}
     </PropertyContext.Provider>
   );
