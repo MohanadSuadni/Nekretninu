@@ -7,7 +7,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 type Property = {
   id: string;
-  property_title: string;   // ⬅ obavezno polje
+  property_title: string;
   property_img: string;
   images: string[];
   livingArea: number;
@@ -24,7 +24,7 @@ export default function AdminPropertiesPage() {
   const [editingId, setEditingId] = useState<string | null>(null);
 
   const [form, setForm] = useState({
-    property_title: '',  // ⬅ obavezno
+    property_title: '',
     property_img: '',
     livingArea: '',
     name: '',
@@ -59,7 +59,7 @@ export default function AdminPropertiesPage() {
     init();
   }, []);
 
-  if (!user) return <p>Loading...</p>;
+  if (!user) return <p>Učitavanje...</p>;
 
   /* =======================
      HANDLERS
@@ -85,25 +85,20 @@ export default function AdminPropertiesPage() {
     setGalleryImages(null);
   };
 
-  /* =======================
-     SAVE PROPERTY
-  ======================= */
   const saveProperty = async () => {
     try {
       const { data: { user } } = await supabase.auth.getUser();
-      if (!user) throw new Error('You must be logged in');
+      if (!user) throw new Error('Morate biti prijavljeni');
 
       const propertyId = editingId || uuidv4();
       let mainImageUrl = form.property_img;
       const galleryUrls: string[] = [];
 
-      // Upload main image
       if (mainImage) {
         const url = await uploadImage(mainImage, propertyId);
         if (url) mainImageUrl = url;
       }
 
-      // Upload gallery images
       if (galleryImages) {
         for (const file of Array.from(galleryImages)) {
           const url = await uploadImage(file, propertyId);
@@ -124,38 +119,31 @@ export default function AdminPropertiesPage() {
         check: form.check,
       };
 
-      console.log('PAYLOAD:', payload);
-
-      // Insert or update
       if (editingId) {
         const { data, error } = await supabase
           .from('properties')
           .update(payload)
           .eq('id', editingId)
           .select();
-        console.log('UPDATE RESULT:', data);
         if (error) throw error;
       } else {
         const { data, error } = await supabase
           .from('properties')
           .insert([payload])
-          .select(); // ⬅ ovo je ključno da se vrati insertovani red
-        console.log('INSERT RESULT:', data);
+          .select();
         if (error) throw error;
       }
 
       resetForm();
 
-      // Refresh properties
       const { data: refreshed } = await supabase
         .from('properties')
         .select('*')
         .order('id', { ascending: false });
       setProperties(refreshed || []);
     } catch (err: any) {
-      console.log('=========== SAVE ERROR ===========');
-      console.log(err); // ⬅ ovde ceo error objekt
-      alert(err.message || 'Failed to save property');
+      console.log(err);
+      alert(err.message || 'Neuspešno čuvanje nekretnine');
     }
   };
 
@@ -182,41 +170,130 @@ export default function AdminPropertiesPage() {
      UI
   ======================= */
   return (
-    <main style={{ padding: 20 }}>
-      <h1>Admin Properties</h1>
-      <button onClick={logout}>Logout</button>
+    <div className="min-h-screen bg-gray-50">
+      {/* Glavni navigacioni bar sajta */}
+      <header className="bg-white shadow p-1 mb-24">
+        <h1 className="text-2xl font-bold text-gray-800"></h1>
+      </header>
 
-      <div style={{ border: '1px solid #ccc', padding: 16, margin: '20px 0' }}>
-        <h2>{editingId ? 'Edit Property' : 'Add Property'}</h2>
+      {/* Admin panel */}
+      <section className="bg-white shadow rounded p-6 mb-8 mx-4 md:mx-20">
+        <div className="flex justify-between items-center mb-6">
+          <h2 className="text-3xl font-bold text-gray-800">Admin Panel - Nekretnine</h2>
+          <button
+            onClick={logout}
+            className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition"
+          >
+            Odjavi se
+          </button>
+        </div>
 
-        <input name="property_title" placeholder="Property Title" value={form.property_title} onChange={handleChange} />
-        <input name="name" placeholder="Name" value={form.name} onChange={handleChange} />
-        <input name="location" placeholder="Location" value={form.location} onChange={handleChange} />
-        <input name="type" placeholder="Type" value={form.type} onChange={handleChange} />
-        <input name="livingArea" placeholder="Living Area" value={form.livingArea} onChange={handleChange} />
-        <input name="bathrooms" placeholder="Bathrooms" value={form.bathrooms} onChange={handleChange} />
+        {/* Form za dodavanje/izmenu */}
+        <h3 className="text-xl font-semibold mb-4">{editingId ? 'Izmeni nekretninu' : 'Dodaj nekretninu'}</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <input
+            name="property_title"
+            placeholder="Naziv nekretnine"
+            value={form.property_title}
+            onChange={handleChange}
+            className="border p-2 rounded"
+          />
+          <input
+            name="name"
+            placeholder="Ime"
+            value={form.name}
+            onChange={handleChange}
+            className="border p-2 rounded"
+          />
+          <input
+            name="location"
+            placeholder="Lokacija"
+            value={form.location}
+            onChange={handleChange}
+            className="border p-2 rounded"
+          />
+          <input
+            name="type"
+            placeholder="Tip nekretnine"
+            value={form.type}
+            onChange={handleChange}
+            className="border p-2 rounded"
+          />
+          <input
+            name="livingArea"
+            placeholder="Površina"
+            value={form.livingArea}
+            onChange={handleChange}
+            className="border p-2 rounded"
+          />
+          <input
+            name="bathrooms"
+            placeholder="Broj kupatila"
+            value={form.bathrooms}
+            onChange={handleChange}
+            className="border p-2 rounded"
+          />
+          <input
+            type="file"
+            accept="image/*"
+            onChange={(e) => setMainImage(e.target.files?.[0] || null)}
+            className="border p-2 rounded"
+          />
+          <input
+            type="file"
+            accept="image/*"
+            multiple
+            onChange={(e) => setGalleryImages(e.target.files)}
+            className="border p-2 rounded"
+          />
+          <label className="flex items-center gap-2">
+            <input type="checkbox" name="check" checked={form.check} onChange={handleChange} />
+            Aktivno
+          </label>
+        </div>
+        <div className="mt-4 flex gap-2">
+          <button
+            onClick={saveProperty}
+            className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition"
+          >
+            {editingId ? 'Izmeni' : 'Dodaj'}
+          </button>
+          {editingId && (
+            <button
+              onClick={resetForm}
+              className="px-4 py-2 bg-gray-300 text-gray-800 rounded hover:bg-gray-400 transition"
+            >
+              Otkaži
+            </button>
+          )}
+        </div>
+      </section>
 
-        <input type="file" accept="image/*" onChange={(e) => setMainImage(e.target.files?.[0] || null)} />
-        <input type="file" accept="image/*" multiple onChange={(e) => setGalleryImages(e.target.files)} />
-
-        <label>
-          <input type="checkbox" name="check" checked={form.check} onChange={handleChange} />
-          Active
-        </label>
-
-        <br />
-        <button onClick={saveProperty}>{editingId ? 'Update' : 'Add'}</button>
-        {editingId && <button onClick={resetForm}>Cancel</button>}
-      </div>
-
-      <ul>
+      {/* Lista nekretnina */}
+      <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mx-4 md:mx-20">
         {properties.map((p) => (
-          <li key={p.id}>
-            <strong>{p.property_title}</strong> – {p.location}
-            <button onClick={() => editProperty(p)}>Edit</button>
-          </li>
+          <div key={p.id} className="bg-white shadow rounded overflow-hidden">
+            {p.property_img && (
+              <img src={p.property_img} alt={p.property_title} className="w-full h-48 object-cover" />
+            )}
+            <div className="p-4">
+              <h3 className="font-semibold text-lg">{p.property_title}</h3>
+              <p className="text-gray-600">{p.location}</p>
+              <div className="mt-2 flex justify-between items-center">
+                <button
+                  onClick={() => editProperty(p)}
+                  className="px-3 py-1 bg-yellow-500 text-white rounded hover:bg-yellow-600 transition text-sm"
+                >
+                  Izmeni
+                </button>
+                <span className={`text-sm font-semibold ${p.check ? 'text-green-600' : 'text-red-500'}`}>
+                  {p.check ? 'Aktivno' : 'Neaktivno'}
+                </span>
+              </div>
+            </div>
+          </div>
         ))}
-      </ul>
-    </main>
+      </section>
+    </div>
   );
 }
