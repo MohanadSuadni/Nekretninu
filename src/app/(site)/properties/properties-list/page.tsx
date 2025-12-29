@@ -1,19 +1,14 @@
+'use client';
+
+import { useSearchParams } from 'next/navigation';
 import AdvanceSearch from "@/app/components/property-list/search/";
 
-type PageProps = {
-  searchParams?: {
-    location?: string;
-    tag?: string;
+export default function Page() {
+  const searchParams = useSearchParams();
+  const params = {
+    location: searchParams?.get('location') ?? "",
+    tag: searchParams?.get('tag') ?? ""
   };
-};
 
-const Page = ({ searchParams }: PageProps) => {
-  return (
-    <AdvanceSearch
-      location={searchParams?.location ?? ""}
-      tag={searchParams?.tag ?? ""}
-    />
-  );
-};
-
-export default Page;
+  return <AdvanceSearch location={params.location} tag={params.tag} />;
+}

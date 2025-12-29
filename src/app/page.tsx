@@ -11,6 +11,7 @@ import Listing from './components/home/property-list';
 import Testimonials from './components/home/testimonial';
 import { v4 as uuidv4 } from 'uuid';
 
+
 export const metadata: Metadata = {
   title: "Property",
 };

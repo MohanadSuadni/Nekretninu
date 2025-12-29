@@ -9,6 +9,7 @@ import Logo from "./logo";
 import HeaderLink from "./navigation/HeaderLink";
 import MobileHeaderLink from "./navigation/MobileHeaderLink";
 
+
 const Header: React.FC = () => {
   const pathUrl = usePathname();
   const { data: session } = useSession();
