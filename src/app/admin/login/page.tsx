@@ -15,15 +15,78 @@ export default function AdminLoginPage() {
     if (error) return alert(error.message);
 
     alert('Login successful!');
-    window.location.href = '/admin/properties'; // direktno na properties formu
+    window.location.href = '/admin/properties';
   };
 
   return (
-    <main style={{ padding: 20 }}>
-      <h1>Admin Login</h1>
-      <input type="email" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} />
-      <input type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} />
-      <button onClick={handleLogin}>Login</button>
+    <main style={styles.container}>
+      <div style={styles.card}>
+        <h1 style={styles.title}>Admin Login</h1>
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={e => setEmail(e.target.value)}
+          style={styles.input}
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={e => setPassword(e.target.value)}
+          style={styles.input}
+        />
+        <button onClick={handleLogin} style={styles.button}>
+          Login
+        </button>
+      </div>
     </main>
   );
 }
+const styles: { [key: string]: React.CSSProperties } = {
+  container: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '100vh',
+    background: 'linear-gradient(135deg, #667eea, #764ba2)',
+    fontFamily: 'Arial, sans-serif',
+  },
+  card: {
+    background: '#fff',
+    padding: '40px',
+    borderRadius: '12px',
+    boxShadow: '0 10px 25px rgba(0,0,0,0.2)',
+    width: '350px',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  title: {
+    marginBottom: '30px',
+    color: '#333',
+    fontSize: '28px',
+    fontWeight: 'bold',
+  },
+  input: {
+    width: '100%',
+    padding: '12px 15px',
+    margin: '10px 0',
+    borderRadius: '8px',
+    border: '1px solid #ccc',
+    fontSize: 16,
+  },
+  button: {
+    width: '100%',
+    padding: '12px 15px',
+    marginTop: '20px',
+    borderRadius: '8px',
+    border: 'none',
+    background: '#667eea',
+    color: '#fff',
+    fontSize: 16,
+    cursor: 'pointer',
+    transition: 'background 0.3s',
+  },
+};
+
