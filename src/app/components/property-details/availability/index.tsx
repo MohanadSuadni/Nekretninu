@@ -1,148 +1,101 @@
+'use client';
 
-import React from 'react';
-import Link from 'next/link';
+import { Property } from '@/app/types/property';
 
-export default function Availability() {
-    return (
-        <div className='bg-[#F0F6FA] dark:bg-[#111929] lg:py-24 py-16'>
-            <div className='max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8'>
-                <p className='mb-[16px] text-[24px] sm:text-[36px] justify-center flex font-bold'>
-                    Available
-                </p>
-                <p className='mb-10 sm:mb-3.75 text-base sm:text-xl text-gray justify-center flex'>
-                    Sometimes by accident, sometimes chunks as necessary.
-                </p>
+interface AvailabilityProps {
+  property: Property;
+}
 
-                <div className="overflow-x-auto">
-                    <table className="w-full text-center text-sm sm:text-lg text-gray">
-                        <thead>
-                            <tr className='border-b border-border dark:border-dark_border'>
-                                <th className="py-2 sm:py-4 px-2 text-center">Residence</th>
-                                <th className="py-2 sm:py-4 px-2 text-center">Room</th>
-                                <th className="py-2 sm:py-4 px-2 text-center">Bath</th>
-                                <th className="py-2 sm:py-4 px-2 text-center">View</th>
-                                <th className="py-2 sm:py-4 px-2 text-center">Floor</th>
-                                <th className="py-2 sm:py-4 px-2 text-center">Terrace</th>
-                                <th className="py-2 sm:py-4 px-2 text-center">Layout</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr className='border-b border-border dark:border-dark_border'>
-                                <td className="py-2 sm:py-4 px-2">Amazon</td>
-                                <td className="py-2 sm:py-4 px-2">4</td>
-                                <td className="py-2 sm:py-4 px-2">2</td>
-                                <td className="py-2 sm:py-4 px-2">2</td>
-                                <td className="py-2 sm:py-4 px-2">1</td>
-                                <td className="py-2 sm:py-4 px-2">2</td>
-                                <td className="py-2 sm:py-4 px-2">
-                                    <Link href="/properties/properties-list" className='flex items-center justify-center hover:text-primary'>
-                                        View More
-                                        <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path>
-                                        </svg>
-                                    </Link>
-                                </td>
-                            </tr>
-                            <tr className='border-b border-border dark:border-dark_border'>
-                                <td className="py-2 sm:py-4 px-2">Danube</td>
-                                <td className="py-2 sm:py-4 px-2">4</td>
-                                <td className="py-2 sm:py-4 px-2">2</td>
-                                <td className="py-2 sm:py-4 px-2">2</td>
-                                <td className="py-2 sm:py-4 px-2">3</td>
-                                <td className="py-2 sm:py-4 px-2">2</td>
-                                <td className="py-2 sm:py-4 px-2">
-                                    <Link href="/properties/properties-list" className='flex items-center justify-center hover:text-primary'>
-                                        View More
-                                        <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path>
-                                        </svg>
-                                    </Link>
-                                </td>
-                            </tr>
-                            <tr className='border-b border-border dark:border-dark_border'>
-                                <td className="py-2 sm:py-4 px-2">Volga</td>
-                                <td className="py-2 sm:py-4 px-2">3</td>
-                                <td className="py-2 sm:py-4 px-2">1</td>
-                                <td className="py-2 sm:py-4 px-2">1</td>
-                                <td className="py-2 sm:py-4 px-2">4</td>
-                                <td className="py-2 sm:py-4 px-2">1</td>
-                                <td className="py-2 sm:py-4 px-2">
-                                    <Link href="/properties/properties-list" className='flex items-center justify-center hover:text-primary'>
-                                        View More
-                                        <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path>
-                                        </svg>
-                                    </Link>
-                                </td>
-                            </tr>
-                            <tr className='border-b border-border dark:border-dark_border'>
-                                <td className="py-2 sm:py-4 px-2">Seine</td>
-                                <td className="py-2 sm:py-4 px-2">2</td>
-                                <td className="py-2 sm:py-4 px-2">1</td>
-                                <td className="py-2 sm:py-4 px-2">1</td>
-                                <td className="py-2 sm:py-4 px-2">1</td>
-                                <td className="py-2 sm:py-4 px-2">1</td>
-                                <td className="py-2 sm:py-4 px-2">
-                                    <Link href="/properties/properties-list" className='flex items-center justify-center hover:text-primary'>
-                                        View More
-                                        <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path>
-                                        </svg>
-                                    </Link>
-                                </td>
-                            </tr>
-                            <tr className='border-b border-border dark:border-dark_border'>
-                                <td className="py-2 sm:py-4 px-2">Rhine</td>
-                                <td className="py-2 sm:py-4 px-2">4</td>
-                                <td className="py-2 sm:py-4 px-2">2</td>
-                                <td className="py-2 sm:py-4 px-2">2</td>
-                                <td className="py-2 sm:py-4 px-2">2</td>
-                                <td className="py-2 sm:py-4 px-2">2</td>
-                                <td className="py-2 sm:py-4 px-2">
-                                    <Link href="/properties/properties-list" className='flex items-center justify-center hover:text-primary'>
-                                        View More
-                                        <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path>
-                                        </svg>
-                                    </Link>
-                                </td>
-                            </tr>
-                            <tr className='border-b border-border dark:border-dark_border'>
-                                <td className="py-2 sm:py-4 px-2">Hudson</td>
-                                <td className="py-2 sm:py-4 px-2">1</td>
-                                <td className="py-2 sm:py-4 px-2">1</td>
-                                <td className="py-2 sm:py-4 px-2">2</td>
-                                <td className="py-2 sm:py-4 px-2">3</td>
-                                <td className="py-2 sm:py-4 px-2">1</td>
-                                <td className="py-2 sm:py-4 px-2">
-                                    <Link href="/properties/properties-list" className='flex items-center justify-center hover:text-primary'>
-                                        View More
-                                        <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path>
-                                        </svg>
-                                    </Link>
-                                </td>
-                            </tr>
-                            <tr className='border-b border-border dark:border-dark_border'>
-                                <td className="py-2 sm:py-4 px-2">Tigris</td>
-                                <td className="py-2 sm:py-4 px-2">3</td>
-                                <td className="py-2 sm:py-4 px-2">1</td>
-                                <td className="py-2 sm:py-4 px-2">1</td>
-                                <td className="py-2 sm:py-4 px-2">2</td>
-                                <td className="py-2 sm:py-4 px-2">1</td>
-                                <td className="py-2 sm:py-4 px-2">
-                                    <Link href="/properties/properties-list" className='flex items-center justify-center hover:text-primary'>
-                                        View More
-                                        <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path>
-                                        </svg>
-                                    </Link>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+export default function Availability({ property }: AvailabilityProps) {
+  if (!property) return null;
+
+  const yesNo = (val?: boolean) => (
+    <span
+      className={`inline-flex items-center justify-center px-2 py-1 rounded-full text-xs font-semibold
+      ${val ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}
+    >
+      {val ? 'Da' : 'Ne'}
+    </span>
+  );
+
+  return (
+    <section className="bg-[#F0F6FA] dark:bg-[#111929] py-20">
+      <div className="max-w-[1200px] mx-auto px-4">
+        <h2 className="text-3xl font-bold text-center mb-3">
+          Dostupne informacije
+        </h2>
+        <p className="text-center text-gray mb-12">
+          Osnovni podaci o ovoj nekretnini
+        </p>
+
+        {/* ================= MOBILE CARD ================= */}
+        <div className="block md:hidden bg-white dark:bg-darkmode rounded-xl shadow p-6 space-y-4">
+          <Info label="Naziv" value={property.property_title} />
+          <Info label="Lokacija" value={property.location} />
+          <Info label="Kvadratura" value={`${property.livingArea ?? '-'} m²`} />
+          <Info label="Sobe" value={property.bedrooms} />
+          <Info label="Kupatila" value={property.bathrooms} />
+          <Info label="Sprat" value={property.floor} />
+          <Info label="Lift" value={yesNo(property.has_elevator)} />
+          <Info label="Autobus" value={property.bus_line || '-'} />
+          <Info label="Škola" value={yesNo(property.has_school)} />
+          <Info label="Vrtić" value={yesNo(property.has_kindergarten)} />
         </div>
-    );
+
+        {/* ================= DESKTOP TABLE ================= */}
+        <div className="hidden md:block overflow-x-auto">
+          <table className="w-full bg-white dark:bg-darkmode rounded-xl shadow overflow-hidden">
+            <thead className="bg-gray-100 dark:bg-dark_border">
+              <tr className="text-sm font-semibold">
+                <th className="py-4 px-3">Naziv</th>
+                <th>Lokacija</th>
+                <th>m²</th>
+                <th>Sobe</th>
+                <th>Kupatila</th>
+                <th>Sprat</th>
+                <th>Lift</th>
+                <th>Autobus</th>
+                <th>Škola</th>
+                <th>Vrtić</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr className="text-center border-t hover:bg-gray-50 dark:hover:bg-dark_border">
+                <td className="py-4 px-3 font-semibold">
+                  {property.property_title}
+                </td>
+                <td>{property.location || '-'}</td>
+                <td>{property.livingArea ?? '-'}</td>
+                <td>{property.bedrooms ?? '-'}</td>
+                <td>{property.bathrooms ?? '-'}</td>
+                <td>{property.floor ?? '-'}</td>
+                <td>{yesNo(property.has_elevator)}</td>
+                <td>{property.bus_line || '-'}</td>
+                <td>{yesNo(property.has_school)}</td>
+                <td>{yesNo(property.has_kindergarten)}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ================= HELPER ================= */
+
+function Info({
+  label,
+  value,
+}: {
+  label: string;
+  value: any;
+}) {
+  return (
+    <div className="flex justify-between items-center border-b pb-2 text-sm">
+      <span className="text-gray font-medium">{label}</span>
+      <span className="font-semibold text-right">{value}</span>
+    </div>
+  );
 }

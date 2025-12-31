@@ -2,50 +2,82 @@
 
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import CompanyInfo from "@/app/components/home/info";
-import Availability from "@/app/components/property-details/availability";
-import Tabbar from "@/app/components/property-details/tabbar";
-import TextSection from "@/app/components/property-details/text-section";
-import DiscoverProperties from "@/app/components/home/property-option";
 import ImageSlider from "@/app/components/property-details/ImageSlider";
+import TextSection from "@/app/components/property-details/text-section";
+import CompanyInfo from "@/app/components/home/info";
+import Tabbar from "@/app/components/property-details/tabbar";
+import Availability from "@/app/components/property-details/availability";
+import DiscoverProperties from "@/app/components/home/property-option";
 
-export default function Details() {
+
+
+
+export type Property = {
+  id: string;
+  name: string;
+    slug: string;
+
+    property_title: string;
+
+  location: string;
+  livingArea?: number;
+  bedrooms?: number;
+  bathrooms?: number;
+  floor?: number;
+  has_elevator?: boolean;
+  bus_line?: string;
+  has_school?: boolean;
+  has_kindergarten?: boolean;
+  description?: string;
+  property_img?: string;
+  images?: string[];
+};
+
+
+
+
+
+export default function PropertyDetailsPage() {
   const { slug } = useParams();
-  const [properties, setProperties] = useState<any[]>([]);
+  const [property, setProperty] = useState<Property | null>(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const res = await fetch("/api/propertydata");
-        if (!res.ok) throw new Error("Failed to fetch property data");
-        const data = await res.json();
-        setProperties(Array.isArray(data) ? data : []);
-      } catch (err) {
-        console.error("Error fetching properties:", err);
-        setProperties([]);
+        if (!res.ok) throw new Error("Failed to fetch properties");
+
+        const data: Property[] = await res.json();
+        const found = data.find((p) => p.slug === slug);
+        setProperty(found || null);
+      } catch (error) {
+        console.error("Error fetching properties:", error);
+        setProperty(null);
+      } finally {
+        setLoading(false);
       }
     };
+
     fetchData();
-  }, []);
+  }, [slug]);
 
-  const item = Array.isArray(properties)
-    ? properties.find((p) => p.slug === slug)
-    : undefined;
+  if (loading) return <p>Loading property details...</p>;
+  if (!property) return <p>Property not found.</p>;
 
-  if (!item) return <p>Property not found.</p>;
-
-  const sliderImages = Array.isArray(item.images) && item.images.length > 0
-    ? item.images
-    : item.property_img
-    ? [item.property_img]
-    : [];
+  const sliderImages =
+    property.images && property.images.length > 0
+      ? property.images
+      : property.property_img
+      ? [property.property_img]
+      : [];
 
   return (
     <div>
       <section className="pt-36 pb-20 bg-gradient-to-b from-white dark:from-darkmode to-herobg dark:to-darklight">
         <div className="container mx-auto text-center">
           <h2 className="text-4xl lg:text-[50px] font-bold dark:text-white">
-            {item.property_title || "Property Details"}
+            {property.property_title}
           </h2>
         </div>
       </section>
@@ -54,16 +86,16 @@ export default function Details() {
         <section>
           <div className="container mx-auto">
             <div className="relative w-full max-w-5xl mx-auto h-[240px] sm:h-[320px] md:h-[420px] lg:h-[580px]">
-              <ImageSlider images={sliderImages} title={item.property_title} />
+              <ImageSlider images={sliderImages} title={property.property_title} />
             </div>
           </div>
         </section>
       )}
 
-      <TextSection />
+      <TextSection description="Ovde ide opis nekretnine" />
       <CompanyInfo />
-      <Tabbar />
-      <Availability />
+      <Tabbar property={property} />
+      <Availability property={property} />
       <DiscoverProperties />
     </div>
   );

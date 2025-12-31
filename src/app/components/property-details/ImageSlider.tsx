@@ -35,8 +35,7 @@ export default function ImageSlider({ images, title }: Props) {
           className="
             object-contain 
             md:object-cover 
-            bg-black
-          "
+bg-transparent          "
         />
 
         {/* Overlay tekst */}
