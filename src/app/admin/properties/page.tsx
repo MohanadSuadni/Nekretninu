@@ -226,30 +226,27 @@ export default function AdminPropertiesPage() {
           <input name="floor" placeholder="Sprat" value={form.floor} onChange={handleChange} className="border p-2 rounded" />
           <input name="bus_line" placeholder="Autobus linija" value={form.bus_line} onChange={handleChange} className="border p-2 rounded" />
           <textarea name="description" placeholder="Opis" value={form.description} onChange={handleChange} className="border p-2 rounded col-span-1 md:col-span-2" />
-           <input type="file" accept="image/*" onChange={(e) => setMainImage(e.target.files?.[0] || null)} />
-          <input type="file" accept="image/*" multiple onChange={(e) => setGalleryImages(e.target.files)} />
-          <label className="flex items-center gap-2">
-            <input type="checkbox" name="has_elevator" checked={form.has_elevator} onChange={handleChange} />
-            Lift
+          
+          {/* Checkbox fields */}
+          <label className="flex items-center gap-2"><input type="checkbox" name="has_elevator" checked={form.has_elevator} onChange={handleChange} /> Lift</label>
+          <label className="flex items-center gap-2"><input type="checkbox" name="has_school" checked={form.has_school} onChange={handleChange} /> Škola</label>
+          <label className="flex items-center gap-2"><input type="checkbox" name="has_kindergarten" checked={form.has_kindergarten} onChange={handleChange} /> Vrtić</label>
+          <label className="flex items-center gap-2"><input type="checkbox" name="check" checked={form.check} onChange={handleChange} /> Aktivno</label>
+
+          {/* Images */}
+          <label className="block">
+            Glavna slika
+            <input type="file" accept="image/*" onChange={(e) => setMainImage(e.target.files?.[0] || null)} className="mt-1 border rounded p-1 w-full" />
           </label>
-          <label className="flex items-center gap-2">
-            <input type="checkbox" name="has_school" checked={form.has_school} onChange={handleChange} />
-            Škola
-          </label>
-          <label className="flex items-center gap-2">
-            <input type="checkbox" name="has_kindergarten" checked={form.has_kindergarten} onChange={handleChange} />
-            Vrtić
-          </label>
-          <label className="flex items-center gap-2">
-            <input type="checkbox" name="check" checked={form.check} onChange={handleChange} />
-            Aktivno
+          <label className="block mt-4">
+            Slike za galeriju / slider
+            <input type="file" accept="image/*" multiple onChange={(e) => setGalleryImages(e.target.files)} className="mt-1 border rounded p-1 w-full" />
           </label>
         </div>
+
         <div className="mt-4 flex gap-2">
           <button onClick={saveProperty} className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition">{editingId ? 'Izmeni' : 'Dodaj'}</button>
-          {editingId && (
-            <button onClick={resetForm} className="px-4 py-2 bg-gray-300 text-gray-800 rounded hover:bg-gray-400 transition">Otkaži</button>
-          )}
+          {editingId && <button onClick={resetForm} className="px-4 py-2 bg-gray-300 text-gray-800 rounded hover:bg-gray-400 transition">Otkaži</button>}
         </div>
       </section>
 
@@ -257,7 +254,17 @@ export default function AdminPropertiesPage() {
       <section className="mx-4 md:mx-20 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {properties.map(p => (
           <div key={p.id} className="bg-white shadow rounded overflow-hidden">
-            {p.property_img && <img src={p.property_img} alt={p.property_title} className="w-full h-48 object-cover" />}
+            {p.property_img && <img src={p.property_img} alt={p.property_title} className="w-full h-48 object-cover rounded-t" />}
+            
+            {/* Galerija */}
+            {p.images && p.images.length > 0 && (
+              <div className="flex overflow-x-auto gap-2 mt-2 p-2">
+                {p.images.map((img, i) => (
+                  <img key={i} src={img} alt={`Galerija ${i}`} className="h-20 w-auto rounded" />
+                ))}
+              </div>
+            )}
+
             <div className="p-4">
               <h3 className="font-semibold text-lg">{p.property_title}</h3>
               <p className="text-gray-600 text-sm mb-2">{p.location}</p>
@@ -271,6 +278,7 @@ export default function AdminPropertiesPage() {
                 <span>Kupatila: {p.bathrooms ?? '-'}</span>
                 <span>Površina: {p.livingArea ?? '-'} m²</span>
               </div>
+              <p className="text-gray-700 text-sm mt-1">{p.description}</p>
               <div className="mt-2 flex justify-between items-center">
                 <button onClick={() => editProperty(p)} className="px-3 py-1 bg-yellow-500 text-white rounded hover:bg-yellow-600 transition text-sm">Izmeni</button>
                 <span className={`text-sm font-semibold ${p.check ? 'text-green-600' : 'text-red-500'}`}>
