@@ -226,6 +226,8 @@ export default function AdminPropertiesPage() {
           <input name="floor" placeholder="Sprat" value={form.floor} onChange={handleChange} className="border p-2 rounded" />
           <input name="bus_line" placeholder="Autobus linija" value={form.bus_line} onChange={handleChange} className="border p-2 rounded" />
           <textarea name="description" placeholder="Opis" value={form.description} onChange={handleChange} className="border p-2 rounded col-span-1 md:col-span-2" />
+           <input type="file" accept="image/*" onChange={(e) => setMainImage(e.target.files?.[0] || null)} />
+          <input type="file" accept="image/*" multiple onChange={(e) => setGalleryImages(e.target.files)} />
           <label className="flex items-center gap-2">
             <input type="checkbox" name="has_elevator" checked={form.has_elevator} onChange={handleChange} />
             Lift
