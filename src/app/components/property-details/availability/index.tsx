@@ -1,6 +1,8 @@
 'use client';
 
 import { Property } from '@/app/types/property';
+import { propertyData } from "@/app/types/property/propertyData";
+
 
 interface AvailabilityProps {
   property: Property;

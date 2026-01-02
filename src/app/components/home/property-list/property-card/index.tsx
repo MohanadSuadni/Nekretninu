@@ -119,9 +119,8 @@ const PropertyCard: React.FC<PropertyCardProps> = ({ property, viewMode }) => {
                   width={18}
                   height={18}
                 />
-                {property.livingArea}
-              </p>
-              <p className="text-sm text-gray">Površina</p>
+{`${property.livingArea ?? '-'} m²`}              </p>
+              <p className="text-sm text-gray">Kvadratura</p>
             </div>
           </div>
         </div>

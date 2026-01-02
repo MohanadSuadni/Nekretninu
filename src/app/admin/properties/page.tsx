@@ -5,23 +5,30 @@ import { supabase } from '@/app/lib/supabase/client';
 import { uploadImage } from '@/app/lib/supabase/uploadImage';
 import { v4 as uuidv4 } from 'uuid';
 
-type Property = {
+export type Property = {
   id: string;
   slug: string;
   property_title: string;
-  property_img?: string;
-  images?: string[];
-  location?: string;
-  bedrooms?: number;
-  bathrooms?: number;
-  livingArea?: number;
+  property_price: string;
+  property_img?: string;    // glavna slika
+  images?: string[];        // slider slike
+  location: string;
+  category: string;
+  type: string;             // stan / kuća
+  status: string;           // prodaja / izdavanje
+  tag: string;              // featured / rent / sale
+  beds: number;
+  bathrooms: number;
+  garages: number;
+  livingArea: string;
   floor?: number;
   has_elevator?: boolean;
   bus_line?: string;
   has_school?: boolean;
   has_kindergarten?: boolean;
-  description?: string;
   check: boolean;
+  name: string;
+  description?: string;      // <--- OVDE
 };
 
 export default function AdminPropertiesPage() {
@@ -30,29 +37,34 @@ export default function AdminPropertiesPage() {
   const [editingId, setEditingId] = useState<string | null>(null);
 
   const [form, setForm] = useState<any>({
-    property_title: '',
     slug: '',
+    property_title: '',
+    property_price: '',
     property_img: '',
     images: [],
     location: '',
-    bedrooms: '',
+    category: '',
+    type: '',
+    status: '',
+    tag: '',
+    beds: '',
     bathrooms: '',
+    garages: '',
     livingArea: '',
     floor: '',
     has_elevator: false,
     bus_line: '',
     has_school: false,
     has_kindergarten: false,
-    description: '',
     check: false,
+    name: '',
+    description: '', // <-- DODATO
   });
 
   const [mainImage, setMainImage] = useState<File | null>(null);
   const [galleryImages, setGalleryImages] = useState<FileList | null>(null);
 
-  /* =======================
-     LOGIN + FETCH PROPERTIES
-  ======================= */
+  // ================= LOGIN + FETCH PROPERTIES =================
   useEffect(() => {
     const init = async () => {
       const { data } = await supabase.auth.getUser();
@@ -74,9 +86,7 @@ export default function AdminPropertiesPage() {
 
   if (!user) return <p>Učitavanje...</p>;
 
-  /* =======================
-     HANDLERS
-  ======================= */
+  // ================= HANDLERS =================
   const handleChange = (e: any) => {
     const { name, value, type, checked } = e.target;
     setForm({ ...form, [name]: type === 'checkbox' ? checked : value });
@@ -84,21 +94,28 @@ export default function AdminPropertiesPage() {
 
   const resetForm = () => {
     setForm({
-      property_title: '',
       slug: '',
+      property_title: '',
+      property_price: '',
       property_img: '',
       images: [],
       location: '',
-      bedrooms: '',
+      category: '',
+      type: '',
+      status: '',
+      tag: '',
+      beds: '',
       bathrooms: '',
+      garages: '',
       livingArea: '',
       floor: '',
       has_elevator: false,
       bus_line: '',
       has_school: false,
       has_kindergarten: false,
-      description: '',
       check: false,
+      name: '',
+      description: '', // <-- DODATO
     });
     setEditingId(null);
     setMainImage(null);
@@ -130,19 +147,26 @@ export default function AdminPropertiesPage() {
         id: propertyId,
         slug: form.slug || propertyId,
         property_title: form.property_title,
+        property_price: form.property_price,
         property_img: mainImageUrl,
         images: galleryUrls,
         location: form.location,
-        bedrooms: Number(form.bedrooms),
+        category: form.category,
+        type: form.type,
+        status: form.status,
+        tag: form.tag,
+        beds: Number(form.beds),
         bathrooms: Number(form.bathrooms),
-        livingArea: Number(form.livingArea),
+        garages: Number(form.garages),
+        livingArea: form.livingArea,
         floor: Number(form.floor),
         has_elevator: form.has_elevator,
         bus_line: form.bus_line,
         has_school: form.has_school,
         has_kindergarten: form.has_kindergarten,
-        description: form.description,
         check: form.check,
+        name: form.name,
+        description: form.description, // <-- DODATO
       };
 
       if (editingId) {
@@ -174,21 +198,28 @@ export default function AdminPropertiesPage() {
   const editProperty = (p: Property) => {
     setEditingId(p.id);
     setForm({
-      property_title: p.property_title,
       slug: p.slug,
+      property_title: p.property_title,
+      property_price: p.property_price,
       property_img: p.property_img,
       images: p.images,
       location: p.location,
-      bedrooms: p.bedrooms,
+      category: p.category,
+      type: p.type,
+      status: p.status,
+      tag: p.tag,
+      beds: p.beds,
       bathrooms: p.bathrooms,
+      garages: p.garages,
       livingArea: p.livingArea,
       floor: p.floor,
       has_elevator: p.has_elevator,
       bus_line: p.bus_line,
       has_school: p.has_school,
       has_kindergarten: p.has_kindergarten,
-      description: p.description,
       check: p.check,
+      name: p.name,
+      description: p.description || '', // <-- DODATO
     });
   };
 
@@ -197,9 +228,7 @@ export default function AdminPropertiesPage() {
     window.location.href = '/admin/login';
   };
 
-  /* =======================
-     UI
-  ======================= */
+  // ================= UI =================
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
@@ -217,23 +246,44 @@ export default function AdminPropertiesPage() {
       <section className="bg-white shadow rounded p-6 mb-8 mx-4 md:mx-20">
         <h3 className="text-xl font-semibold mb-4">{editingId ? 'Izmeni nekretninu' : 'Dodaj nekretninu'}</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <input name="property_title" placeholder="Naziv nekretnine" value={form.property_title} onChange={handleChange} className="border p-2 rounded" />
+          {/* Tekstualna polja */}
           <input name="slug" placeholder="Slug" value={form.slug} onChange={handleChange} className="border p-2 rounded" />
+          <input name="property_title" placeholder="Naziv nekretnine" value={form.property_title} onChange={handleChange} className="border p-2 rounded" />
+          <input name="property_price" placeholder="Cena" value={form.property_price} onChange={handleChange} className="border p-2 rounded" />
           <input name="location" placeholder="Lokacija" value={form.location} onChange={handleChange} className="border p-2 rounded" />
-          <input name="livingArea" placeholder="Kvadratura" value={form.livingArea} onChange={handleChange} className="border p-2 rounded" />
-          <input name="bedrooms" placeholder="Broj soba" value={form.bedrooms} onChange={handleChange} className="border p-2 rounded" />
+          <input name="category" placeholder="Kategorija" value={form.category} onChange={handleChange} className="border p-2 rounded" />
+          <input name="type" placeholder="Tip (stan/kuća)" value={form.type} onChange={handleChange} className="border p-2 rounded" />
+          <input name="status" placeholder="Status (prodaja/izdavanje)" value={form.status} onChange={handleChange} className="border p-2 rounded" />
+          <input name="tag" placeholder="Tag (featured/rent/sale)" value={form.tag} onChange={handleChange} className="border p-2 rounded" />
+          <input name="name" placeholder="Ime" value={form.name} onChange={handleChange} className="border p-2 rounded" />
+<input
+  name="beds"
+  type="number"
+  placeholder="Broj soba"
+  value={form.beds}
+  onChange={(e) => {
+    const val = Number(e.target.value);
+    setForm({ ...form, beds: val, bedrooms: val }); // oba se update-uju
+  }}
+  className="border p-2 rounded"
+/>
+
+
+
           <input name="bathrooms" placeholder="Broj kupatila" value={form.bathrooms} onChange={handleChange} className="border p-2 rounded" />
+          <input name="garages" placeholder="Broj garaža" value={form.garages} onChange={handleChange} className="border p-2 rounded" />
+          <input name="livingArea" placeholder="Kvadratura" value={form.livingArea} onChange={handleChange} className="border p-2 rounded" />
           <input name="floor" placeholder="Sprat" value={form.floor} onChange={handleChange} className="border p-2 rounded" />
           <input name="bus_line" placeholder="Autobus linija" value={form.bus_line} onChange={handleChange} className="border p-2 rounded" />
           <textarea name="description" placeholder="Opis" value={form.description} onChange={handleChange} className="border p-2 rounded col-span-1 md:col-span-2" />
-          
-          {/* Checkbox fields */}
+
+          {/* Checkbox */}
           <label className="flex items-center gap-2"><input type="checkbox" name="has_elevator" checked={form.has_elevator} onChange={handleChange} /> Lift</label>
           <label className="flex items-center gap-2"><input type="checkbox" name="has_school" checked={form.has_school} onChange={handleChange} /> Škola</label>
           <label className="flex items-center gap-2"><input type="checkbox" name="has_kindergarten" checked={form.has_kindergarten} onChange={handleChange} /> Vrtić</label>
           <label className="flex items-center gap-2"><input type="checkbox" name="check" checked={form.check} onChange={handleChange} /> Aktivno</label>
 
-          {/* Images */}
+          {/* Slike */}
           <label className="block">
             Glavna slika
             <input type="file" accept="image/*" onChange={(e) => setMainImage(e.target.files?.[0] || null)} className="mt-1 border rounded p-1 w-full" />
@@ -255,8 +305,6 @@ export default function AdminPropertiesPage() {
         {properties.map(p => (
           <div key={p.id} className="bg-white shadow rounded overflow-hidden">
             {p.property_img && <img src={p.property_img} alt={p.property_title} className="w-full h-48 object-cover rounded-t" />}
-            
-            {/* Galerija */}
             {p.images && p.images.length > 0 && (
               <div className="flex overflow-x-auto gap-2 mt-2 p-2">
                 {p.images.map((img, i) => (
@@ -264,7 +312,6 @@ export default function AdminPropertiesPage() {
                 ))}
               </div>
             )}
-
             <div className="p-4">
               <h3 className="font-semibold text-lg">{p.property_title}</h3>
               <p className="text-gray-600 text-sm mb-2">{p.location}</p>
@@ -274,9 +321,10 @@ export default function AdminPropertiesPage() {
                 <span>Autobus: {p.bus_line ?? '-'}</span>
                 <span>Škola: {p.has_school ? '✔' : '✖'}</span>
                 <span>Vrtić: {p.has_kindergarten ? '✔' : '✖'}</span>
-                <span>Sobe: {p.bedrooms ?? '-'}</span>
+                <span>Sobe: {p.beds ?? '-'}</span>
                 <span>Kupatila: {p.bathrooms ?? '-'}</span>
-                <span>Površina: {p.livingArea ?? '-'} m²</span>
+                <span>Garaže: {p.garages ?? '-'}</span>
+                <span>Površina: {p.livingArea ?? '-'}</span>
               </div>
               <p className="text-gray-700 text-sm mt-1">{p.description}</p>
               <div className="mt-2 flex justify-between items-center">

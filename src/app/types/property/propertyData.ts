@@ -1,22 +1,38 @@
 export type propertyData = {
   id: string;
-  property_img?: string;   // optional (za kartice)
-  images?: string[];       // ✅ DODATO (za slideshow)
+  slug: string;
+
   property_title: string;
   property_price: string;
+
+  property_img?: string;     // glavna slika
+  images?: string[];         // slider slike
+
+  location: string;
+  region: string;
+
   category: string;
   category_img: string;
-  rooms: number;
+
+  type: string;              // stan / kuća
+  status: string;            // prodaja / izdavanje
+  tag: string;               // featured / rent / sale
+
+  beds: number;    
+  bedrooms?: number;       // možeš zadržati ako ti baza ima
+                            // ✔ koristi se svuda
   bathrooms: number;
-  location: string;
+  garages: number;           // ✔ POSTOJI U BAZI
   livingArea: string;
-  tag: string;
+
+  floor?: number;
+  has_elevator?: boolean;
+  bus_line?: string;
+  has_school?: boolean;
+  has_kindergarten?: boolean;
+
   check: boolean;
-  status: string;
-  type: string;
-  beds: number;
-  garages: number;
-  region: string;
   name: string;
-  slug: string;
+    description?: string;   // <-- OVDJE
+
 };

@@ -15,13 +15,14 @@ import DiscoverProperties from "@/app/components/home/property-option";
 export type Property = {
   id: string;
   name: string;
-    slug: string;
-
-    property_title: string;
-
-  location: string;
+  slug: string;
+  property_title: string;
+  property_img?: string;
+  images?: string[];
+  location?: string;
   livingArea?: number;
-  bedrooms?: number;
+  beds?: number;           // dodaj ovo
+  bedrooms?: number;       // možeš zadržati ako ti baza ima
   bathrooms?: number;
   floor?: number;
   has_elevator?: boolean;
@@ -29,8 +30,6 @@ export type Property = {
   has_school?: boolean;
   has_kindergarten?: boolean;
   description?: string;
-  property_img?: string;
-  images?: string[];
 };
 
 
