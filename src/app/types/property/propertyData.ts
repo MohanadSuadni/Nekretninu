@@ -9,7 +9,6 @@ export type propertyData = {
   images?: string[];         // slider slike
 
   location: string;
-  region: string;
 
   category: string;
   category_img: string;

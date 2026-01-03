@@ -143,6 +143,7 @@ export default function AdminPropertiesPage() {
         }
       }
 
+      
       const payload: Property = {
         id: propertyId,
         slug: form.slug || propertyId,

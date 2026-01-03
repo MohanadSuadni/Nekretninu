@@ -8,7 +8,7 @@ interface PropertyContextType {
   properties: propertyData[];
   setProperties: Dispatch<SetStateAction<propertyData[]>>;
   filters: Filters;
-  setFilters: any;
+  setFilters: Dispatch<SetStateAction<Filters>>;
   updateFilter: (key: keyof Filters, value: string) => void;
 }
 
@@ -29,6 +29,7 @@ export const AppContextProvider: React.FC<{ children: ReactNode }> = ({ children
     tag: '',
   });
 
+  // ================= FETCH PROPERTIES =================
   useEffect(() => {
     const fetchProperties = async () => {
       try {
@@ -43,22 +44,32 @@ export const AppContextProvider: React.FC<{ children: ReactNode }> = ({ children
     fetchProperties();
   }, []);
 
+  // ================= FILTER PROPERTIES =================
   useEffect(() => {
-    const filteredProperties = allProperties.filter((property) => {
-      return (
-        (!filters.keyword || property.property_title.toLowerCase().includes(filters.keyword.toLowerCase())) &&
-        (!filters.location || property.location.toLowerCase() === filters.location.toLowerCase()) &&
-        (!filters.tag || property.tag.toLowerCase() === filters.tag.toLowerCase()) &&
-        (!filters.status || property.status === filters.status) &&
-        (!filters.category || property.category.toLowerCase() === filters.category.toLowerCase()) &&
-        (!filters.beds || property.beds === Number(filters.beds)) &&
-        (!filters.garages || property.garages === Number(filters.garages))
-      );
-    });
+   const filteredProperties = allProperties.filter((property) => {
+  const category = property.category ?? '';
+  const tag = property.tag ?? '';
+  const status = property.status ?? '';
+  const location = property.location ?? '';
+  const title = property.property_title ?? '';
+
+  return (
+    (!filters.keyword || title.toLowerCase().includes(filters.keyword.toLowerCase())) &&
+    (!filters.location || location.toLowerCase().includes(filters.location.toLowerCase())) &&
+    (!filters.tag || tag.toLowerCase().includes(filters.tag.toLowerCase())) &&
+    (!filters.status || status.toLowerCase().includes(filters.status.toLowerCase())) &&
+    (!filters.category || category.toLowerCase().includes(filters.category.toLowerCase())) &&
+    (!filters.beds || property.beds === Number(filters.beds)) &&
+    (!filters.baths || property.bathrooms === Number(filters.baths)) &&
+    (!filters.garages || property.garages === Number(filters.garages))
+  );
+});
+
 
     setProperties(filteredProperties);
   }, [filters, allProperties]);
 
+  // ================= UPDATE FILTER =================
   const updateFilter = (key: keyof Filters, value: string) => {
     setFilters((prev) => ({ ...prev, [key]: value }));
   };
