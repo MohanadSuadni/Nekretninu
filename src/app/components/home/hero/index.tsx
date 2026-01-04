@@ -56,20 +56,21 @@ const Hero = () => {
     setShowSuggestions(true);
   };
 
-  const goSearch = () => {
-    if (!location.trim()) {
-      setError("Molimo unesite lokaciju za pretragu.");
-      return;
-    }
+ const goSearch = () => {
+  if (!location.trim()) {
+    setError("Molimo unesite lokaciju za pretragu.");
+    return;
+  }
 
-    setError("");
+  setError("");
 
-    router.push(
-      `/properties/properties-list?location=${encodeURIComponent(
-        location
-      )}&tag=${encodeURIComponent(tag)}`
-    );
-  };
+  router.push(
+    `/properties/properties-list?location=${encodeURIComponent(
+      location
+    )}&status=${encodeURIComponent(status)}`
+  );
+};
+
 
   return (
     <section className="relative pt-44 pb-0 dark:bg-darklight bg-no-repeat bg-gradient-to-b from-white from-10% dark:from-darkmode to-herobg to-90% dark:to-darklight overflow-x-hidden">
