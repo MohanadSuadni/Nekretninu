@@ -35,9 +35,10 @@ export default function Availability({ property }: AvailabilityProps) {
           <Info label="Naziv" value={property.property_title} />
           <Info label="Lokacija" value={property.location} />
           <Info label="Kvadratura" value={`${property.livingArea ?? '-'} m²`} />
-          <Info label="Sobe" value={property.bedrooms} />
+          <Info label="Sobe" value={property.beds} />
           <Info label="Kupatila" value={property.bathrooms} />
           <Info label="Sprat" value={property.floor} />
+           <Info label="Parking" value={property.garages} />
           <Info label="Lift" value={yesNo(property.has_elevator)} />
           <Info label="Autobus" value={property.bus_line || '-'} />
           <Info label="Škola" value={yesNo(property.has_school)} />
@@ -55,6 +56,7 @@ export default function Availability({ property }: AvailabilityProps) {
                 <th>Sobe</th>
                 <th>Kupatila</th>
                 <th>Sprat</th>
+                <th>Parking</th>
                 <th>Lift</th>
                 <th>Autobus</th>
                 <th>Škola</th>
@@ -69,9 +71,10 @@ export default function Availability({ property }: AvailabilityProps) {
                 </td>
                 <td>{property.location || '-'}</td>
                 <td>{property.livingArea ?? '-'}</td>
-                <td>{property.bedrooms ?? '-'}</td>
+                <td>{property.beds ?? '-'}</td>
                 <td>{property.bathrooms ?? '-'}</td>
                 <td>{property.floor ?? '-'}</td>
+                <td>{property.garages ?? '-'}</td>
                 <td>{yesNo(property.has_elevator)}</td>
                 <td>{property.bus_line || '-'}</td>
                 <td>{yesNo(property.has_school)}</td>

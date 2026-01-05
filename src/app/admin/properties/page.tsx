@@ -233,8 +233,8 @@ export default function AdminPropertiesPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <header className="bg-white shadow p-4 mb-12 flex justify-between items-center">
-        <h1 className="text-2xl font-bold text-gray-800">Admin Panel - Nekretnine</h1>
+<header className="bg-white shadow p-4 mb-12 flex justify-between items-center mt-24 sticky top-0 z-40">
+        <h1 className="text-2xl font-bold text-gray-800 ">Admin Panel - Nekretnine</h1>
         <button
           onClick={logout}
           className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition"
@@ -272,7 +272,7 @@ export default function AdminPropertiesPage() {
 
 
           <input name="bathrooms" placeholder="Broj kupatila" value={form.bathrooms} onChange={handleChange} className="border p-2 rounded" />
-          <input name="garages" placeholder="Broj garaža" value={form.garages} onChange={handleChange} className="border p-2 rounded" />
+          <input name="garages" placeholder="Parking" value={form.garages} onChange={handleChange} className="border p-2 rounded" />
           <input name="livingArea" placeholder="Kvadratura" value={form.livingArea} onChange={handleChange} className="border p-2 rounded" />
           <input name="floor" placeholder="Sprat" value={form.floor} onChange={handleChange} className="border p-2 rounded" />
           <input name="bus_line" placeholder="Autobus linija" value={form.bus_line} onChange={handleChange} className="border p-2 rounded" />

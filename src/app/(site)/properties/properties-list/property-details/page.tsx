@@ -30,6 +30,8 @@ export type Property = {
   has_school?: boolean;
   has_kindergarten?: boolean;
   description?: string;
+  garages: number;
+  
 };
 
 
