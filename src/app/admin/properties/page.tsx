@@ -21,7 +21,7 @@ export type Property = {
   bathrooms: number;
   garages: number;
   livingArea: string;
-  floor?: string;
+floor?: number | string;
   has_elevator?: boolean;
   bus_line?: string;
   has_school?: boolean;
