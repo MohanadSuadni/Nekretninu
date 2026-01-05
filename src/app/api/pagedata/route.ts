@@ -82,7 +82,7 @@ const searchOptions = {
         { value:'Magacin', label: 'Magacin' },
     ],
       beds: [
-        { value: '', label: 'Spavaće sobe' },
+        { value: '', label: ' sobe' },
         { value: '1', label: '1 soba' },
         { value: '2', label: '2 sobe' },
         { value: '3', label: '3 sobe' },

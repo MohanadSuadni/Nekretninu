@@ -42,9 +42,7 @@ const PropertyCard: React.FC<PropertyCardProps> = ({ property, viewMode }) => {
 
           {/* TAG */}
           <p className="absolute top-[10px] left-[10px] py-1 px-4 bg-white rounded-md text-primary text-sm font-semibold">
-            {property.tag === "izdavanje"
-              ? "For Rent → Za izdavanje"
-              : "For Sale → Na prodaju"}
+            {property.tag === "izdavanje"? "For Rent → Za izdavanje": "For Sale → Na prodaju"}
           </p>
 
           {/* HEART ICON */}
@@ -89,13 +87,13 @@ const PropertyCard: React.FC<PropertyCardProps> = ({ property, viewMode }) => {
               <p className="md:text-xl text-lg font-bold flex gap-2 items-center">
                 <Image
                   src="/images/svgs/icon-bed.svg"
-                  alt="Spavaće sobe"
+                  alt="Sobe"
                   width={18}
                   height={18}
                 />
                 {property.beds}
               </p>
-              <p className="text-sm text-gray">Spavaće sobe</p>
+              <p className="text-sm text-gray">Sobe</p>
             </div>
 
             <div className="flex flex-col">
@@ -111,6 +109,19 @@ const PropertyCard: React.FC<PropertyCardProps> = ({ property, viewMode }) => {
               <p className="text-sm text-gray">Kupatila</p>
             </div>
 
+  <div className="flex flex-col">
+              <p className="md:text-xl text-lg font-bold flex gap-2 items-center">
+                <Image
+                  src="/images/svgs/stairs-floor-svgrepo-com (4).svg"
+                  alt="Sprat"
+                  width={23}
+                  height={23}
+                />
+                {property.floor}
+              </p>
+              <p className="text-sm text-gray">Sprat</p>
+            </div>
+
             <div className="flex flex-col">
               <p className="md:text-xl text-lg font-bold flex gap-2 items-center">
                 <Image
@@ -122,6 +133,10 @@ const PropertyCard: React.FC<PropertyCardProps> = ({ property, viewMode }) => {
 {`${property.livingArea ?? '-'} m²`}              </p>
               <p className="text-sm text-gray">Kvadratura</p>
             </div>
+
+
+
+
           </div>
         </div>
       </Link>
