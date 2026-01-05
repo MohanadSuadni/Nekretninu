@@ -10,7 +10,7 @@ export interface Property {
   beds?: number;           // dodaj ovo
   bedrooms?: number;       // možeš zadržati ako ti baza ima
   bathrooms?: number;
-  floor?: string;
+  floor?: number | string;
   has_elevator?: boolean;
   bus_line?: string;
   has_school?: boolean;
