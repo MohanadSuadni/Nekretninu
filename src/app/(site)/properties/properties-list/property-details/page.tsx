@@ -8,31 +8,11 @@ import CompanyInfo from "@/app/components/home/info";
 import Tabbar from "@/app/components/property-details/tabbar";
 import Availability from "@/app/components/property-details/availability";
 import DiscoverProperties from "@/app/components/home/property-option";
+import type { Property } from "@/app/types/property";
 
 
 
 
-export type Property = {
-  id: string;
-  name: string;
-  slug: string;
-  property_title: string;
-  property_img?: string;
-  images?: string[];
-  location?: string;
-  livingArea?: number;
-  beds?: number;           // dodaj ovo
-  bedrooms?: number;       // možeš zadržati ako ti baza ima
-  bathrooms?: number;
-  floor?: number;
-  has_elevator?: boolean;
-  bus_line?: string;
-  has_school?: boolean;
-  has_kindergarten?: boolean;
-  description?: string;
-  garages: number;
-  
-};
 
 
 
