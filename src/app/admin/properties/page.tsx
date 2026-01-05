@@ -160,7 +160,7 @@ export default function AdminPropertiesPage() {
         bathrooms: Number(form.bathrooms),
         garages: Number(form.garages),
         livingArea: form.livingArea,
-        floor: Number(form.floor),
+        floor: (form.floor),
         has_elevator: form.has_elevator,
         bus_line: form.bus_line,
         has_school: form.has_school,
