@@ -5,6 +5,18 @@ import { supabase } from '@/app/lib/supabase/client';
 import { uploadImage } from '@/app/lib/supabase/uploadImage';
 import { v4 as uuidv4 } from 'uuid';
 
+const categoryOptions = [
+  { value: '', label: 'Kategorija' },
+  { value: 'Stan', label: 'Stan' },
+  { value: 'Vila', label: 'Vila' },
+  { value: 'Kancelarija', label: 'Kancelarija' },
+  { value: 'Lokal', label: 'Lokal' },
+  { value: 'Kuća', label: 'Kuća' },
+  { value: 'Magacin', label: 'Magacin' },
+];
+
+
+
 export type Property = {
   id: string;
   slug: string;
@@ -260,8 +272,13 @@ export default function AdminPropertiesPage() {
           <input name="property_title" placeholder="Naziv nekretnine" value={form.property_title} onChange={handleChange} className="border p-2 rounded" />
           <input name="property_price" placeholder="Cena" value={form.property_price} onChange={handleChange} className="border p-2 rounded" />
           <input name="location" placeholder="Lokacija" value={form.location} onChange={handleChange} className="border p-2 rounded" />
-          <input name="category" placeholder="Kategorija" value={form.category} onChange={handleChange} className="border p-2 rounded" />
-          <input name="type" placeholder="Tip (stan/kuća)" value={form.type} onChange={handleChange} className="border p-2 rounded" />
+     <select name="category" value={form.category} onChange={handleChange} className="border p-2 rounded">
+          {categoryOptions.map(o => (
+            <option key={o.value} value={o.value} disabled={o.value === ''}>
+              {o.label}
+            </option>
+          ))}
+        </select>          <input name="type" placeholder="Tip (stan/kuća)" value={form.type} onChange={handleChange} className="border p-2 rounded" />
           <input name="status" placeholder="Status (prodaja/izdavanje)" value={form.status} onChange={handleChange} className="border p-2 rounded" />
           <input name="tag" placeholder="Tag (featured/rent/sale)" value={form.tag} onChange={handleChange} className="border p-2 rounded" />
           <input name="name" placeholder="Ime" value={form.name} onChange={handleChange} className="border p-2 rounded" />

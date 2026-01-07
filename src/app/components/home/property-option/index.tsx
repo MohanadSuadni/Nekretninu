@@ -9,12 +9,15 @@ export default function DiscoverProperties() {
     const [propertiesData, setPropertiesData] = useState<any[]>([]);
 
     // Mapa ikonica kategorija
-    const categoryIcons: Record<string, string> = {
-        stan: "/images/property_option/apartment.svg",
-        kuća: "/images/property_option/house.svg",
-        vila: "/images/property_option/villa.svg",
-        kancelarija: "/images/property_option/office.svg"
-    };
+const categoryIcons: Record<string, string> = {
+  Stan: "/images/property_option/apartment.svg",
+  Kuća: "/images/property_option/house.svg",
+  Vila: "/images/property_option/villa.svg",
+  Kancelarija: "/images/property_option/office.svg",
+  Lokal: "/images/property_option/shop.svg",
+  Magacin: "/images/property_option/warehouse.svg",
+};
+
 
     useEffect(() => {
         const fetchData = async () => {
