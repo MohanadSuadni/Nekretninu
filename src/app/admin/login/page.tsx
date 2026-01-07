@@ -19,6 +19,7 @@ export default function AdminLoginPage() {
   };
 
   return (
+    
     <main style={styles.container}>
       <div style={styles.card}>
         <h1 style={styles.title}>Admin Login</h1>
@@ -49,7 +50,7 @@ const styles: { [key: string]: React.CSSProperties } = {
     justifyContent: 'center',
     alignItems: 'center',
     height: '100vh',
-    background: 'linear-gradient(135deg, #667eea, #764ba2)',
+    background: 'linear-gradient(135deg, #e3e4ebff, #c1c9f8ff)',
     fontFamily: 'Arial, sans-serif',
   },
   card: {
@@ -82,7 +83,7 @@ const styles: { [key: string]: React.CSSProperties } = {
     marginTop: '20px',
     borderRadius: '8px',
     border: 'none',
-    background: '#667eea',
+    background: '#81b2e0ff',
     color: '#fff',
     fontSize: 16,
     cursor: 'pointer',

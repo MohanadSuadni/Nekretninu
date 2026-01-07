@@ -15,6 +15,13 @@ const categoryOptions = [
   { value: 'Magacin', label: 'Magacin' },
 ];
 
+const status = [
+  { value: '', label: 'status' },
+  { value: 'izdavanja', label: 'izdavanja' },
+    { value: 'prodaja', label: 'prodaja' },
+
+ 
+];
 
 
 export type Property = {
@@ -278,9 +285,10 @@ export default function AdminPropertiesPage() {
               {o.label}
             </option>
           ))}
-        </select>          <input name="type" placeholder="Tip (stan/kuća)" value={form.type} onChange={handleChange} className="border p-2 rounded" />
+        </select>         
+         <input name="type" placeholder="Tip (stan/kuća)" value={form.type} onChange={handleChange} className="border p-2 rounded" />
           <input name="status" placeholder="Status (prodaja/izdavanje)" value={form.status} onChange={handleChange} className="border p-2 rounded" />
-          <input name="tag" placeholder="Tag (featured/rent/sale)" value={form.tag} onChange={handleChange} className="border p-2 rounded" />
+          <input name="tag" placeholder="Tag (featured/prodaja/izdavanje)" value={form.tag} onChange={handleChange} className="border p-2 rounded" />
           <input name="name" placeholder="Ime" value={form.name} onChange={handleChange} className="border p-2 rounded" />
 <input
   name="beds"
