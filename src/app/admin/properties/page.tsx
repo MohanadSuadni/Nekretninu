@@ -23,6 +23,8 @@ export type Property = {
   livingArea: string;
 floor?: number | string;
   has_elevator?: boolean;
+  Uknjižen?: boolean;
+
   bus_line?: string;
   has_school?: boolean;
   has_kindergarten?: boolean;
@@ -52,6 +54,8 @@ export default function AdminPropertiesPage() {
     garages: '',
     livingArea: '',
     floor: '',
+    Uknjižen:false,
+
     has_elevator: false,
     bus_line: '',
     has_school: false,
@@ -110,6 +114,8 @@ export default function AdminPropertiesPage() {
       livingArea: '',
       floor: '',
       has_elevator: false,
+      Uknjižen:false,
+
       bus_line: '',
       has_school: false,
       has_kindergarten: false,
@@ -161,6 +167,7 @@ export default function AdminPropertiesPage() {
         garages: Number(form.garages),
         livingArea: form.livingArea,
         floor: (form.floor),
+        Uknjižen:  form.Uknjižen,
         has_elevator: form.has_elevator,
         bus_line: form.bus_line,
         has_school: form.has_school,
@@ -214,6 +221,7 @@ export default function AdminPropertiesPage() {
       garages: p.garages,
       livingArea: p.livingArea,
       floor: p.floor,
+      Uknjižen: p.Uknjižen,
       has_elevator: p.has_elevator,
       bus_line: p.bus_line,
       has_school: p.has_school,
@@ -280,6 +288,8 @@ export default function AdminPropertiesPage() {
 
           {/* Checkbox */}
           <label className="flex items-center gap-2"><input type="checkbox" name="has_elevator" checked={form.has_elevator} onChange={handleChange} /> Lift</label>
+                    <label className="flex items-center gap-2"><input type="checkbox" name="Uknjižen" checked={form.Uknjižen} onChange={handleChange} /> Uknjižen</label>
+
           <label className="flex items-center gap-2"><input type="checkbox" name="has_school" checked={form.has_school} onChange={handleChange} /> Škola</label>
           <label className="flex items-center gap-2"><input type="checkbox" name="has_kindergarten" checked={form.has_kindergarten} onChange={handleChange} /> Vrtić</label>
           <label className="flex items-center gap-2"><input type="checkbox" name="check" checked={form.check} onChange={handleChange} /> Aktivno</label>

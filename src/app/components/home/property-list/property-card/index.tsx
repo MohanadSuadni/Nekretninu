@@ -42,7 +42,7 @@ const PropertyCard: React.FC<PropertyCardProps> = ({ property, viewMode }) => {
 
           {/* TAG */}
           <p className="absolute top-[10px] left-[10px] py-1 px-4 bg-white rounded-md text-primary text-sm font-semibold">
-            {property.tag === "izdavanje"? "For Rent → Za izdavanje": "For Sale → Na prodaju"}
+            {property.tag === "izdavanje"? "Za izdavanje": "Na prodaju"}
           </p>
 
           {/* HEART ICON */}

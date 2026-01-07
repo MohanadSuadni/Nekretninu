@@ -12,6 +12,8 @@ export interface Property {
   bathrooms?: number;
   floor?: number | string;
   has_elevator?: boolean;
+  Uknjižen?: boolean;
+
   bus_line?: string;
   has_school?: boolean;
   has_kindergarten?: boolean;
