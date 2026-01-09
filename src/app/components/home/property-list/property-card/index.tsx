@@ -29,8 +29,8 @@ const PropertyCard: React.FC<PropertyCardProps> = ({ property, viewMode }) => {
           >
             <Image
               src={
+               property.property_img?.trim() ||
                 property.images?.[0]?.trim() ||
-                property.property_img?.trim() ||
                 "/images/placeholder.jpg"
               }
               alt={`Slika nekretnine: ${property.property_title}`}

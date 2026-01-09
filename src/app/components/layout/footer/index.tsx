@@ -12,12 +12,12 @@ const Footer = () => {
       <div className="container mx-auto lg:max-w-screen-xl md:max-w-screen-md pt-10 pb-5 px-0 sm:px-6 lg:px-8">
         <div className="grid grid-cols-12 gap-4">
           <div className="md:col-span-4 col-span-12 flex items-center px-4 sm:px-0">
-            <Link href="/" className="mb-6 inline-block max-w-40">
+            <Link href="/" className="mb-6 inline-block max-w-80">
               <Image
-                src="/images/logo/logo-white.svg"
+                src="/images/logo/logo.png"
                 alt="logo"
-                width={156}
-                height={38}
+                width={200}
+                height={100}
               />
             </Link>
           </div>

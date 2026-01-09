@@ -42,7 +42,7 @@ export default function Availability({ property }: AvailabilityProps) {
           <Info label="Lift" value={yesNo(property.has_elevator)} />
           <Info label="Uknjižen" value={yesNo(property.Uknjižen)} />
 
-          <Info label="Autobus" value={property.bus_line || '-'} />
+          <Info label="Linije gradskog prevoza" value={property.bus_line || '-'} />
           <Info label="Škola" value={yesNo(property.has_school)} />
           <Info label="Vrtić" value={yesNo(property.has_kindergarten)} />
         </div>
@@ -61,7 +61,7 @@ export default function Availability({ property }: AvailabilityProps) {
                 <th>Parking</th>
                 <th>Lift</th>
                 <th>Uknjižen</th>
-                <th>Autobus</th>
+                <th>Linije gradskog prevoza</th>
                 <th>Škola</th>
                 <th>Vrtić</th>
               </tr>
