@@ -123,14 +123,14 @@ const PropertyCard: React.FC<PropertyCardProps> = ({ property, viewMode }) => {
             </div>
 
             <div className="flex flex-col">
-              <p className="md:text-xl text-lg font-bold flex gap-2 items-center">
+              <p className="md:text-s text-s font-bold flex gap-2 items-center">
                 <Image
                   src="/images/svgs/icon-layout.svg"
                   alt="Površina"
                   width={18}
                   height={18}
                 />
-{`${property.livingArea ?? '-'} m²`}              </p>
+{`${property.livingArea ?? '-'} `}              </p>
               <p className="text-sm text-gray">Kvadratura</p>
             </div>
 

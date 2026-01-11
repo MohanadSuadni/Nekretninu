@@ -16,6 +16,8 @@ const categoryIcons: Record<string, string> = {
   Kancelarija: "/images/property_option/office.svg",
   Lokal: "/images/property_option/shop.svg",
   Magacin: "/images/property_option/warehouse.svg",
+  Zemljište: "/images/property_option/terrain.png",
+
 };
 
 

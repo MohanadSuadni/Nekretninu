@@ -13,6 +13,8 @@ const categoryOptions = [
   { value: 'Lokal', label: 'Lokal' },
   { value: 'Kuća', label: 'Kuća' },
   { value: 'Magacin', label: 'Magacin' },
+    { value: 'Zemljište', label: 'Zemljište' },
+
 ];
 
 const status = [
