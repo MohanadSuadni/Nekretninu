@@ -11,6 +11,7 @@ import ScrollToTop from './components/scroll-to-top';
 import Header from './components/layout/header';
 import SessionProviderComp from './provider/SessionProviderComp';
 
+
 const dmsans = DM_Sans({ subsets: ['latin'] });
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

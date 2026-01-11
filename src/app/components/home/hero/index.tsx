@@ -196,7 +196,7 @@ const Hero = () => {
           {/* RIGHT IMAGE */}
           <div className="lg:block hidden col-span-6 absolute xl:-right-60 right-0 bottom-0 -z-1">
             <Image
-              src="/images/hero/image_l-removebg-preview.png"
+              src="/images/hero/hero-image.png"
               alt="hero"
               width={800}
               height={0}

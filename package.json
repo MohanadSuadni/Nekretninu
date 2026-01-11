@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@fontsource/inter": "^5.2.8",
     "@iconify/icons-ion": "^1.2.10",
     "@iconify/react": "^5.0.1",
     "@supabase/auth-helpers-nextjs": "^0.15.0",
