@@ -93,7 +93,7 @@ const Header: React.FC = () => {
 
   return (
     <header
-      className={`fixed h-24 top-0 py-1 z-50 w-full bg-transparent transition-all ${sticky ? "shadow-lg dark:shadow-darkmd bg-white dark:bg-semidark" : "shadow-none"}`}
+      className={`fixed h-[132px] top-0 py-0 z-50 w-full bg-transparent transition-all ${sticky ? "shadow-lg dark:shadow-darkmd bg-white dark:bg-semidark" : "shadow-none"}`}
     >
       <div className="container mx-auto lg:max-w-screen-xl md:max-w-screen-md flex items-center justify-between px-4 py-6">
         <Logo />

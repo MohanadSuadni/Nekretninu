@@ -6,22 +6,20 @@ const Logo: React.FC = () => {
   return (
     <Link href="/">
       <Image
-        src="/images/logo/logo-white.png"
+        src="/images/logo/Artopolis LOGOb transparentni.png"
         alt="logo"
         width={160}
         height={50}
-        style={{ width: 'auto', height: 'auto' }}
         quality={100}
-        className='dark:hidden'
+  className="h-28 w-auto dark:hidden"
       />
       <Image
-        src="/images/logo/logo.png"
+        src="/images/logo/Artopolis LOGOa za watermark.png"
         alt="logo"
         width={160}
         height={50}
-        style={{ width: 'auto', height: 'auto' }}
         quality={100}
-        className='dark:block hidden'
+        className=" h-28 w-auto  dark:block hidden"
       />
     </Link>
   );

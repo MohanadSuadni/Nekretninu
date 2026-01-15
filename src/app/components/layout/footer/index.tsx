@@ -14,7 +14,7 @@ const Footer = () => {
           <div className="md:col-span-4 col-span-12 flex items-center px-4 sm:px-0">
             <Link href="/" className="mb-6 inline-block max-w-80">
               <Image
-                src="/images/logo/logo.png"
+                src="/images/logo/Artopolis LOGOa za watermark.png"
                 alt="logo"
                 width={200}
                 height={100}
