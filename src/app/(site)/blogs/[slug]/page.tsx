@@ -75,13 +75,15 @@ export default async function BlogPage({ params }: Props) {
           <div className="container lg:max-w-screen-xl mx-auto px-4">
             <div
                                 className="z-20 mb-16 h-80 overflow-hidden rounded md:h-25 lg:h-31.25">
-            <Image
-              src={coverImageUrl}
-              alt={post.title}
-              width={1170}
-              height={766}
-              className="w-full h-full object-cover rounded-3xl"
-            />
+          {post.authorImage && (
+  <Image
+    src={post.authorImage}
+    alt={post.author}
+    width={84}
+    height={84}
+    className="rounded-full"
+  />
+)}
             </div>
           </div>
         )}
