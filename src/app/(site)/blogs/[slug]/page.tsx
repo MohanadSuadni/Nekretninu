@@ -49,13 +49,14 @@ export default async function BlogPage({ params }: Props) {
 
             <div className="md:col-span-4 flex gap-4 items-center mt-6 md:mt-0">
               {authorImageUrl && (
-                <Image
-                  src={authorImageUrl}
-                  alt={post.author}
-                  width={84}
-                  height={84}
-                  className="rounded-full"
-                />
+             <Image
+  src={authorImageUrl ?? "/default-avatar.png"} 
+  alt={post.author}
+  width={84}
+  height={84}
+  className="rounded-full object-cover"
+/>
+
               )}
               <div>
                 <p className="font-bold text-midnight_text dark:text-white">
@@ -75,15 +76,13 @@ export default async function BlogPage({ params }: Props) {
           <div className="container lg:max-w-screen-xl mx-auto px-4">
             <div
                                 className="z-20 mb-16 h-80 overflow-hidden rounded md:h-25 lg:h-31.25">
-          {post.authorImage && (
-  <Image
-    src={post.authorImage}
-    alt={post.author}
-    width={84}
-    height={84}
-    className="rounded-full"
-  />
-)}
+            <Image
+              src={coverImageUrl}
+              alt={post.title}
+              width={1170}
+              height={766}
+              className="w-full h-full object-cover rounded-3xl"
+            />
             </div>
           </div>
         )}
@@ -102,7 +101,8 @@ export default async function BlogPage({ params }: Props) {
             {/* DECORATIVE LINE */}
             <div className="flex items-center gap-4 mb-10">
               <div className="h-px w-12 bg-primary" />
-              <span className="text-sm text-gray-500">Reading                 {format(new Date(post.date), "dd MMM yyyy")}
+              <span className="text-sm text-gray-500">Reading                
+                 {format(new Date(post.date), "dd MMM yyyy")}
 </span>
             </div>
 

@@ -2,8 +2,14 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ['xsrwaqbirpnycvtvbqju.supabase.co'], // <-- Supabase hostname
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "xsrwaqbirpnycvtvbqju.supabase.co",
+        pathname: "/storage/v1/object/public/**",
+      },
+    ],
   },
 };
 
-export default nextConfig; // <--- ESM sintaksa
+export default nextConfig;
