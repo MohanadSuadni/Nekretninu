@@ -2,6 +2,8 @@ import React from "react";
 import BlogCard from "./blogCard";
 import { getAllPosts } from "@/app/lib/supabase/service";
 
+export const dynamic = 'force-dynamic';
+
 const BlogSmall: React.FC = async () => {
   const posts = (await getAllPosts()).slice(0, 2);
 
