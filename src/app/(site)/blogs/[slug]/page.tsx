@@ -6,16 +6,19 @@ import Image from "next/image";
 import Markdown from "react-markdown";
 
 type Props = {
-  params: { slug: string };
+  params: Promise<{
+    slug: string;
+  }>;
 };
 
 export default async function BlogPage({ params }: Props) {
-  const post: Blog | null = await getPostBySlug(params.slug);
+  const { slug } = await params;   // 
+
+  const post: Blog | null = await getPostBySlug(slug);
 
   if (!post) {
     return <p className="pt-40 text-center">Post not found</p>;
   }
-
   // ================= SAFE IMAGE URLS =================
   const coverImageUrl: string = post.coverImage
     ? getPublicImageUrl(post.coverImage)
