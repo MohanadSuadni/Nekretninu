@@ -3,6 +3,7 @@ import Image from "next/image";
 import { format } from "date-fns";
 import Link from "next/link";
 import { Blog, getPublicImageUrl } from "@/app/lib/supabase/service";
+export const dynamic = "force-dynamic"; // ⚡ VAŽNO za live update na Vercelu
 
 const BlogCard: FC<{ blog: Blog }> = ({ blog }) => {
   const { title, coverImage, date, slug } = blog;
