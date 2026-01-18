@@ -1,9 +1,9 @@
-// 📁 app/(site)/blogs/[slug]/page.tsx
 import type { Blog } from "@/app/lib/supabase/service";
 import { getPostBySlug, getPublicImageUrl } from "@/app/lib/supabase/service";
 import { format } from "date-fns";
 import Image from "next/image";
 import Markdown from "react-markdown";
+export const dynamic = 'force-dynamic';
 
 type Props = {
   params: Promise<{
