@@ -1,3 +1,4 @@
+// 📁 app/(site)/blogs/page.tsx
 import BlogCard from "@/app/components/shared/blog/blogCard";
 import HeroSub from "@/app/components/shared/hero-sub";
 import { getAllPosts } from "@/app/lib/supabase/service";
@@ -7,6 +8,7 @@ export const metadata = {
 };
 
 export default async function BlogListPage() {
+  // async fetch za SSR – fetchuje pri svakom request-u
   const posts = await getAllPosts();
 
   const breadcrumbLinks = [

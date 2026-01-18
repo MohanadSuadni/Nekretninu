@@ -5,17 +5,12 @@ import { format } from "date-fns";
 import Image from "next/image";
 import Markdown from "react-markdown";
 
-
 type Props = {
-  params: Promise<{
-    slug: string;
-  }>;
+  params: { slug: string };
 };
 
 export default async function BlogPage({ params }: Props) {
-  const { slug } = await params;
-
-  const post: Blog | null = await getPostBySlug(slug);
+  const post: Blog | null = await getPostBySlug(params.slug);
 
   if (!post) {
     return <p className="pt-40 text-center">Post not found</p>;
@@ -73,7 +68,7 @@ export default async function BlogPage({ params }: Props) {
           <div className="container lg:max-w-screen-xl mx-auto px-4">
             <div className="z-20 mb-16 h-80 overflow-hidden rounded md:h-25 lg:h-31.25">
               <Image
-                src={coverImageUrl} // ✅ TS-safe
+                src={coverImageUrl}
                 alt={post.title}
                 width={1170}
                 height={766}
@@ -104,25 +99,12 @@ export default async function BlogPage({ params }: Props) {
 
             {/* MARKDOWN CONTENT */}
             <div className="prose dark:prose-invert max-w-none">
-              <Markdown
-                components={{
-                  p: ({ children, ...props }) => (
-                    <p
-                      className="first:text-xl first:font-medium first:text-midnight_text dark:first:text-white first:leading-relaxed"
-                      {...props}
-                    >
-                      {children}
-                    </p>
-                  ),
-                }}
-              >
-                {post.content}
-              </Markdown>
+              <Markdown>{post.content}</Markdown>
 
               {/* ADOR IMAGE */}
               {adorImageUrl && (
                 <Image
-                  src={adorImageUrl} // ✅ TS-safe
+                  src={adorImageUrl}
                   alt="Ador M"
                   width={800}
                   height={500}
