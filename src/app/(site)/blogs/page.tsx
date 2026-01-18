@@ -6,6 +6,8 @@ import { getAllPosts } from "@/app/lib/supabase/service";
 export const metadata = {
   title: "Blog | Property-pro",
 };
+export const dynamic = 'force-dynamic';
+
 
 export default async function BlogListPage() {
   // async fetch za SSR – fetchuje pri svakom request-u
