@@ -1,10 +1,18 @@
-// 📁 app/lib/supabase/service.ts
 import { createClient } from "@supabase/supabase-js";
 
 // ================= SUPABASE CLIENT =================
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+if (!supabaseUrl || !supabaseAnonKey) {
+  console.warn(
+    "Supabase URL ili ANON KEY nisu definisani! API pozivi neće raditi."
+  );
+}
+
 export const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  supabaseUrl || "https://example.supabase.co", // fallback
+  supabaseAnonKey || "fake-anon-key"
 );
 
 // ================= TYPES =================
@@ -16,14 +24,27 @@ export type Blog = {
   content: string;
   date: string;
 
-  coverImage?: string | null;   // camelCase
+  coverImage?: string | null;
   author: string;
   authorImage?: string | null;
   adorImage?: string | null;
 };
 
+// ================= IMAGE PUBLIC URL =================
+export function getPublicImageUrl(path?: string | null): string {
+  if (!path) return "/images/blog/default-blog-image.jpg";
+
+  if (path.startsWith("http://") || path.startsWith("https://")) return path;
+
+  if (!supabaseUrl) return "/images/blog/default-blog-image.jpg";
+
+  return `${supabaseUrl}/storage/v1/object/public/${path}`;
+}
+
 // ================= GET ALL POSTS =================
 export async function getAllPosts(): Promise<Blog[]> {
+  if (!supabaseUrl || !supabaseAnonKey) return [];
+
   const { data, error } = await supabase
     .from("blogs")
     .select("*")
@@ -51,6 +72,8 @@ export async function getAllPosts(): Promise<Blog[]> {
 
 // ================= GET POST BY SLUG =================
 export async function getPostBySlug(slug: string): Promise<Blog | null> {
+  if (!supabaseUrl || !supabaseAnonKey) return null;
+
   const { data, error } = await supabase
     .from("blogs")
     .select("*")
@@ -75,23 +98,4 @@ export async function getPostBySlug(slug: string): Promise<Blog | null> {
     authorImage: data.authorimage ?? null,
     adorImage: data.adorm ?? null,
   };
-}
-
-// ================= IMAGE PUBLIC URL =================
-export function getPublicImageUrl(path?: string | null): string {
-  if (!path) return "/images/blog/default-blog-image.jpg";
-
-  // Ako je već pun URL, vrati ga direktno
-  if (path.startsWith("http://") || path.startsWith("https://")) {
-    return path;
-  }
-
-  // U suprotnom, dodaj Supabase public storage URL
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  if (!supabaseUrl) {
-    console.warn("NEXT_PUBLIC_SUPABASE_URL nije definisan!");
-    return "/images/blog/default-blog-image.jpg";
-  }
-
-  return `${supabaseUrl}/storage/v1/object/public/${path}`;
 }
