@@ -1,4 +1,4 @@
-import { createClient } from "@supabase/supabase-js";
+import { supabase } from '@/app/lib/supabase/client';
 
 // ================= SUPABASE CLIENT =================
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -10,10 +10,7 @@ if (!supabaseUrl || !supabaseAnonKey) {
   );
 }
 
-export const supabase = createClient(
-  supabaseUrl || "https://example.supabase.co", // fallback
-  supabaseAnonKey || "fake-anon-key"
-);
+
 
 // ================= TYPES =================
 export type Blog = {
