@@ -20,15 +20,16 @@ export default async function BlogPage({ params }: Props) {
     return <p className="pt-40 text-center">Post not found</p>;
   }
 
-  const coverImageUrl = post.coverImage
+  // ================= SAFE IMAGE URLS =================
+  const coverImageUrl: string = post.coverImage
     ? getPublicImageUrl(post.coverImage)
-    : "";
+    : "/default-cover.png";
 
-  const authorImageUrl = post.authorImage
+  const authorImageUrl: string = post.authorImage
     ? getPublicImageUrl(post.authorImage)
-    : "";
+    : "/default-avatar.png";
 
-  const adorImageUrl = post.adorImage
+  const adorImageUrl: string | null = post.adorImage
     ? getPublicImageUrl(post.adorImage)
     : null;
 
@@ -48,20 +49,15 @@ export default async function BlogPage({ params }: Props) {
             </div>
 
             <div className="md:col-span-4 flex gap-4 items-center mt-6 md:mt-0">
-              {authorImageUrl && (
-             <Image
-  src={authorImageUrl ?? "/default-avatar.png"} 
-  alt={post.author}
-  width={84}
-  height={84}
-  className="rounded-full object-cover"
-/>
-
-              )}
+              <Image
+                src={authorImageUrl}
+                alt={post.author || "Author"}
+                width={84}
+                height={84}
+                className="rounded-full object-cover"
+              />
               <div>
-                <p className="font-bold text-midnight_text dark:text-white">
-                  {post.author}
-                </p>
+                <p className="font-bold text-midnight_text dark:text-white">{post.author}</p>
                 <p className="text-sm text-gray-500">Author</p>
               </div>
             </div>
@@ -74,15 +70,14 @@ export default async function BlogPage({ params }: Props) {
         {/* ===== COVER IMAGE ===== */}
         {coverImageUrl && (
           <div className="container lg:max-w-screen-xl mx-auto px-4">
-            <div
-                                className="z-20 mb-16 h-80 overflow-hidden rounded md:h-25 lg:h-31.25">
-            <Image
-              src={coverImageUrl}
-              alt={post.title}
-              width={1170}
-              height={766}
-              className="w-full h-full object-cover rounded-3xl"
-            />
+            <div className="z-20 mb-16 h-80 overflow-hidden rounded md:h-25 lg:h-31.25">
+              <Image
+                src={coverImageUrl} // ✅ TS-safe
+                alt={post.title}
+                width={1170}
+                height={766}
+                className="w-full h-full object-cover rounded-3xl"
+              />
             </div>
           </div>
         )}
@@ -95,15 +90,15 @@ export default async function BlogPage({ params }: Props) {
             <div className="mb-6">
               <span className="inline-block rounded-full border border-primary px-4 py-1 text-sm font-medium text-primary">
                 {post.title}
-             </span>
+              </span>
             </div>
 
             {/* DECORATIVE LINE */}
             <div className="flex items-center gap-4 mb-10">
               <div className="h-px w-12 bg-primary" />
-              <span className="text-sm text-gray-500">Reading                
-                 {format(new Date(post.date), "dd MMM yyyy")}
-</span>
+              <span className="text-sm text-gray-500">
+                Reading {format(new Date(post.date), "dd MMM yyyy")}
+              </span>
             </div>
 
             {/* MARKDOWN CONTENT */}
@@ -126,7 +121,7 @@ export default async function BlogPage({ params }: Props) {
               {/* ADOR IMAGE */}
               {adorImageUrl && (
                 <Image
-                  src={adorImageUrl}
+                  src={adorImageUrl} // ✅ TS-safe
                   alt="Ador M"
                   width={800}
                   height={500}
@@ -134,7 +129,7 @@ export default async function BlogPage({ params }: Props) {
                 />
               )}
             </div>
-          </div><br/>
+          </div>
 
           {/* ===== SIDEBAR ===== */}
           <div className="w-full lg:w-4/12 px-4">
@@ -146,15 +141,9 @@ export default async function BlogPage({ params }: Props) {
                 </h2>
 
                 <div className="flex flex-col gap-4">
-                  <div className="bg-[#526fa3] py-4 px-6 text-xl rounded-lg text-white">
-                    Facebook
-                  </div>
-                  <div className="bg-[#46C4FF] py-4 px-6 text-xl rounded-lg text-white">
-                    Twitter
-                  </div>
-                  <div className="bg-[#3C86AD] py-4 px-6 text-xl rounded-lg text-white">
-                    LinkedIn
-                  </div>
+                  <div className="bg-[#526fa3] py-4 px-6 text-xl rounded-lg text-white">Facebook</div>
+                  <div className="bg-[#46C4FF] py-4 px-6 text-xl rounded-lg text-white">Twitter</div>
+                  <div className="bg-[#3C86AD] py-4 px-6 text-xl rounded-lg text-white">LinkedIn</div>
                 </div>
               </div>
 
