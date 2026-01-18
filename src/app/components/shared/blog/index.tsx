@@ -1,11 +1,23 @@
+// 📁 src/app/components/shared/blog/index.tsx
 import React from "react";
 import BlogCard from "./blogCard";
-import { getAllPosts } from "@/app/lib/supabase/service";
+import { getAllPosts, getPublicImageUrl } from "@/app/lib/supabase/service";
 
-export const dynamic = "force-dynamic"; // ⚡ VAŽNO za live update na Vercelu
+// ⚡ FORCE DYNAMIC – fetchuje svaki put nove podatke
+export const dynamic = "force-dynamic";
 
 const BlogSmall: React.FC = async () => {
-  const posts = (await getAllPosts()).slice(0, 2);
+  // Fetch svih postova
+  const allPosts = await getAllPosts();
+
+  // Debug log da vidiš šta Vercel fetchuje
+  console.log(
+    "BlogSmall posts:",
+    allPosts.map((p) => ({ id: p.id, title: p.title, cover: p.coverImage }))
+  );
+
+  // Uzmi samo prva dva posta za Home card
+  const posts = allPosts.slice(0, 2);
 
   return (
     <section className="flex flex-col dark:bg-darkmode px-4 md:px-4">
