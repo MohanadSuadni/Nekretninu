@@ -1,3 +1,6 @@
+// 📁 src/app/page.tsx
+export const dynamic = 'force-dynamic';
+
 import React from 'react';
 import { Metadata } from "next";
 import Hero from './components/home/hero';
@@ -9,11 +12,9 @@ import BlogSmall from './components/shared/blog';
 import DiscoverProperties from './components/home/property-option';
 import Listing from './components/home/property-list';
 import Testimonials from './components/home/testimonial';
-import { v4 as uuidv4 } from 'uuid';
-
 
 export const metadata: Metadata = {
-  title: "Property",
+  title: "ARTOPOLIS 369",
 };
 
 export default function Home() {
@@ -28,7 +29,6 @@ export default function Home() {
       <Testimonials />
       <CompanyInfo />
       <BlogSmall />
-      
     </main>
-  )
+  );
 }
