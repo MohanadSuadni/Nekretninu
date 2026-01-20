@@ -6,9 +6,9 @@ import { v4 as uuidv4 } from 'uuid';
 import { useEditor, EditorContent } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 
-// Upload function - vraća PUBLIC URL
+// ================= UPLOAD IMAGE =================
 const uploadImage = async (file: File, folder: string) => {
-const fileName = `${uuidv4()}-${file.name}`;
+  const fileName = `${uuidv4()}-${file.name}`;
   const filePath = `${folder}/${fileName}`;
 
   const { error } = await supabase.storage
@@ -20,11 +20,11 @@ const fileName = `${uuidv4()}-${file.name}`;
     return '';
   }
 
-  // Public URL da radi i na Vercel-u
   const { data } = supabase.storage.from('properties').getPublicUrl(filePath);
   return data.publicUrl;
 };
 
+// ================= ADMIN PANEL =================
 export default function AdminBlog() {
   const [posts, setPosts] = useState<any[]>([]);
   const [editingId, setEditingId] = useState<string | null>(null);
@@ -37,12 +37,10 @@ export default function AdminBlog() {
     author: '',
     cover_image: '',
     author_image: '',
-    adorm_image: '',
+    adorm: [] as string[],
   });
 
-  const [coverFile, setCoverFile] = useState<File | null>(null);
-  const [authorFile, setAuthorFile] = useState<File | null>(null);
-  const [adormFile, setAdormFile] = useState<File | null>(null);
+  const [adormUrls, setAdormUrls] = useState<string[]>([]);
 
   const editor = useEditor({
     extensions: [StarterKit],
@@ -60,11 +58,10 @@ export default function AdminBlog() {
     if (!error) setPosts(data || []);
   };
 
-  // Handleri za upload
+  // ================= FILE HANDLERS =================
   const handleCoverChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
-    setCoverFile(file);
     const url = await uploadImage(file, 'blog');
     setForm(prev => ({ ...prev, cover_image: url }));
   };
@@ -72,19 +69,25 @@ export default function AdminBlog() {
   const handleAuthorChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
-    setAuthorFile(file);
     const url = await uploadImage(file, 'blog');
     setForm(prev => ({ ...prev, author_image: url }));
   };
 
   const handleAdormChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-    setAdormFile(file);
-    const url = await uploadImage(file, 'blog');
-    setForm(prev => ({ ...prev, adorm_image: url }));
+    const files = e.target.files;
+    if (!files) return;
+
+    const newUrls: string[] = [];
+    for (let i = 0; i < files.length; i++) {
+      const url = await uploadImage(files[i], 'blog');
+      newUrls.push(url);
+    }
+
+    setAdormUrls(prev => [...prev, ...newUrls]);
+    setForm(prev => ({ ...prev, adorm: [...(prev.adorm || []), ...newUrls] }));
   };
 
+  // ================= SAVE POST =================
   const savePost = async () => {
     if (!form.title || !form.slug) return alert('Title i slug su obavezni');
 
@@ -96,7 +99,7 @@ export default function AdminBlog() {
       date: new Date().toISOString(),
       coverimage: form.cover_image || null,
       authorimage: form.author_image || null,
-      adorm: form.adorm_image || null,
+      adorm: form.adorm.length > 0 ? form.adorm : null,
       author: form.author,
     };
 
@@ -109,18 +112,7 @@ export default function AdminBlog() {
         if (error) throw error;
       }
 
-      setEditingId(null);
-      setForm({
-        title: '',
-        slug: '',
-        excerpt: '',
-        content: '',
-        author: '',
-        cover_image: '',
-        author_image: '',
-        adorm_image: '',
-      });
-      editor?.commands.setContent('');
+      resetForm();
       fetchPosts();
     } catch (err: any) {
       console.error(err);
@@ -138,8 +130,9 @@ export default function AdminBlog() {
       author: post.author,
       cover_image: post.coverimage || '',
       author_image: post.authorimage || '',
-      adorm_image: post.adorm || '',
+      adorm: post.adorm || [],
     });
+    setAdormUrls(post.adorm || []);
     editor?.commands.setContent(post.content || '');
   };
 
@@ -150,6 +143,14 @@ export default function AdminBlog() {
     fetchPosts();
   };
 
+  const resetForm = () => {
+    setEditingId(null);
+    setForm({ title: '', slug: '', excerpt: '', content: '', author: '', cover_image: '', author_image: '', adorm: [] });
+    setAdormUrls([]);
+    editor?.commands.setContent('');
+  };
+
+  // ================= RENDER =================
   return (
     <div className="p-6 max-w-5xl mx-auto pt-24">
       <h1 className="text-2xl font-bold mb-6">{editingId ? 'Edit Post' : 'Add Post'}</h1>
@@ -182,9 +183,29 @@ export default function AdminBlog() {
           <input type="file" accept="image/*" onChange={handleAuthorChange} className="mt-1 border rounded p-1 w-full" />
         </label>
         <label>
-          Adorm Image
-          <input type="file" accept="image/*" onChange={handleAdormChange} className="mt-1 border rounded p-1 w-full" />
+          Adorm Images
+          <input type="file" accept="image/*" multiple onChange={handleAdormChange} className="mt-1 border rounded p-1 w-full" />
         </label>
+
+        {/* PRIKAZ ADORM SLIKA */}
+        <div className="flex gap-2 mt-2 flex-wrap">
+          {adormUrls.map((url, idx) => (
+            <div key={idx} className="relative">
+              <img src={url} alt={`Adorm ${idx}`} className="w-24 h-24 object-cover rounded" />
+              <button
+                type="button"
+                className="absolute top-0 right-0 bg-red-500 text-white rounded-full px-1"
+                onClick={() => {
+                  const filtered = adormUrls.filter((_, i) => i !== idx);
+                  setAdormUrls(filtered);
+                  setForm(prev => ({ ...prev, adorm: filtered }));
+                }}
+              >
+                X
+              </button>
+            </div>
+          ))}
+        </div>
 
         <div className="border p-2 rounded">
           <EditorContent editor={editor} />
@@ -192,9 +213,7 @@ export default function AdminBlog() {
 
         <div className="flex gap-2">
           <button onClick={savePost} className="bg-green-600 text-white px-4 py-2 rounded">{editingId ? 'Save Changes' : 'Add Post'}</button>
-          {editingId && (
-            <button onClick={() => { setEditingId(null); editor?.commands.setContent(''); }} className="bg-gray-300 px-4 py-2 rounded">Cancel</button>
-          )}
+          {editingId && <button onClick={resetForm} className="bg-gray-300 px-4 py-2 rounded">Cancel</button>}
         </div>
       </div>
 
@@ -205,7 +224,9 @@ export default function AdminBlog() {
             <div className="flex items-center gap-2">
               {post.coverimage && <img src={post.coverimage} alt="Cover" className="w-24 h-24 object-cover rounded" />}
               {post.authorimage && <img src={post.authorimage} alt="Author" className="w-12 h-12 object-cover rounded-full" />}
-              {post.adorm && <img src={post.adorm} alt="Adorm" className="w-12 h-12 object-cover rounded-full" />}
+              {post.adorm?.map((img: string, idx: number) => (
+                <img key={idx} src={img} alt={`Adorm ${idx}`} className="w-12 h-12 object-cover rounded-full" />
+              ))}
               <div>
                 <h3 className="font-semibold">{post.title}</h3>
                 <p className="text-sm text-gray-500">{post.slug}</p>

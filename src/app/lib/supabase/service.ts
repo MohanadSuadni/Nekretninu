@@ -1,16 +1,4 @@
-import { supabase } from '@/app/lib/supabase/client';
-
-// ================= SUPABASE CLIENT =================
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-
-if (!supabaseUrl || !supabaseAnonKey) {
-  console.warn(
-    "Supabase URL ili ANON KEY nisu definisani! API pozivi neće raditi."
-  );
-}
-
-
+import { supabase } from "@/app/lib/supabase/client";
 
 // ================= TYPES =================
 export type Blog = {
@@ -24,14 +12,17 @@ export type Blog = {
   coverImage?: string | null;
   author: string;
   authorImage?: string | null;
-  adorImage?: string | null;
+
+  adorImages?: string[]; // ✅ VIŠE SLIKA
 };
 
 // ================= IMAGE PUBLIC URL =================
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+
 export function getPublicImageUrl(path?: string | null): string {
   if (!path) return "/images/blog/default-blog-image.jpg";
 
-  if (path.startsWith("http://") || path.startsWith("https://")) return path;
+  if (path.startsWith("http")) return path;
 
   if (!supabaseUrl) return "/images/blog/default-blog-image.jpg";
 
@@ -40,8 +31,6 @@ export function getPublicImageUrl(path?: string | null): string {
 
 // ================= GET ALL POSTS =================
 export async function getAllPosts(): Promise<Blog[]> {
-  if (!supabaseUrl || !supabaseAnonKey) return [];
-
   const { data, error } = await supabase
     .from("blogs")
     .select("*")
@@ -52,25 +41,36 @@ export async function getAllPosts(): Promise<Blog[]> {
     return [];
   }
 
-  return data.map((post) => ({
-    id: post.id,
-    title: post.title,
-    slug: post.slug,
-    excerpt: post.excerpt ?? null,
-    content: post.content,
-    date: post.date,
+  return data.map((post) => {
+    // ================= ADOR IMAGES =================
+    let adorImages: string[] = [];
+    if (post.adorm) {
+      if (Array.isArray(post.adorm)) {
+        adorImages = post.adorm;
+      } else if (typeof post.adorm === "string") {
+        adorImages = [post.adorm];
+      }
+    }
 
-    coverImage: post.coverimage ?? null,
-    author: post.author,
-    authorImage: post.authorimage ?? null,
-    adorImage: post.adorm ?? null,
-  }));
+    return {
+      id: post.id,
+      title: post.title,
+      slug: post.slug,
+      excerpt: post.excerpt ?? null,
+      content: post.content,
+      date: post.date,
+
+      coverImage: post.coverimage ?? null,
+      author: post.author,
+      authorImage: post.authorimage ?? null,
+
+      adorImages,
+    };
+  });
 }
 
 // ================= GET POST BY SLUG =================
 export async function getPostBySlug(slug: string): Promise<Blog | null> {
-  if (!supabaseUrl || !supabaseAnonKey) return null;
-
   const { data, error } = await supabase
     .from("blogs")
     .select("*")
@@ -78,8 +78,24 @@ export async function getPostBySlug(slug: string): Promise<Blog | null> {
     .single();
 
   if (error || !data) {
-    console.error("Error fetching post by slug:", error);
+    console.error("Error fetching post:", error);
     return null;
+  }
+
+ // ✅ Ako je adorm string JSON niza, parse, inače string u niz
+  let adorImages: string[] = [];
+  if (data.adorm) {
+    if (typeof data.adorm === "string") {
+      try {
+        const parsed = JSON.parse(data.adorm);
+        if (Array.isArray(parsed)) adorImages = parsed;
+        else adorImages = [data.adorm];
+      } catch {
+        adorImages = [data.adorm]; // običan string
+      }
+    } else if (Array.isArray(data.adorm)) {
+      adorImages = data.adorm;
+    }
   }
 
   return {
@@ -93,6 +109,7 @@ export async function getPostBySlug(slug: string): Promise<Blog | null> {
     coverImage: data.coverimage ?? null,
     author: data.author,
     authorImage: data.authorimage ?? null,
-    adorImage: data.adorm ?? null,
+
+    adorImages,
   };
 }

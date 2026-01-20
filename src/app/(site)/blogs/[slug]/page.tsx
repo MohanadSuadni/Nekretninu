@@ -3,6 +3,8 @@ import { getPostBySlug, getPublicImageUrl } from "@/app/lib/supabase/service";
 import { format } from "date-fns";
 import Image from "next/image";
 import Markdown from "react-markdown";
+import AdorImageSlider from "@/app/components/AdorImageSlider";
+
 export const dynamic = 'force-dynamic';
 
 type Props = {
@@ -12,13 +14,14 @@ type Props = {
 };
 
 export default async function BlogPage({ params }: Props) {
-  const { slug } = await params;   // 
+  const { slug } = await params;
 
   const post: Blog | null = await getPostBySlug(slug);
 
   if (!post) {
     return <p className="pt-40 text-center">Post not found</p>;
   }
+
   // ================= SAFE IMAGE URLS =================
   const coverImageUrl: string = post.coverImage
     ? getPublicImageUrl(post.coverImage)
@@ -28,9 +31,8 @@ export default async function BlogPage({ params }: Props) {
     ? getPublicImageUrl(post.authorImage)
     : "/default-avatar.png";
 
-  const adorImageUrl: string | null = post.adorImage
-    ? getPublicImageUrl(post.adorImage)
-    : null;
+  // ================= ADOR IMAGES =================
+  const adorImages: string[] = (post.adorImages || []).map(getPublicImageUrl);
 
   return (
     <>
@@ -96,23 +98,19 @@ export default async function BlogPage({ params }: Props) {
             <div className="flex items-center gap-4 mb-10">
               <div className="h-px w-12 bg-primary" />
               <span className="text-sm text-gray-500">
-                Reading {format(new Date(post.date), "dd MMM yyyy")}
+               Posted {format(new Date(post.date), "dd MMM yyyy")}
               </span>
             </div>
 
             {/* MARKDOWN CONTENT */}
-            <div className="prose dark:prose-invert max-w-none">
+            <div className="prose prose-lg dark:prose-invert max-w-none">
               <Markdown>{post.content}</Markdown>
 
-              {/* ADOR IMAGE */}
-              {adorImageUrl && (
-                <Image
-                  src={adorImageUrl}
-                  alt="Ador M"
-                  width={800}
-                  height={500}
-                  className="mt-12 rounded-xl"
-                />
+              {/* ================= ADOR SLIDER ================= */}
+              {adorImages.length > 0 && (
+                <div className="mt-12">
+                  <AdorImageSlider images={adorImages} />
+                </div>
               )}
             </div>
           </div>
@@ -125,7 +123,6 @@ export default async function BlogPage({ params }: Props) {
                 <h2 className="mb-5 dark:text-white text-midnight_text font-medium text-2xl">
                   Share
                 </h2>
-
                 <div className="flex flex-col gap-4">
                   <div className="bg-[#526fa3] py-4 px-6 text-xl rounded-lg text-white">Facebook</div>
                   <div className="bg-[#46C4FF] py-4 px-6 text-xl rounded-lg text-white">Twitter</div>
@@ -138,12 +135,10 @@ export default async function BlogPage({ params }: Props) {
                 <p className="text-midnight_text text-2xl font-medium mb-4 dark:text-white">
                   Join our Newsletter
                 </p>
-
                 <input
                   placeholder="Email address"
                   className="p-3 border border-border dark:border-dark_border rounded-lg mb-3 w-full dark:bg-semidark"
                 />
-
                 <button className="w-full py-4 text-lg font-medium bg-primary rounded-lg text-white">
                   Subscribe
                 </button>
