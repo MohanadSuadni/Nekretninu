@@ -2,7 +2,17 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+// 🔥 SWIPER
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay } from "swiper/modules";
+import "swiper/css";
 
+// HERO IMAGES (ISTA POZICIJA KAO PRE)
+const heroImages = [
+  "/images/hero/all-bong-L2oedF1AsH8-unsplash.jpg",
+  "/images/hero/beograd-na-vodi-removebg-preview.png",
+  "/images/hero/6-removebg-preview (1).png",
+];
 const searchOptions = {
   
   locations: [
@@ -194,15 +204,31 @@ const Hero = () => {
           </div>
 
           {/* RIGHT IMAGE */}
-          <div className="lg:block hidden col-span-6 absolute xl:-right-60 right-0 bottom-0 -z-1">
-            <Image
-              src="/images/hero/Artopolis_WALLPAPER-removebg-preview (1).png"
-              alt="hero"
-              width={800}
-              height={0}
-              style={{ width: "100%", height: "auto" }}
-            />
+         <div className="lg:block hidden col-span-6 absolute xl:-right-60 right-0 bottom-0 -z-1 w-[800px]">
+            <Swiper
+              slidesPerView={1}
+              loop
+              autoplay={{
+                delay: 3500,
+                disableOnInteraction: false,
+              }}
+              modules={[Autoplay]}
+            >
+              {heroImages.map((img, index) => (
+                <SwiperSlide key={index}>
+                  <Image
+                    src={img}
+                    alt={`Hero ${index + 1}`}
+                    width={800}
+                    height={0}
+                    style={{ width: "100%", height: "auto" }}
+                    priority={index === 0}
+                  />
+                </SwiperSlide>
+              ))}
+            </Swiper>
           </div>
+
         </div>
       </div>
     </section>

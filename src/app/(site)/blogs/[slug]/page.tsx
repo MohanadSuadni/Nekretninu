@@ -103,16 +103,16 @@ export default async function BlogPage({ params }: Props) {
             </div>
 
             {/* MARKDOWN CONTENT */}
-            <div className="prose prose-lg dark:prose-invert max-w-none">
-              <Markdown>{post.content}</Markdown>
+       <div className="prose prose-lg dark:prose-invert max-w-none">
+  <div dangerouslySetInnerHTML={{ __html: post.content }} />
 
-              {/* ================= ADOR SLIDER ================= */}
-              {adorImages.length > 0 && (
-                <div className="mt-12">
-                  <AdorImageSlider images={adorImages} />
-                </div>
-              )}
-            </div>
+  {/* ================= ADOR SLIDER ================= */}
+  {adorImages.length > 0 && (
+    <div className="mt-12">
+      <AdorImageSlider images={adorImages} />
+    </div>
+  )}
+</div>
           </div>
 
           {/* ===== SIDEBAR ===== */}
