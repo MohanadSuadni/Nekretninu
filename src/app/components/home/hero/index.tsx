@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useState, useRef } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 // 🔥 SWIPER
@@ -7,43 +7,43 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import "swiper/css";
 
-// HERO IMAGES (ISTA POZICIJA KAO PRE)
+// HERO IMAGES
 const heroImages = [
   "/images/hero/all-bong-L2oedF1AsH8-unsplash.jpg",
   "/images/hero/beograd-na-vodi-removebg-preview.png",
   "/images/hero/6-removebg-preview (1).png",
 ];
+
 const searchOptions = {
-  
   locations: [
-     { value: '', label: 'Lokacija' },
-  { value: 'Beograd', label: 'Beograd' },
-  { value: 'Novi Sad', label: 'Novi Sad' },
-  { value: 'Niš', label: 'Niš' }, 
-  { value: 'Dedinje', label: 'Dedinje' },
+    { value: "", label: "Lokacija" },
+    { value: "Beograd", label: "Beograd" },
+    { value: "Novi Sad", label: "Novi Sad" },
+    { value: "Niš", label: "Niš" },
+    { value: "Dedinje", label: "Dedinje" },
     { value: "Stari Grad", label: "Stari Grad" },
-  { value: "Dorćol", label: "Dorćol" },
-  { value: "Vračar", label: "Vračar" },
-  { value: "Savski Venac", label: "Savski Venac" },
-  { value: "Palilula", label: "Palilula" },
-  { value: "Zemun", label: "Zemun" },
-  { value: "Novi Beograd", label: "Novi Beograd" },
-  { value: "Bežanijska Kosa", label: "Bežanijska Kosa" },
-  { value: "Voždovac", label: "Voždovac" },
-  { value: "Kanarevo Brdo", label: "Kanarevo Brdo" },
-  { value: "Banjica", label: "Banjica" },
-  { value: "Zvezdara", label: "Zvezdara" },
-  { value: "Konjarnik", label: "Konjarnik" },
-  { value: "Rakovica", label: "Rakovica" },
-  { value: "Vidikovac", label: "Vidikovac" },
-  { value: "Čukarica", label: "Čukarica" },
-  { value: "Banovo Brdo", label: "Banovo Brdo" },
-  { value: "Grocka", label: "Grocka" },
-  { value: "Mladenovac", label: "Mladenovac" },
-  { value: "Obrenovac", label: "Obrenovac" },
-  { value: "Barajevo", label: "Barajevo" },
-  { value: "Sopot", label: "Sopot" },
-  { value: "Lazarevac", label: "Lazarevac" },
+    { value: "Dorćol", label: "Dorćol" },
+    { value: "Vračar", label: "Vračar" },
+    { value: "Savski Venac", label: "Savski Venac" },
+    { value: "Palilula", label: "Palilula" },
+    { value: "Zemun", label: "Zemun" },
+    { value: "Novi Beograd", label: "Novi Beograd" },
+    { value: "Bežanijska Kosa", label: "Bežanijska Kosa" },
+    { value: "Voždovac", label: "Voždovac" },
+    { value: "Kanarevo Brdo", label: "Kanarevo Brdo" },
+    { value: "Banjica", label: "Banjica" },
+    { value: "Zvezdara", label: "Zvezdara" },
+    { value: "Konjarnik", label: "Konjarnik" },
+    { value: "Rakovica", label: "Rakovica" },
+    { value: "Vidikovac", label: "Vidikovac" },
+    { value: "Čukarica", label: "Čukarica" },
+    { value: "Banovo Brdo", label: "Banovo Brdo" },
+    { value: "Grocka", label: "Grocka" },
+    { value: "Mladenovac", label: "Mladenovac" },
+    { value: "Obrenovac", label: "Obrenovac" },
+    { value: "Barajevo", label: "Barajevo" },
+    { value: "Sopot", label: "Sopot" },
+    { value: "Lazarevac", label: "Lazarevac" },
   ],
 };
 
@@ -57,6 +57,9 @@ const Hero = () => {
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [error, setError] = useState("");
 
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  // FILTER LOCATIONS
   const handleLocationChange = (value: string) => {
     setLocation(value);
     const filtered = searchOptions.locations.filter((loc) =>
@@ -66,21 +69,21 @@ const Hero = () => {
     setShowSuggestions(true);
   };
 
- const goSearch = () => {
-  if (!location.trim()) {
-    setError("Molimo unesite lokaciju za pretragu.");
-    return;
-  }
+  // SEARCH FUNCTION
+  const goSearch = () => {
+    if (!location.trim()) {
+      setError("Molimo unesite lokaciju za pretragu.");
+      return;
+    }
 
-  setError("");
+    setError("");
 
-  router.push(
-    `/properties/properties-list?location=${encodeURIComponent(
-      location
-    )}&status=${encodeURIComponent(status)}`
-  );
-};
-
+    router.push(
+      `/properties/properties-list?location=${encodeURIComponent(
+        location
+      )}&status=${encodeURIComponent(tag)}`
+    );
+  };
 
   return (
     <section className="relative pt-44 pb-0 dark:bg-darklight bg-no-repeat bg-gradient-to-b from-white from-10% dark:from-darkmode to-herobg to-90% dark:to-darklight overflow-x-hidden">
@@ -96,6 +99,7 @@ const Hero = () => {
 
             <div className="max-w-xl ml-4 sm:w-full">
               {/* TABS */}
+              <div className="flex">
                 <button
                   className={`px-9 py-3 text-xl rounded-t-md ${
                     activeTab === "sell"
@@ -123,7 +127,7 @@ const Hero = () => {
                 >
                   Kupovina
                 </button>
-              
+              </div>
 
               {/* SEARCH BOX */}
               <div className="bg-white dark:bg-transparent rounded-b-lg rounded-tr-lg">
@@ -141,11 +145,11 @@ const Hero = () => {
 
                     <input
                       type="text"
+                      ref={inputRef}
                       placeholder="Izaberite lokaciju"
                       value={location}
                       onChange={(e) => handleLocationChange(e.target.value)}
                       onFocus={() => setShowSuggestions(true)}
-                      onBlur={() => setTimeout(() => setShowSuggestions(false), 150)}
                       className="py-5 pr-3 pl-14 w-full rounded-lg border dark:bg-[#0c121e]"
                     />
 
@@ -155,7 +159,7 @@ const Hero = () => {
                           <li
                             key={loc.value}
                             className="cursor-pointer hover:text-primary px-4 py-2"
-                            onClick={() => {
+                            onMouseDown={() => {
                               setLocation(loc.value);
                               setShowSuggestions(false);
                             }}
@@ -166,8 +170,6 @@ const Hero = () => {
                       </ul>
                     )}
                   </div>
-
-               
 
                   {/* Pretraži button */}
                   <div className="mt-6 flex gap-4">
@@ -204,7 +206,7 @@ const Hero = () => {
           </div>
 
           {/* RIGHT IMAGE */}
-         <div className="lg:block hidden col-span-6 absolute xl:-right-60 right-0 bottom-0 -z-1 w-[800px]">
+          <div className="lg:block hidden col-span-6 absolute xl:-right-60 right-0 bottom-0 -z-1 w-[800px]">
             <Swiper
               slidesPerView={1}
               loop
@@ -216,19 +218,19 @@ const Hero = () => {
             >
               {heroImages.map((img, index) => (
                 <SwiperSlide key={index}>
-                  <Image
-                    src={img}
-                    alt={`Hero ${index + 1}`}
-                    width={800}
-                    height={0}
-                    style={{ width: "100%", height: "auto" }}
-                    priority={index === 0}
-                  />
+                  <div className="relative w-full h-[500px]">
+                    <Image
+                      src={img}
+                      alt={`Hero ${index + 1}`}
+                      fill
+                      style={{ objectFit: "cover" }}
+                      priority={index === 0}
+                    />
+                  </div>
                 </SwiperSlide>
               ))}
             </Swiper>
           </div>
-
         </div>
       </div>
     </section>

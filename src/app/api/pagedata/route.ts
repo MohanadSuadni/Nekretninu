@@ -11,23 +11,27 @@ const menuItems = [
 
 const features = [
     {
-        id: 1,
-        imgSrc: "/images/features/rating.svg",
-        title: "Great Experience",
-        description: "Letraset sheets containing Lorem Ipsum passages and more recently with desktop publishing Variou"
-    },
-    {
-        id: 2,
-        imgSrc: "/images/features/Give-Women's-Rights.svg",
-        title: "Great Experience",
-        description: "Letraset sheets containing Lorem Ipsum passages and more recently with desktop publishing Variou"
-    },
-    {
-        id: 3,
-        imgSrc: "/images/features/live-chat.svg",
-        title: "Great Experience",
-        description: "Letraset sheets containing Lorem Ipsum passages and more recently with desktop publishing Variou"
-    }
+  id: 1,
+  imgSrc: "/images/features/rating.svg",
+  title: "Vrhunsko iskustvo",
+  description:
+    "Klijentima pružamo pouzdanu i profesionalnu uslugu u svakom koraku kupovine, prodaje ili izdavanja nekretnina."
+},
+{
+  id: 2,
+  imgSrc: "/images/features/Give-Women's-Rights.svg",
+  title: "Sigurnost i poverenje",
+  description:
+    "Radimo isključivo sa proverenim nekretninama i pravno čistom dokumentacijom radi potpune sigurnosti."
+},
+{
+  id: 3,
+  imgSrc: "/images/features/live-chat.svg",
+  title: "Stalna podrška",
+  description:
+    "Naš tim vam je uvek na raspolaganju za sva pitanja, savete i pomoć tokom celog procesa."
+}
+
 ];
 
 const searchOptions = {

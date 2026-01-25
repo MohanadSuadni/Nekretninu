@@ -15,7 +15,7 @@ export default function Features() {
         ]);
 
         if (!resProperties.ok || !resPage.ok) {
-          throw new Error("Failed to fetch one or more APIs");
+          throw new Error("Neuspešno učitavanje podataka");
         }
 
         const properties = await resProperties.json();
@@ -24,14 +24,14 @@ export default function Features() {
         setPropertiesData(properties || []);
         setPageData(page.features || []);
       } catch (error) {
-        console.error("Error fetching data:", error);
+        console.error("Greška pri učitavanju:", error);
       }
     };
 
     fetchData();
   }, []);
 
-  // uzmi samo featured nekretnine
+  // uzmi samo izdvojene (featured) nekretnine
   const value = propertiesData.filter((item) => !item.check);
 
   return (
@@ -43,7 +43,7 @@ export default function Features() {
             <div className="relative" data-aos="fade-right">
               <Image
                 src="/images/features/features_iimage.jpg"
-                alt="property"
+                alt="nekretnina"
                 width={640}
                 height={615}
                 className="w-full h-auto"
@@ -57,14 +57,14 @@ export default function Features() {
                     data-aos="fade-up"
                     data-aos-delay="100"
                   >
-                    {/* IMAGE WITH ZOOM */}
+                    {/* IMAGE */}
                     <div className="relative overflow-hidden">
                       <Image
                         src={property.property_img.trim()}
                         alt={property.property_title}
                         height={235}
                         width={370}
-                        className="w-full h-auto transition-transform duration-500 ease-in-out group-hover:scale-110"
+                        className="w-full h-auto transition-transform duration-500 group-hover:scale-110"
                       />
 
                       {/* FAVORITE ICON */}
@@ -107,7 +107,7 @@ export default function Features() {
                 className="mb-8 text-4xl font-bold text-midnight_text dark:text-white"
                 data-aos="fade-left"
               >
-                Why People Choose Property
+                Zašto klijenti biraju nas
               </p>
 
               {pageData.map((feature) => (
