@@ -24,7 +24,7 @@ export type propertyData = {
   garages: number;           // ✔ POSTOJI U BAZI
   livingArea: string;
 
-  floor?: string;
+floor?: number | string;
   has_elevator?: boolean;
   bus_line?: string;
   has_school?: boolean;

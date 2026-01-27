@@ -11,11 +11,11 @@ const headerData = [
     ],
   },
   {
-    label: "Blog",
+    label: "Nova gradnja",
     href: "#",
     submenu: [
-      { label: "Blog – mrežni prikaz", href: "/blogs" },
-      { label: "Detalji bloga", href: "/blogs/blog_1" },
+      { label: "Nova gradnja – mrežni prikaz", href: "/blogs" },
+      { label: "Detalji Nova gradnja", href: "/blogs/blog_1" },
     ],
   },
   { label: "Kontakt", href: "/contact" },

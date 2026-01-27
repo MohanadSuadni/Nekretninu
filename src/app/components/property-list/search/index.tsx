@@ -29,12 +29,12 @@ export default function AdvanceSearch({
         const fetchData = async () => {
             try {
                 const res = await fetch('/api/pagedata')
-                if (!res.ok) throw new Error('Failed to fetch')
+                if (!res.ok) throw new Error('Neuspešno preuzimanje podataka')
 
                 const data = await res.json()
                 setSearchData(data?.searchOptions || [])
             } catch (error) {
-                console.error('Error fetching services:', error)
+                console.error('Greška pri učitavanju podataka:', error)
             }
         }
 
@@ -42,10 +42,9 @@ export default function AdvanceSearch({
     }, [])
 
     const breadcrumbLinks = [
-        { href: "/", text: "Home" },
-        { href: "/properties/properties-list", text: "Property List" },
+        { href: "/", text: "Početna" },
+        { href: "/properties/properties-list", text: "Lista nekretnina" },
     ];
-
 
     const handlePriceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setPrice(Number(event.target.value));
@@ -56,7 +55,6 @@ export default function AdvanceSearch({
     };
 
     const handleSelectChange = (key: any, value: any) => {
-
         updateFilter(key, value);
     };
 
@@ -68,23 +66,21 @@ export default function AdvanceSearch({
         str.toLowerCase().replace(/s$/, '');
 
     const filteredProperties = properties.filter((data: any) => {
-  const categoryMatch = category
-    ? normalize(data.category) === normalize(category)
-    : true;
+        const categoryMatch = category
+            ? normalize(data.category) === normalize(category)
+            : true;
 
-  const locationMatch = location
-    ? data.location?.toLowerCase() === location.toLowerCase()
-    : true;
+        const locationMatch = location
+            ? data.location?.toLowerCase() === location.toLowerCase()
+            : true;
 
-  const tagMatch = tag
-    ? data.tag?.toLowerCase() === tag.toLowerCase()
-    : true;
+        const tagMatch = tag
+            ? data.tag?.toLowerCase() === tag.toLowerCase()
+            : true;
 
-  return categoryMatch && locationMatch && tagMatch;
-});
+        return categoryMatch && locationMatch && tagMatch;
+    });
 
-
-    // Sort logic
     const sortedProperties = [...filteredProperties].sort((a, b) => {
         const titleA = a.property_title?.toLowerCase() || "";
         const titleB = b.property_title?.toLowerCase() || "";
@@ -94,7 +90,7 @@ export default function AdvanceSearch({
         } else if (sortOrder === "desc") {
             return titleB.localeCompare(titleA);
         }
-        return 0; // no sort
+        return 0;
     });
 
     const filteredCount = sortedProperties.length;
@@ -102,17 +98,18 @@ export default function AdvanceSearch({
     return (
         <>
             <HeroSub
-                title={(filters?.category) ? filters?.category: "Properties List"}
-                description="Letraset sheets containing Lorem Ipsum passages and more recently with desktop publishing Variou"
+                title={(filters?.category) ? filters?.category : "Lista nekretnina"}
+                description="Letraset listovi koji sadrže Lorem Ipsum pasuse i novije verzije za desktop izdavaštvo"
                 breadcrumbLinks={breadcrumbLinks}
             />
             <section className='dark:bg-darkmode px-4'>
                 <div className='lg:max-w-screen-xl max-w-screen-md mx-auto'>
                     <div className='flex lg:hidden justify-between items-center mb-4'>
-                        <span className='text-2xl ml-4 '>Advance Filter</span>
+                        <span className='text-2xl ml-4'>Napredna pretraga</span>
                         <button onClick={toggleOffCanvas} className='bg-blue-500 mr-4 text-white py-3 px-6 text-base rounded-lg'>
                             <svg xmlns="http://www.w3.org/2000/svg" className='w-6 h-6' viewBox="0 0 24 24">
-                                <path fill="none" stroke="currentColor" strokeLinecap="round" strokeMiterlimit="10" strokeWidth="1.5" d="M21.25 12H8.895m-4.361 0H2.75m18.5 6.607h-5.748m-4.361 0H2.75m18.5-13.214h-3.105m-4.361 0H2.75m13.214 2.18a2.18 2.18 0 1 0 0-4.36a2.18 2.18 0 0 0 0 4.36Zm-9.25 6.607a2.18 2.18 0 1 0 0-4.36a2.18 2.18 0 0 0 0 4.36Zm6.607 6.608a2.18 2.18 0 1 0 0-4.361a2.18 2.18 0 0 0 0 4.36Z" />
+                                <path fill="none" stroke="currentColor" strokeLinecap="round" strokeMiterlimit="10" strokeWidth="1.5"
+                                    d="M21.25 12H8.895m-4.361 0H2.75m18.5 6.607h-5.748m-4.361 0H2.75m18.5-13.214h-3.105m-4.361 0H2.75m13.214 2.18a2.18 2.18 0 1 0 0-4.36a2.18 2.18 0 0 0 0 4.36Zm-9.25 6.607a2.18 2.18 0 1 0 0-4.36a2.18 2.18 0 0 0 0 4.36Zm6.607 6.608a2.18 2.18 0 1 0 0-4.361a2.18 2.18 0 0 0 0 4.36Z" />
                             </svg>
                         </button>
                     </div>
@@ -127,9 +124,8 @@ export default function AdvanceSearch({
                                 <button onClick={toggleOffCanvas} className='absolute top-4 right-4 text-gray dark:text-gray-500'>
                                     ✕
                                 </button>
-                                <p className='mb-6 text-2xl font-semibold'>Advanced Search</p>
+                                <p className='mb-6 text-2xl font-semibold'>Napredna pretraga</p>
                                 <div className='flex flex-col gap-6'>
-                                    {/* Map through keywords */}
                                     {searchData?.keywords?.map((option: any, index: any) => (
                                         <div key={`keyword-${index}`} className="relative inline-block">
                                             <input
@@ -141,7 +137,6 @@ export default function AdvanceSearch({
                                         </div>
                                     ))}
 
-                                    {/* Render Location dropdown */}
                                     <div className="relative inline-block">
                                         <select
                                             className='custom-select py-3 text-gray dark:text-gray w-full pl-3 pr-9 mr-2 border border-border dark:border-dark_border dark:focus:border-primary dark:bg-semidark  rounded-lg focus:border-primary'
@@ -152,25 +147,24 @@ export default function AdvanceSearch({
                                             ))}
                                         </select>
                                     </div>
-{/* Advanced Filter - Tag */}
-<div className="relative inline-block">
-  <select
-    value={filters.tag || ''}
-    className='custom-select py-3 text-gray dark:text-gray w-full pl-3 pr-9 mr-2 border border-border dark:border-dark_border dark:focus:border-primary dark:bg-semidark rounded-lg focus:border-primary'
-    onChange={(e) => handleSelectChange('tag', e.target.value)}
-  >
-    {searchData?.tag?.map((option: any, index: number) => (
-      <option key={index} value={option.value}>
-        {option.label}
-      </option>
-    ))}
-  </select>
-</div>
 
-                                    {/* Example for range input */}
+                                    <div className="relative inline-block">
+                                        <select
+                                            value={filters.tag || ''}
+                                            className='custom-select py-3 text-gray dark:text-gray w-full pl-3 pr-9 mr-2 border border-border dark:border-dark_border dark:focus:border-primary dark:bg-semidark rounded-lg focus:border-primary'
+                                            onChange={(e) => handleSelectChange('tag', e.target.value)}
+                                        >
+                                            {searchData?.tag?.map((option: any, index: number) => (
+                                                <option key={index} value={option.value}>
+                                                    {option.label}
+                                                </option>
+                                            ))}
+                                        </select>
+                                    </div>
+
                                     <div>
                                         <p className='text-gray dark:text-gray font-medium'>
-                                            Distance: {price} miles
+                                            Rastojanje: {price} milja
                                         </p>
                                         <input
                                             type="range"
@@ -183,7 +177,6 @@ export default function AdvanceSearch({
                                         />
                                     </div>
 
-                                    {/* Map through selects (regions, statuses, etc.) */}
                                     {Object.entries(searchData).map(([key, options]) => (
                                         key !== 'keywords' && key !== 'locations' && (
                                             <div key={key} className="relative inline-block">
@@ -204,10 +197,9 @@ export default function AdvanceSearch({
                                         )
                                     ))}
 
-                                    {/* Example for another range input */}
                                     <div>
                                         <p className='text-gray dark:text-gray'>
-                                            From ${price1} to $8000
+                                            Od ${price1} do $8000
                                         </p>
                                         <input
                                             type="range"
@@ -220,10 +212,9 @@ export default function AdvanceSearch({
                                         />
                                     </div>
 
-                                    {/* Example button */}
                                     <div>
                                         <button className='bg-blue-500 text-white w-full py-3 px-6 text-base rounded-lg'>
-                                            Find Property
+                                            Pronađi nekretninu
                                         </button>
                                     </div>
                                 </div>
@@ -234,9 +225,8 @@ export default function AdvanceSearch({
                     <div className='lg:grid lg:grid-cols-12 gap-4'>
                         <div className='hidden lg:block lg:col-span-4'>
                             <div className='py-14 px-8 bg-white dark:bg-semidark shadow-property rounded-lg'>
-                                <p className='mb-6 text-2xl font-semibold'>Advanced Search</p>
+                                <p className='mb-6 text-2xl font-semibold'>Napredna pretraga</p>
                                 <div className='flex flex-col gap-6'>
-                                    {/* Map through keywords */}
                                     {searchData?.keywords?.map((option: any, index: any) => (
                                         <div key={`keyword-${index}`} className="relative inline-block">
                                             <input
@@ -248,7 +238,6 @@ export default function AdvanceSearch({
                                         </div>
                                     ))}
 
-                                    {/* Render Location dropdown */}
                                     <div className="relative inline-block">
                                         <select
                                             value={filters.location}
@@ -261,7 +250,6 @@ export default function AdvanceSearch({
                                         </select>
                                     </div>
 
-                                    {/* Map through selects (regions, statuses, etc.) */}
                                     {Object.entries(searchData).map(([key, options]) => (
                                         key !== 'keywords' && key !== 'locations' && (
                                             <div key={key} className="relative inline-block">
@@ -280,10 +268,9 @@ export default function AdvanceSearch({
                                         )
                                     ))}
 
-                                    {/* Example button */}
                                     <div>
                                         <button className='bg-primary hover:bg-blue-700 text-white w-full py-3 px-6 text-base rounded-lg'>
-                                            Find Property
+                                            Pronađi nekretninu
                                         </button>
                                     </div>
                                 </div>
@@ -292,15 +279,14 @@ export default function AdvanceSearch({
                         <div className='col-span-12 lg:col-span-8'>
                             <div className="flex lg:flex-nowrap flex-wrap lg:gap-0 gap-6 w-full justify-between items-center pb-8">
                                 <div className="flex w-full justify-between px-4 flex-1">
-                                    <h5 className='text-xl '>{filteredCount} Properties Found</h5>
+                                    <h5 className='text-xl '>{filteredCount} nekretnina pronađeno</h5>
                                     <p className='flex text-gray dark:text-gray gap-2 items-center'>
-                                        Sort by
+                                        Sortiraj po
                                         <span>
                                             <Icon
                                                 icon="fa6-solid:arrow-trend-up"
                                                 width="20"
                                                 height="20"
-                                                className=""
                                             />
                                         </span>
                                     </p>
@@ -312,30 +298,24 @@ export default function AdvanceSearch({
                                         value={sortOrder}
                                         onChange={(e) => setSortOrder(e.target.value)}
                                     >
-                                        <option value="none">Sort by Title</option>
-                                        <option value="asc">Title (A-Z)</option>
-                                        <option value="desc">Title (Z-A)</option>
+                                        <option value="none">Sortiraj po nazivu</option>
+                                        <option value="asc">Naziv (A-Z)</option>
+                                        <option value="desc">Naziv (Z-A)</option>
                                     </select>
 
                                     <button onClick={() => setViewMode('list')} className={`${viewMode == "list" ? 'bg-primary text-white' : 'bg-transparent text-primary'} p-3 border border-primary text-primary hover:text-white rounded-lg hover:bg-primary text-base`}>
-                                        <span>
-                                            <Icon
-                                                icon="famicons:list"
-                                                width="21"
-                                                height="21"
-                                                className=""
-                                            />
-                                        </span>
+                                        <Icon
+                                            icon="famicons:list"
+                                            width="21"
+                                            height="21"
+                                        />
                                     </button>
                                     <button onClick={() => setViewMode('grid')} className={`${viewMode == "grid" ? 'bg-primary text-white' : 'bg-transparent text-primary'} p-3 border border-primary text-primary hover:text-white rounded-lg hover:bg-primary text-base`}>
-                                        <span>
-                                            <Icon
-                                                icon="ion:grid-sharp"
-                                                width="21"
-                                                height="21"
-                                                className=""
-                                            />
-                                        </span>
+                                        <Icon
+                                            icon="ion:grid-sharp"
+                                            width="21"
+                                            height="21"
+                                        />
                                     </button>
                                 </div>
                             </div>
@@ -347,8 +327,8 @@ export default function AdvanceSearch({
                                 </div>
                                 :
                                 <div className='flex flex-col gap-5 items-center justify-center pt-20'>
-                                    <Image src={"/images/not-found/no-results.png"} alt='no-result' width={100} height={100} />
-                                    <p className='text-gray'>No result found</p>
+                                    <Image src={"/images/not-found/no-results.png"} alt='nema rezultata' width={100} height={100} />
+                                    <p className='text-gray'>Nema pronađenih rezultata</p>
                                 </div>
                             }
                         </div>

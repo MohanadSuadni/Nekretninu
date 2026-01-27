@@ -97,6 +97,10 @@ const searchOptions = {
         { value: '', label: 'Garages' },
         { value: '1', label: '1 Garage' },
         { value: '2', label: '2 Garages' },
+        { value: '3', label: '3 Garages' },
+        { value: '4', label: '4 Garages' },
+
+
         // Add more garage options as needed
     ],
     // Define other options similarly

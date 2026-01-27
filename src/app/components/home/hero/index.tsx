@@ -50,7 +50,7 @@ const searchOptions = {
 const Hero = () => {
   const router = useRouter();
 
-  const [activeTab, setActiveTab] = useState<"sell" | "buy">("sell");
+  const [activeTab, setActiveTab] = useState<"izdavanje" | "prodaja">("izdavanje");
   const [location, setLocation] = useState("");
   const [tag, setTag] = useState("izdavanje");
   const [filteredLocations, setFilteredLocations] = useState(searchOptions.locations);
@@ -78,11 +78,10 @@ const Hero = () => {
 
     setError("");
 
-    router.push(
-      `/properties/properties-list?location=${encodeURIComponent(
-        location
-      )}&status=${encodeURIComponent(tag)}`
-    );
+router.push(
+  `/properties/properties-list?location=${encodeURIComponent(location)}&tag=${encodeURIComponent(tag)}`
+);
+
   };
 
   return (
@@ -102,12 +101,12 @@ const Hero = () => {
               <div className="flex">
                 <button
                   className={`px-9 py-3 text-xl rounded-t-md ${
-                    activeTab === "sell"
+                    activeTab === "izdavanje"
                       ? "bg-white dark:bg-darkmode border-b border-primary"
                       : "bg-white bg-opacity-50 dark:bg-darkmode dark:bg-opacity-50"
                   }`}
                   onClick={() => {
-                    setActiveTab("sell");
+                    setActiveTab("izdavanje");
                     setTag("izdavanje");
                   }}
                 >
@@ -116,12 +115,12 @@ const Hero = () => {
 
                 <button
                   className={`px-9 py-3 text-xl rounded-t-md ${
-                    activeTab === "buy"
+                    activeTab === "prodaja"
                       ? "bg-white dark:bg-darkmode border-b border-primary"
                       : "bg-white bg-opacity-50 dark:bg-darkmode dark:bg-opacity-50"
                   }`}
                   onClick={() => {
-                    setActiveTab("buy");
+                    setActiveTab("prodaja");
                     setTag("prodaja");
                   }}
                 >

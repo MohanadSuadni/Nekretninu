@@ -154,7 +154,7 @@ Zakažite Online Konsultaciju              </h2>
             </div>
             <div className="col-span-6 h-[600px]">
               <Image
-                src="/images/contact-page/contact.jpg"
+                src="/images/contact-page/Image Jan 26, 2026, 10_24_50 PM.png"
                 alt="Kontakt"
                 width={1300}
                 height={0}

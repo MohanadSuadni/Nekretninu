@@ -1,28 +1,28 @@
-// 📁 app/(site)/blogs/page.tsx
+// 📁 app/(site)/nova-gradnja/page.tsx
 import BlogCard from "@/app/components/shared/blog/blogCard";
 import HeroSub from "@/app/components/shared/hero-sub";
 import { getAllPosts } from "@/app/lib/supabase/service";
 
 export const metadata = {
-  title: "Blog | Property-pro",
+  title: "Nova gradnja | Artopolis 369",
 };
-export const dynamic = 'force-dynamic';
 
+export const dynamic = "force-dynamic";
 
-export default async function BlogListPage() {
-  // async fetch za SSR – fetchuje pri svakom request-u
+export default async function NovaGradnjaPage() {
+  // SSR – učitava podatke pri svakom zahtevu
   const posts = await getAllPosts();
 
   const breadcrumbLinks = [
-    { href: "/", text: "Home" },
-    { href: "/blogs", text: "Blog List" },
+    { href: "/", text: "Početna" },
+    { href: "/nova-gradnja", text: "Nova gradnja" },
   ];
 
   return (
     <>
       <HeroSub
-        title="Blog List"
-        description="Latest news and articles"
+        title="Nova gradnja"
+        description="Pregled najnovijih projekata novogradnje i aktuelnih ponuda nekretnina."
         breadcrumbLinks={breadcrumbLinks}
       />
 
