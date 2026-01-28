@@ -10,6 +10,7 @@ const ContactForm = () => {
     firstname: "",
     lastname: "",
     email: "",
+     phone: "",
     specialist: "",
     date: "",
     time: ""
@@ -31,6 +32,7 @@ const ContactForm = () => {
       firstname: "",
       lastname: "",
       email: "",
+       phone: "",
       specialist: "",
       date: "",
       time: ""
@@ -50,6 +52,7 @@ const ContactForm = () => {
           firstname: formData.firstname,
           lastname: formData.lastname,
           email: formData.email,
+          phone: formData.phone,
           specialist: formData.specialist,
           date: formData.date,
           time: formData.time,
@@ -74,8 +77,8 @@ const ContactForm = () => {
         <div className="container mx-auto lg:max-w-screen-xl md:max-w-screen-md">
           <div className="grid md:grid-cols-12 grid-cols-1 gap-8 items-center">  
             <div className="col-span-6">
-              <h2 className="max-w-72 text-[40px] leading-[1.2] font-bold mb-9">
-                Zakažite Online Konsultaciju
+              <h2 className="max-w-100 text-[40px] leading-[1.2] font-bold mb-9">
+                Zakažite Sastanak
               </h2>
 
               <form onSubmit={handleSubmit} className="flex flex-wrap w-full m-auto justify-between">
@@ -114,7 +117,17 @@ const ContactForm = () => {
                       className="w-full text-17 px-4 py-2.5 rounded-lg border-border dark:border-dark_border border-solid dark:text-white dark:bg-darkmode border transition-all duration-500"
                     />
                   </div>
-
+<div className="mx-0 my-2.5 flex-1">
+  <label className="pb-3 inline-block text-17">Telefon*</label>
+  <input
+    type="tel"
+    name="phone"
+    value={formData.phone}
+    onChange={handleChange}
+    className="w-full text-17 px-4 py-2.5 rounded-lg border-border dark:border-dark_border border-solid dark:text-white dark:bg-darkmode border transition-all duration-500"
+    placeholder="+381 60 123..."
+  />
+</div>
                   <div className="mx-0 my-2.5 flex-1">
                     <label className="pb-3 inline-block text-17">Specijalista*</label>
                     <select
