@@ -28,7 +28,7 @@ const Footer = () => {
                 Adresa
               </h4>
               <p className="mb-6 text-gray text-base">
-                Property nekretnine, 4263 Wilkinson ulica, Tenesi
+           Antifašistička borba 23G /2/7
               </p>
             </div>
 
@@ -49,7 +49,7 @@ const Footer = () => {
                 </li>
                 <li>
                   <Link href="/blogs" className="mb-3 inline-block text-base text-gray hover:text-white">
-                    Blog
+                    Nova gradnja
                   </Link>
                 </li>
               </ul>
@@ -86,35 +86,39 @@ const Footer = () => {
         </div>
       </div>
 
-      <div className="border-t border-border dark:border-dark_border py-8">
-        <div className="container flex flex-col lg:flex-row justify-between items-center mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
-          <div className="lg:max-w-45 max-w-full text-center lg:text-left mb-4 lg:mb-0">
-            <div className="flex lg:flex-nowrap flex-wrap lg:flex-row lg:gap-11 gap-4 text-base sm:text-lg md:text-xl text-black text-opacity-50">
-              <p className="text-white">
-                Telefon:
-                <Link href="#" className="text-gray hover:text-white"> +(690) 2560 0020</Link>
-              </p>
-              <p className="text-white">
-                Email:
-                <Link href="#" className="text-gray hover:text-white"> real@property.com</Link>
-              </p>
-            </div>
-          </div>
+    <div className="border-t border-border dark:border-dark_border py-8">
+  <div className="container flex flex-col lg:flex-row justify-between items-center mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
+    
+    {/* Contact Info */}
+    <div className="lg:max-w-45 max-w-full text-center lg:text-left mb-4 lg:mb-0">
+      <div className="flex lg:flex-nowrap flex-wrap lg:flex-row lg:gap-11 gap-4 text-base sm:text-lg md:text-xl text-black text-opacity-50">
+        <p className="text-white">
+          Telefon: 
+          <Link href="#" className="text-gray hover:text-white"> +381 64 222 5543</Link>
+        </p>
+        <p className="text-white">
+          Email: 
+          <Link href="#" className="text-gray hover:text-white"> offic@artopolis369.rs</Link>
+        </p>
+      
+      </div>
+    </div>
 
-          <div className="max-w-lg w-full">
-            <div className="flex justify-center lg:justify-end">
-              <p className="items-center flex mr-3 text-base sm:text-lg md:text-xl font-bold text-white">
-                Newsletter
-              </p>
-              <input
-                type="text"
-                className="py-3 dark:bg-darkmode dark:text-gray !rounded-r-none border border-transparent dark:border-dark_border dark:focus:border-primary focus-visible:outline-none rounded-l-lg px-3 w-full sm:w-auto"
-                placeholder="Email adresa"
-              />
-              <button className="py-2 px-5 sm:px-9 bg-primary text-base text-white rounded-r-lg hover:bg-blue-700">
-                Pretplati se
-              </button>
-            </div>
+    {/* Newsletter */}
+    <div className="max-w-lg w-full">
+      <div className="flex justify-center lg:justify-end">
+        <p className="items-center flex mr-3 text-base sm:text-lg md:text-xl font-bold text-white">
+          Newsletter
+        </p>
+        <input
+          type="text"
+          className="py-3 dark:bg-darkmode dark:text-gray !rounded-r-none border border-transparent dark:border-dark_border dark:focus:border-primary focus-visible:outline-none rounded-l-lg px-3 w-full sm:w-auto"
+          placeholder="Email adresa"
+        />
+        <button className="py-2 px-5 sm:px-9 bg-primary text-base text-white rounded-r-lg hover:bg-blue-700">
+          prijavi se
+        </button>
+      </div>
           </div>
         </div>
       </div>

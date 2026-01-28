@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import emailjs from "@emailjs/browser";
 
 const ContactForm = () => {
 
@@ -13,8 +14,10 @@ const ContactForm = () => {
     date: "",
     time: ""
   });
+
   const [submitted, setSubmitted] = useState(false);
   const [loader, setLoader] = useState(false);
+
   const handleChange = (e: any) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -22,38 +25,47 @@ const ContactForm = () => {
       [name]: value
     }));
   };
+
   const reset = () => {
-    formData.firstname = "";
-    formData.lastname = "";
-    formData.email = "";
-    formData.specialist = "";
-    formData.date = "";
-    formData.time = "";
+    setFormData({
+      firstname: "",
+      lastname: "",
+      email: "",
+      specialist: "",
+      date: "",
+      time: ""
+    });
   };
+
+  // ✅ EMAILJS SUBMIT (SAMO OVO JE BITNO)
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     setLoader(true);
 
-    fetch("https://formsubmit.co/ajax/bhainirav772@gmail.com", {
-      method: "POST",
-      headers: { "Content-type": "application/json" },
-      body: JSON.stringify({
-        firstname: formData.firstname,
-        lastname: formData.lastname,
-        email: formData.email,
-        specialist: formData.specialist,
-        date: formData.date,
-        time: formData.time
-      }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setSubmitted(data.success);
-        reset();
-      })
-      .catch((error) => {
-        console.log(error.message);
-      });
+    try {
+   await emailjs.send(
+        "service_4jqx3gm",   // npr: service_xxxxx
+        "template_1cqduzb",  // npr: template_xxxxx
+        {
+          firstname: formData.firstname,
+          lastname: formData.lastname,
+          email: formData.email,
+          specialist: formData.specialist,
+          date: formData.date,
+          time: formData.time,
+        },
+        "jJT0oY9CFoSG9LRvj"    // npr: xxxxxxxxxxxxxx
+      );
+
+    setSubmitted(true);
+  reset();
+} catch (err: any) {
+  console.error("EmailJS error object:", err);
+  if (err.text) console.error("Error text:", err.text);
+  if (err.status) console.error("Status:", err.status);
+} finally {
+  setLoader(false);
+}
   };
 
   return (
@@ -63,95 +75,104 @@ const ContactForm = () => {
           <div className="grid md:grid-cols-12 grid-cols-1 gap-8 items-center">  
             <div className="col-span-6">
               <h2 className="max-w-72 text-[40px] leading-[1.2] font-bold mb-9">
-Zakažite Online Konsultaciju              </h2>
+                Zakažite Online Konsultaciju
+              </h2>
+
               <form onSubmit={handleSubmit} className="flex flex-wrap w-full m-auto justify-between">
                 <div className="sm:flex gap-3 w-full">
                   <div className="mx-0 my-2.5 flex-1">
-                    <label htmlFor="first-name" className="pb-3 inline-block text-17">Ime*</label>
+                    <label className="pb-3 inline-block text-17">Ime*</label>
                     <input
-                      id='firstname'
-                      type='text'
-                      name='firstname'
+                      type="text"
+                      name="firstname"
                       value={formData.firstname}
                       onChange={handleChange}
-                      className="w-full text-17 px-4 rounded-lg py-2.5 border-border dark:border-dark_border border-solid dark:text-white  dark:bg-darkmode border transition-all duration-500 focus:border-primary dark:focus:border-primary focus:border-solid focus:outline-0"
+                      className="w-full text-17 px-4 rounded-lg py-2.5 border-border dark:border-dark_border border-solid dark:text-white dark:bg-darkmode border transition-all duration-500"
                     />
                   </div>
+
                   <div className="mx-0 my-2.5 flex-1">
-                    <label htmlFor="last-name" className="pb-3 inline-block text-17">Prezime*</label>
+                    <label className="pb-3 inline-block text-17">Prezime*</label>
                     <input
-                      id='lastname'
-                      type='text'
-                      name='lastname'
+                      type="text"
+                      name="lastname"
                       value={formData.lastname}
                       onChange={handleChange}
-                      className="w-full text-17 px-4 py-2.5 rounded-lg border-border dark:border-dark_border border-solid dark:text-white  dark:bg-darkmode border transition-all duration-500 focus:border-primary dark:focus:border-primary focus:border-solid focus:outline-0"
+                      className="w-full text-17 px-4 py-2.5 rounded-lg border-border dark:border-dark_border border-solid dark:text-white dark:bg-darkmode border transition-all duration-500"
                     />
                   </div>
                 </div>
+
                 <div className="sm:flex gap-3 w-full">
                   <div className="mx-0 my-2.5 flex-1">
-                    <label htmlFor="email" className="pb-3 inline-block text-17">Email adresa*</label>
+                    <label className="pb-3 inline-block text-17">Email adresa*</label>
                     <input
-                      id='email'
-                      type='email'
-                      name='email'
+                      type="email"
+                      name="email"
                       value={formData.email}
                       onChange={handleChange}
-                      className="w-full text-17 px-4 py-2.5 rounded-lg border-border dark:border-dark_border border-solid dark:text-white  dark:bg-darkmode border transition-all duration-500 focus:border-primary dark:focus:border-primary focus:border-solid focus:outline-0"
+                      className="w-full text-17 px-4 py-2.5 rounded-lg border-border dark:border-dark_border border-solid dark:text-white dark:bg-darkmode border transition-all duration-500"
                     />
                   </div>
+
                   <div className="mx-0 my-2.5 flex-1">
-                    <label htmlFor="Specialist" className="pb-3 inline-block text-17">Specijalista*</label>
-                    <select  
+                    <label className="pb-3 inline-block text-17">Specijalista*</label>
+                    <select
                       name="specialist"
-                      id="specialist"
                       value={formData.specialist}
-                      onChange={handleChange} 
-                      className="custom-select w-full text-17 px-4 py-2.5 rounded-lg border-border dark:text-white border-solid dark:bg-darkmode border transition-all duration-500 focus:border-primary dark:focus:border-primary dark:border-dark_border focus:border-solid focus:outline-0">
-                      <option value="">Izaberite specijalistu</option>
-                      <option value="Baking &amp; Pastry">
-                        Pecivo i Torte
-                      </option>
-                      <option value="Exotic Cuisine">Egzotična kuhinja</option>
-                      <option value="French Desserts">Francuski deserti</option>
-                      <option value="Seafood &amp; Wine">
-                        Morski plodovi i vino
-                      </option>
+                      onChange={handleChange}
+                      className="custom-select w-full text-17 px-4 py-2.5 rounded-lg border-border dark:text-white border-solid dark:bg-darkmode border transition-all duration-500"
+                    >
+                      <option value="">Izaberite razlog sastanka</option>
+                      <option value="Kupujem nekretninu">Kupujem nekretninu</option>
+                      <option value="Prodajem nekretninu">Prodajem nekretninu</option>
+                      <option value="Iznajmljujem nekretninu">Iznajmljujem nekretninu</option>
+                      <option value="Tražim zakup">Tražim nekretninu za iznajmljivanje</option>
+                      <option value="Procjena vrijednosti">Procjena vrijednosti nekretnine</option>
+                      <option value="Investiciona kupovina">Investiciona kupovina</option>
+                      <option value="Savjetovanje">Savjetovanje</option>
                     </select>
                   </div>
                 </div>
+
                 <div className="sm:flex gap-3 w-full">
                   <div className="mx-0 my-2.5 flex-1">
-                    <label htmlFor="date" className="pb-3 inline-block text-17">Datum*</label>
+                    <label className="pb-3 inline-block text-17">Datum*</label>
                     <input
-                      id='date'
-                      type='date'
-                      name='date'
+                      type="date"
+                      name="date"
                       value={formData.date}
                       onChange={handleChange}
-                      className="w-full text-17 px-4 rounded-lg  py-2.5 outline-none dark:text-white dark:bg-darkmode border-border border-solid border transition-all duration-500 focus:border-primary dark:focus:border-primary dark:border-dark_border focus:border-solid focus:outline-0"
+                      className="w-full text-17 px-4 rounded-lg py-2.5 dark:text-white dark:bg-darkmode border-border border-solid border"
                     />
                   </div>
+
                   <div className="mx-0 my-2.5 flex-1">
-                    <label htmlFor="time" className="pb-3 inline-block text-17">Vreme*</label>
+                    <label className="pb-3 inline-block text-17">Vreme*</label>
                     <input
-                      id='time'
-                      type='time'
-                      name='time'
+                      type="time"
+                      name="time"
                       value={formData.time}
                       onChange={handleChange}
-                      className="w-full text-17 px-4 rounded-lg py-2.5 border-border outline-none dark:text-white dark:bg-darkmode border-solid border transition-all duration-500 focus:border-primary dark:focus:border-primary dark:border-dark_border focus:border-solid focus:outline-0"
+                      className="w-full text-17 px-4 rounded-lg py-2.5 dark:text-white dark:bg-darkmode border-border border-solid border"
                     />
                   </div>
                 </div>
+
                 <div className="mx-0 my-2.5 w-full">
                   <button type="submit" className="bg-primary rounded-lg text-white py-4 px-8 mt-4 inline-block hover:bg-blue-700">
-                    Zakažite Termin
+                    {loader ? "Slanje..." : "Zakažite Termin"}
                   </button>
                 </div>
+
+                {submitted && (
+                  <p className="text-green-600 mt-2">
+                    Termin je uspešno poslat.
+                  </p>
+                )}
               </form>
             </div>
+
             <div className="col-span-6 h-[600px]">
               <Image
                 src="/images/contact-page/Image Jan 26, 2026, 10_24_50 PM.png"
