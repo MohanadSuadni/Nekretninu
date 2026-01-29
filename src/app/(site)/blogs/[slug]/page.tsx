@@ -59,7 +59,9 @@ export default async function BlogPage({ params }: Props) {
               />
               <div>
                 <p className="font-bold text-midnight_text dark:text-white">{post.author}</p>
-                <p className="text-sm text-gray-500">Author</p>
+                  <p className="text-sm text-gray-500"> +381 64 222 5543</p>
+
+                <p className="text-sm text-gray-500">Agent</p>
               </div>
             </div>
           </div>
@@ -119,30 +121,39 @@ export default async function BlogPage({ params }: Props) {
           <div className="w-full lg:w-4/12 px-4">
             <div className="flex flex-col gap-8">
               {/* SHARE */}
-              <div className="py-12 px-11 bg-white dark:bg-semidark shadow-lg border-b-2 border-border dark:border-dark_border">
-                <h2 className="mb-5 dark:text-white text-midnight_text font-medium text-2xl">
-                  Share
-                </h2>
-                <div className="flex flex-col gap-4">
-                  <div className="bg-[#526fa3] py-4 px-6 text-xl rounded-lg text-white">Facebook</div>
-                  <div className="bg-[#46C4FF] py-4 px-6 text-xl rounded-lg text-white">Twitter</div>
-                  <div className="bg-[#3C86AD] py-4 px-6 text-xl rounded-lg text-white">LinkedIn</div>
-                </div>
-              </div>
+        <div className="py-12 px-11 bg-white dark:bg-semidark shadow-lg border-b-2 border-border dark:border-dark_border">
+  <h2 className="mb-5 dark:text-white text-midnight_text font-medium text-2xl">
+    Pratite nas
+  </h2>
 
-              {/* NEWSLETTER */}
-              <div className="py-12 px-11 bg-white dark:bg-semidark shadow-lg">
-                <p className="text-midnight_text text-2xl font-medium mb-4 dark:text-white">
-                  Join our Newsletter
-                </p>
-                <input
-                  placeholder="Email address"
-                  className="p-3 border border-border dark:border-dark_border rounded-lg mb-3 w-full dark:bg-semidark"
-                />
-                <button className="w-full py-4 text-lg font-medium bg-primary rounded-lg text-white">
-                  Subscribe
-                </button>
-              </div>
+  <div className="flex flex-col gap-4">
+    <div className="bg-[#526fa3] py-4 px-6 text-xl rounded-lg text-white">
+      Facebook
+    </div>
+    <div className="bg-[#46C4FF] py-4 px-6 text-xl rounded-lg text-white">
+      Twitter
+    </div>
+    <div className="bg-[#3C86AD] py-4 px-6 text-xl rounded-lg text-white">
+      LinkedIn
+    </div>
+  </div>
+</div>
+
+{/* NEWSLETTER */}
+<div className="py-12 px-11 bg-white dark:bg-semidark shadow-lg">
+  <p className="text-midnight_text text-2xl font-medium mb-4 dark:text-white">
+    Prijavite se na naš Newsletter
+  </p>
+
+  <input
+    placeholder="Email adresa"
+    className="p-3 border border-border dark:border-dark_border rounded-lg mb-3 w-full dark:bg-semidark"
+  />
+
+  <button className="w-full py-4 text-lg font-medium bg-primary rounded-lg text-white">
+Prijavite se  </button>
+</div>
+
             </div>
           </div>
         </div>

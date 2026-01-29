@@ -99,7 +99,7 @@ export default function AdvanceSearch({
         <>
             <HeroSub
                 title={(filters?.category) ? filters?.category : "Lista nekretnina"}
-                description="Letraset listovi koji sadrže Lorem Ipsum pasuse i novije verzije za desktop izdavaštvo"
+description="Pregled aktuelne ponude nekretnina – stanovi, kuće i poslovni prostori na jednome mjestu."
                 breadcrumbLinks={breadcrumbLinks}
             />
             <section className='dark:bg-darkmode px-4'>

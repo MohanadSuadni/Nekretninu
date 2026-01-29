@@ -205,31 +205,38 @@ router.push(
           </div>
 
           {/* RIGHT IMAGE */}
-          <div className="lg:block hidden col-span-6 absolute xl:-right-60 right-0 bottom-0 -z-1 w-[800px]">
-            <Swiper
-              slidesPerView={1}
-              loop
-              autoplay={{
-                delay: 3500,
-                disableOnInteraction: false,
-              }}
-              modules={[Autoplay]}
-            >
-              {heroImages.map((img, index) => (
-                <SwiperSlide key={index}>
-                  <div className="relative w-full h-[500px]">
-                    <Image
-                      src={img}
-                      alt={`Hero ${index + 1}`}
-                      fill
-                      style={{ objectFit: "cover" }}
-                      priority={index === 0}
-                    />
-                  </div>
-                </SwiperSlide>
-              ))}
-            </Swiper>
+<div className="block relative w-full h-[300px] sm:h-[400px] md:h-[500px] xl:h-[600px] xl:w-[800px] -z-1">
+  <Swiper
+    slidesPerView={1}
+    loop
+    autoplay={{ delay: 3500, disableOnInteraction: false }}
+    modules={[Autoplay]}
+  >
+    {heroImages.map((img, index) => (
+      <SwiperSlide key={index}>
+        <div className="relative w-full h-[250px] sm:h-[350px] md:h-[450px] lg:h-[500px] xl:h-[550px] rounded-2xl overflow-hidden shadow-2xl bg-white lg:rounded-none lg:shadow-none">
+          {/* Badge */}
+          <div className="absolute top-4 left-4 z-20 bg-primary text-white px-4 py-1 rounded-full text-xs sm:text-sm font-semibold shadow-md">
+            Premium nekretnine
           </div>
+          {/* Overlay */}
+          <div className="absolute bottom-0 left-0 right-0 z-20 p-4 sm:p-6 bg-gradient-to-t from-black/60 to-transparent">
+            <h3 className="text-white text-lg sm:text-2xl font-bold">
+              Pouzdana kupovina i izdavanje
+            </h3>
+            <p className="text-white/80 text-xs sm:text-sm mt-1">
+              Beograd • Novi Sad • Ekskluzivne lokacije
+            </p>
+          </div>
+          {/* Image */}
+          <Image src={img} alt={`Hero ${index + 1}`} fill className="object-cover" priority={index === 0} />
+        </div>
+      </SwiperSlide>
+    ))}
+  </Swiper>
+</div>
+
+
         </div>
       </div>
     </section>

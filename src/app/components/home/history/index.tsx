@@ -39,31 +39,17 @@ Siguran put do pravog doma
           className="hidden lg:block 5xl:col-span-4 5xl:ml-11 col-span-1 lg:col-span-5"
           data-aos="fade-left"
         >
-          <div className="bg-white dark:bg-darklight dark:text-white p-4 max-w-60 border-4 border-primary rounded-lg">
-            <p className="mb-16 text-3xl text-midnight_text dark:text-white font-bold">
-              NAJBOLJA AGENCIJA ZA NEKRETNINE
-            </p>
-
-            <div className="flex justify-between">
-              <div>
-                <p className="text-black text-opacity-60 dark:text-gray">
-                  Godina iskustva
-                </p>
-                <p className="text-[65px] leading-[1.2] -mt-1 text-midnight_text dark:text-white font-bold mb-2">
-                  33
-                </p>
-              </div>
-
-              <div>
-                <Image
-                  src="/images/history/Artopolis LOGOa transparentni.png"
-                  alt="company"
-                  width={120}
-                  height={200}
-                />
-              </div>
-            </div>
-          </div>
+        <div className="relative bg-white dark:bg-darklight p-4 max-w-80   border-4 border-primary rounded-lg overflow-hidden">
+  <video
+   src="/images/history/belgrade.mp4"
+    autoPlay
+    muted
+    loop
+    playsInline
+    className="w-full h-full object-cover"
+  />
+  <div className="absolute inset-0 bg-black/20"></div>
+</div>
         </div>
       </div>
     </section>

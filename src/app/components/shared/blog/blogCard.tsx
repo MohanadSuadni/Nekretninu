@@ -31,7 +31,7 @@ const BlogCard: FC<{ blog: Blog }> = ({ blog }) => {
         <h3 className="mt-2 text-xl sm:text-[22px] md:text-2xl font-medium text-midnight_text group-hover:text-primary">
           {title}
         </h3>
-        <p className="mt-4 text-primary text-base sm:text-lg">Read More</p>
+        <p className="mt-4 text-primary text-base sm:text-lg">Saznajte više</p>
       </div>
     </Link>
   );

@@ -24,7 +24,6 @@ const page = () => {
       />
       <ContactInfo />
       <ContactForm />
-      <Location />
     </>
   );
 };
