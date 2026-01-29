@@ -146,3 +146,20 @@ html {
 .dark .custom-input{
     background-color: red;
 }
+
+
+@keyframes zoomInOut {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.08);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.zoom-animation {
+  animation: zoomInOut 10s ease-in-out infinite;
+}
