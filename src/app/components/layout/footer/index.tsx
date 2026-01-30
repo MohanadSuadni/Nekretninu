@@ -119,8 +119,13 @@ const Footer = () => {
           prijavi se
         </button>
       </div>
+
+      
           </div>
+
+          
         </div>
+         
       </div>
     </footer>
   );

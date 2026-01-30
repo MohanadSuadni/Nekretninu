@@ -9,7 +9,7 @@ export default function Testimonials() {
         {/* Slika tima */}
         <div className="flex-1 flex justify-center md:justify-start" data-aos="fade-right">
           <Image
-            src="/images/testimonial/vector-smart.png"
+            src="/images/testimonial/mage_Jan_30__2026__09_47_22_AM-removebg-preview.png"
             alt="testimonial"
             width={451}
             height={470}
