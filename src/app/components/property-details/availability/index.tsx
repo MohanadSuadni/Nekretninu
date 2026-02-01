@@ -1,8 +1,6 @@
 'use client';
 
 import { Property } from '@/app/types/property';
-import { propertyData } from "@/app/types/property/propertyData";
-
 
 interface AvailabilityProps {
   property: Property;
@@ -30,63 +28,22 @@ export default function Availability({ property }: AvailabilityProps) {
           Osnovni podaci o ovoj nekretnini
         </p>
 
-        {/* ================= MOBILE CARD ================= */}
-        <div className="block md:hidden bg-white dark:bg-darkmode rounded-xl shadow p-6 space-y-4">
-          <Info label="Naziv" value={property.property_title} />
-          <Info label="Lokacija" value={property.location} />
-          <Info label="Kvadratura" value={`${property.livingArea ?? '-'} m²`} />
-          <Info label="Sobe" value={property.beds} />
-          <Info label="Kupatila" value={property.bathrooms} />
-          <Info label="Sprat" value={property.floor} />
-           <Info label="Parking" value={property.garages} />
-          <Info label="Lift" value={yesNo(property.has_elevator)} />
-          <Info label="Uknjižen" value={yesNo(property.Uknjižen)} />
-
-          <Info label="Linije gradskog prevoza" value={property.bus_line || '-'} />
-          <Info label="Škola" value={yesNo(property.has_school)} />
-          <Info label="Vrtić" value={yesNo(property.has_kindergarten)} />
-        </div>
-
-        {/* ================= DESKTOP TABLE ================= */}
-        <div className="hidden md:block overflow-x-auto">
-          <table className="w-full bg-white dark:bg-darkmode rounded-xl shadow overflow-hidden">
-            <thead className="bg-gray-100 dark:bg-dark_border">
-              <tr className="text-sm font-semibold">
-                <th className="py-4 px-3">Naziv</th>
-                <th>Lokacija</th>
-                <th>m²</th>
-                <th>Sobe</th>
-                <th>Kupatila</th>
-                <th>Sprat</th>
-                <th>Parking</th>
-                <th>Lift</th>
-                <th>Uknjižen</th>
-                <th>Linije gradskog prevoza</th>
-                <th>Škola</th>
-                <th>Vrtić</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              <tr className="text-center border-t hover:bg-gray-50 dark:hover:bg-dark_border">
-                <td className="py-4 px-3 font-semibold">
-                  {property.property_title}
-                </td>
-                <td>{property.location || '-'}</td>
-                <td>{property.livingArea ?? '-'}</td>
-                <td>{property.beds ?? '-'}</td>
-                <td>{property.bathrooms ?? '-'}</td>
-                <td>{property.floor ?? '-'}</td>
-                <td>{property.garages ?? '-'}</td>
-                <td>{yesNo(property.has_elevator)}</td>
-                <td>{yesNo(property.Uknjižen)}</td>
-
-                <td>{property.bus_line || '-'}</td>
-                <td>{yesNo(property.has_school)}</td>
-                <td>{yesNo(property.has_kindergarten)}</td>
-              </tr>
-            </tbody>
-          </table>
+        {/* UNIVERSAL CARD (mobile + desktop) */}
+        <div className="bg-white dark:bg-darkmode rounded-xl shadow p-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-4">
+            <Info label="Naziv" value={property.property_title} />
+            <Info label="Lokacija" value={property.location || '-'} />
+            <Info label="Kvadratura" value={`${property.livingArea ?? '-'} m²`} />
+            <Info label="Sobe" value={property.beds ?? '-'} />
+            <Info label="Kupatila" value={property.bathrooms ?? '-'} />
+            <Info label="Sprat" value={property.floor ?? '-'} />
+            <Info label="Parking" value={property.garages ?? '-'} />
+            <Info label="Lift" value={yesNo(property.has_elevator)} />
+            <Info label="Uknjižen" value={yesNo(property.Uknjižen)} />
+            <Info label="Linije gradskog prevoza" value={property.bus_line || '-'} />
+            <Info label="Škola" value={yesNo(property.has_school)} />
+            <Info label="Vrtić" value={yesNo(property.has_kindergarten)} />
+          </div>
         </div>
       </div>
     </section>
@@ -103,7 +60,7 @@ function Info({
   value: any;
 }) {
   return (
-    <div className="flex justify-between items-center border-b pb-2 text-sm">
+    <div className="flex justify-between items-center border-b border-gray-200 dark:border-dark_border pb-2 text-sm">
       <span className="text-gray font-medium">{label}</span>
       <span className="font-semibold text-right">{value}</span>
     </div>

@@ -34,8 +34,8 @@ export default function ImageSlider({ images, title }: Props) {
           priority
           className="
             object-contain 
-            md:object-cover 
-bg-transparent          "
+            object-cover 
+bg-transparent"
         />
 
         {/* Overlay tekst */}

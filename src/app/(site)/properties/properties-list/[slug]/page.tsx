@@ -12,6 +12,7 @@ export default function PropertyDetailsPage() {
   const { slug } = useParams();
   const [property, setProperty] = useState<Property | null>(null);
   const [loading, setLoading] = useState(true);
+  
 
   useEffect(() => {
     const fetchProperty = async () => {
@@ -56,7 +57,9 @@ export default function PropertyDetailsPage() {
       {/* Image Slider */}
       {sliderImages.length > 0 && (
         <section>
+          
           <div className="container mx-auto">
+            
 <div
   className="
     relative w-full max-w-5xl mx-auto
@@ -66,14 +69,16 @@ export default function PropertyDetailsPage() {
     shadow-lg sm:shadow-none
   "
 >
+   
             <ImageSlider images={sliderImages} title={property.property_title} />
             </div>
           </div>
+
         </section>
       )}
 
       {/* Property Description */}
-      <TextSection description={property.description || ''} />
+                <TextSection description={property.description || ''} />
 
       {/* Tabs + Availability */}
       <Tabbar property={property} />
