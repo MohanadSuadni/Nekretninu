@@ -92,6 +92,11 @@ const searchOptions = {
         { value: '3', label: '3 sobe' },
         { value: '4', label: '4 sobe' },
         { value: '5', label: '5 soba' },
+        { value: '1.5', label: '1.5 soba' },
+        { value: '2.5', label: '2.5 sobe' },
+        { value: '3.5', label: '3.5 sobe' },
+        { value: '4.5', label: '4.5 sobe' },
+        { value: '5.5', label: '5.5 soba' },
     ],
     garages: [
         { value: '', label: 'Garages' },
