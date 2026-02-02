@@ -32,7 +32,7 @@ export default function Features() {
   }, []);
 
   // uzmi samo izdvojene (featured) nekretnine
-  const value = propertiesData.filter((item) => !item.check);
+  const featuredProperties = propertiesData.filter((item) => !item.check);
 
   return (
     <section className="dark:bg-darkmode">
@@ -49,14 +49,21 @@ export default function Features() {
                 className="w-full h-auto"
               />
 
-              <div className="lg:max-w-96 max-w-[90%] absolute bottom-0 left-0 right-0 mx-auto lg:mr-6">
-                {value.map((property) => (
+              <div className="lg:max-w-96 max-w-[90%] absolute bottom-0 left-0 right-0 mx-auto lg:mr-6 space-y-4">
+                {featuredProperties.map((property) => (
                   <div
                     key={property.id}
-                    className="bg-white shadow-lg rounded-t-lg overflow-hidden group"
+                    className="bg-white shadow-lg rounded-t-lg overflow-hidden group relative"
                     data-aos="fade-up"
                     data-aos-delay="100"
                   >
+                    {/* TAGS */}
+           <div className="absolute top-2 left-2 z-20">
+  <span className="bg-green-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow">
+    Preporučeno – od agencije
+  </span>
+</div>
+
                     {/* IMAGE */}
                     <div className="relative overflow-hidden">
                       <Image
@@ -90,9 +97,7 @@ export default function Features() {
                           {property.location}
                         </div>
                       </div>
-                      <p className="text-base text-gray">
-                        {property.property_title}
-                      </p>
+                      <p className="text-base text-gray">{property.property_title}</p>
                     </div>
                   </div>
                 ))}
@@ -127,9 +132,7 @@ export default function Features() {
                   </div>
                   <div>
                     <p className="text-2xl mb-2">{feature.title}</p>
-                    <p className="text-gray text-base">
-                      {feature.description}
-                    </p>
+                    <p className="text-gray text-base">{feature.description}</p>
                   </div>
                 </div>
               ))}
