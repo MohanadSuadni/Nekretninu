@@ -1,41 +1,87 @@
-import { useState } from 'react';
+'use client';
+
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { HeaderItem } from '../../../../types/layout/menu';
 import { usePathname, useRouter } from 'next/navigation';
+import { HeaderItem } from '../../../../types/layout/menu';
 
-const MobileHeaderLink: React.FC<{ item: HeaderItem }> = ({ item }) => {
+interface Props {
+  item: HeaderItem;
+  onClose?: () => void; // 👈 BITNO
+}
+
+const MobileHeaderLink: React.FC<Props> = ({ item, onClose }) => {
   const [submenuOpen, setSubmenuOpen] = useState(false);
-
-  const handleToggle = () => {
-    setSubmenuOpen(!submenuOpen);
-  };
   const router = useRouter();
-
-  const handlenav = () => {
-    router.push(item.href)
-  }
-
   const path = usePathname();
 
+  const handleToggle = () => {
+    setSubmenuOpen((prev) => !prev);
+  };
+
+  const handleNav = () => {
+    setSubmenuOpen(false);
+    onClose?.(); // 👈 zatvara ceo meni
+    router.push(item.href);
+  };
+
+  const handleSubNav = (href: string) => {
+    setSubmenuOpen(false);
+    onClose?.(); // 👈 zatvara ceo meni
+    router.push(href);
+  };
+
+  useEffect(() => {
+    setSubmenuOpen(false);
+  }, [path]);
+
   return (
-    <div className="relative w-full">
+    <div className="w-full">
+      {/* MAIN ITEM */}
       <button
-        onClick={item.submenu ? handleToggle : handlenav}
-        className={`flex items-center justify-between w-full py-2 px-3 rounded-md text-black focus:outline-none dark:text-white dark:text-opacity-60 ${path === item.href ? 'bg-primary text-white dark:bg-primary dark:text-white dark:text-opacity-100' : ' text-black dark:text-white '} ${path.startsWith(`/${item.label.toLowerCase()}`) ? "bg-primary text-white dark:bg-primary dark:text-white dark:text-opacity-100 " : null}`}
+        onClick={item.submenu ? handleToggle : handleNav}
+        className={`
+          flex items-center justify-between w-full py-2 px-3 rounded-md
+          ${
+            path === item.href
+              ? 'bg-primary text-white'
+              : 'text-black dark:text-white'
+          }
+        `}
       >
         {item.label}
+
         {item.submenu && (
-          <svg xmlns="http://www.w3.org/2000/svg" width="1.5em" height="1.5em" viewBox="0 0 24 24">
-            <path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="m7 10l5 5l5-5" />
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="1.5em"
+            height="1.5em"
+            viewBox="0 0 24 24"
+            className={`transition-transform ${submenuOpen ? 'rotate-180' : ''}`}
+          >
+            <path
+              fill="none"
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="1.5"
+              d="m7 10l5 5l5-5"
+            />
           </svg>
         )}
       </button>
+
+      {/* SUBMENU */}
       {submenuOpen && item.submenu && (
-        <div className="bg-white dark:bg-darkmode py-2 px-3 w-full">
+        <div className="mt-2 bg-white dark:bg-darkmode rounded-md shadow">
           {item.submenu.map((subItem, index) => (
-            <Link key={index} href={subItem.href} className={`block py-2 px-3  ${subItem.href === path ? '!text-primary dark:text-primary' : 'text-gray'}`}>
+            <button
+              key={index}
+              onClick={() => handleSubNav(subItem.href)}
+              className="block w-full text-left py-2 px-3 text-gray-600 hover:bg-gray-100"
+            >
               {subItem.label}
-            </Link>
+            </button>
           ))}
         </div>
       )}

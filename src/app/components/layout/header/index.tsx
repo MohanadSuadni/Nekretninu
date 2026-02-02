@@ -193,9 +193,13 @@ const Header: React.FC = () => {
           </button>
         </div>
         <nav className="flex flex-col items-start p-4">
-          {data.map((item:any, index:any) => (
-            <MobileHeaderLink key={index} item={item} />
-          ))}
+         {data.map((item: any, index: number) => (
+  <MobileHeaderLink
+    key={index}
+    item={item}
+    onClose={() => setNavbarOpen(false)}
+  />
+))}
           <div className="mt-4 flex flex-col space-y-4 w-full">
             {user?.user || session?.user ? (
               <>

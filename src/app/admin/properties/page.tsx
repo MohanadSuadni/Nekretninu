@@ -43,10 +43,10 @@ export type Property = {
   type: string;
   status: string;
   tag: string;
-  beds: number;
+  beds: string;
   bathrooms: number;
   garages: number;
-  livingArea: string;
+  livingArea: string; // npr "120 m²"
   floor?: number | string;
   has_elevator?: boolean;
   Uknjižen?: boolean;
@@ -89,6 +89,7 @@ export default function AdminPropertiesPage() {
     description: '',
   });
 
+  const [livingAreaUnit, setLivingAreaUnit] = useState<'m²' | 'ari'>('m²');
   const [mainImage, setMainImage] = useState<File | null>(null);
   const [galleryImages, setGalleryImages] = useState<FileList | null>(null);
 
@@ -149,6 +150,7 @@ export default function AdminPropertiesPage() {
     setEditingId(null);
     setMainImage(null);
     setGalleryImages(null);
+    setLivingAreaUnit('m²');
   };
 
   /* ================= SAVE ================= */
@@ -181,10 +183,10 @@ export default function AdminPropertiesPage() {
       type: form.type,
       status: form.status,
       tag: form.tag,
-      beds: Number(form.beds),
+      beds: form.beds,
       bathrooms: Number(form.bathrooms),
       garages: Number(form.garages),
-      livingArea: form.livingArea,
+      livingArea: form.livingArea ? `${form.livingArea} ${livingAreaUnit}` : '',
       floor: form.floor,
       has_elevator: form.has_elevator,
       Uknjižen: form.Uknjižen,
@@ -215,11 +217,29 @@ export default function AdminPropertiesPage() {
   /* ================= EDIT ================= */
   const editProperty = (p: Property) => {
     setEditingId(p.id);
+
+    let unit: 'm²' | 'ari' = 'm²';
+    let numberValue = '';
+    if (p.livingArea) {
+      if (p.livingArea.includes('ari')) {
+        unit = 'ari';
+        numberValue = p.livingArea.replace(' ari', '');
+      } else if (p.livingArea.includes('m²')) {
+        unit = 'm²';
+        numberValue = p.livingArea.replace(' m²', '');
+      } else {
+        numberValue = p.livingArea;
+      }
+    }
+
+    setLivingAreaUnit(unit);
+
     setForm({
       ...p,
       beds: p.beds,
       bathrooms: p.bathrooms,
       garages: p.garages,
+      livingArea: numberValue,
     });
   };
 
@@ -252,7 +272,7 @@ export default function AdminPropertiesPage() {
           {editingId ? 'Izmeni nekretninu' : 'Dodaj nekretninu'}
         </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <input name="slug" placeholder="Slug" value={form.slug} onChange={handleChange} className="border p-2 rounded" />
+          <input   name="slug" placeholder="Slug" value={form.slug} onChange={handleChange} className="sr-only" />
           <input name="property_title" placeholder="Naziv nekretnine" value={form.property_title} onChange={handleChange} className="border p-2 rounded" />
           <input name="property_price" placeholder="Cena" value={form.property_price} onChange={handleChange} className="border p-2 rounded" />
           <input name="location" placeholder="Lokacija" value={form.location} onChange={handleChange} className="border p-2 rounded" />
@@ -278,10 +298,32 @@ export default function AdminPropertiesPage() {
           </select>
 
           <input name="name" placeholder="Ime" value={form.name} onChange={handleChange} className="border p-2 rounded" />
-          <input name="beds" type="number" placeholder="Broj soba" value={form.beds} onChange={handleChange} className="border p-2 rounded" />
+          <input name="beds" type="text" placeholder="Broj soba" value={form.beds} onChange={handleChange} className="border p-2 rounded" />
           <input name="bathrooms" type="number" placeholder="Broj kupatila" value={form.bathrooms} onChange={handleChange} className="border p-2 rounded" />
           <input name="garages" type="number" placeholder="Parking" value={form.garages} onChange={handleChange} className="border p-2 rounded" />
-          <input name="livingArea" placeholder="Kvadratura" value={form.livingArea} onChange={handleChange} className="border p-2 rounded" />
+
+          {/* ✅ LivingArea sa jedinicom */}
+  <div className="flex items-center gap-2">
+  <input
+    name="livingArea"
+    placeholder="Kvadratura"
+    value={form.livingArea}
+    onChange={(e) => {
+      const val = e.target.value.replace(/\D/g, '');
+      setForm({ ...form, livingArea: val });
+    }}
+    className="border p-2 rounded flex-grow"
+  />
+  <select
+    value={livingAreaUnit}
+    onChange={(e) => setLivingAreaUnit(e.target.value as 'm²' | 'ari')}
+    className="border p-2 rounded w-20"
+  >
+    <option value="m²">m²</option>
+    <option value="ari">ari</option>
+  </select>
+</div>
+
           <input name="floor" placeholder="Sprat" value={form.floor} onChange={handleChange} className="border p-2 rounded" />
           <input name="bus_line" placeholder="Autobus linija" value={form.bus_line} onChange={handleChange} className="border p-2 rounded" />
           <textarea name="description" placeholder="Opis" value={form.description} onChange={handleChange} className="border p-2 rounded col-span-1 md:col-span-2" />
@@ -291,7 +333,7 @@ export default function AdminPropertiesPage() {
           <label className="flex items-center gap-2"><input type="checkbox" name="Uknjižen" checked={form.Uknjižen} onChange={handleChange} /> Uknjižen</label>
           <label className="flex items-center gap-2"><input type="checkbox" name="has_school" checked={form.has_school} onChange={handleChange} /> Škola</label>
           <label className="flex items-center gap-2"><input type="checkbox" name="has_kindergarten" checked={form.has_kindergarten} onChange={handleChange} /> Vrtić</label>
-          <label className="flex items-center gap-2"><input type="checkbox" name="check" checked={form.check} onChange={handleChange} /> Aktivno</label>
+          <label className="flex items-center gap-2"><input type="checkbox" name="check" checked={form.check} onChange={handleChange} /> Neaktivno </label>
 
           {/* Slike */}
           <label className="block">
@@ -343,7 +385,7 @@ export default function AdminPropertiesPage() {
                   <button onClick={() => editProperty(p)} className="px-3 py-1 bg-yellow-500 text-white rounded hover:bg-yellow-600 transition text-sm">Izmeni</button>
                   <button onClick={() => deleteProperty(p.id)} className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 transition text-sm">Obriši</button>
                 </div>
-                <span className={`text-sm font-semibold ${p.check ? 'text-green-600' : 'text-red-500'}`}>{p.check ? 'Aktivno' : 'Neaktivno'}</span>
+                <span className={`text-sm font-semibold ${p.check ? 'text-red-600' : 'text-green-500'}`}>{p.check ?   'Neaktivno' : 'Aktivno'}</span>
               </div>
             </div>
           </div>
