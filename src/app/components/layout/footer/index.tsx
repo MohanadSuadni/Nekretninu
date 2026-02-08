@@ -27,7 +27,7 @@ const Footer = () => {
               <h4 className="mb-4 text-lg text-white dark:text-white">
                 Adresa
               </h4>
-              <p className="mb-6 text-gray text-base">
+              <p className="mb-6 text-[#8FAFCC] text-base">
                 Antifašistička borba 23G /2/7
               </p>
             </div>
@@ -38,17 +38,17 @@ const Footer = () => {
               </h4>
               <ul>
                 <li>
-                  <Link href="/contact" className="mb-3 inline-block text-base text-gray hover:text-white">
+                  <Link href="/contact" className="mb-3 inline-block text-base text-[#8FAFCC] hover:text-white">
                     Kontakt podrška
                   </Link>
                 </li>
                 <li>
-                  <Link href="/properties/properties-list" className="mb-3 inline-block text-base text-gray hover:text-white">
+                  <Link href="/properties/properties-list" className="mb-3 inline-block text-base text-[#8FAFCC] hover:text-white">
                     Nekretnine
                   </Link>
                 </li>
                 <li>
-                  <Link href="/blogs" className="mb-3 inline-block text-base text-gray hover:text-white">
+                  <Link href="/blogs" className="mb-3 inline-block text-base text-[#8FAFCC] hover:text-white">
                     Nova gradnja
                   </Link>
                 </li>
@@ -61,22 +61,22 @@ const Footer = () => {
               </h4>
               <ul>
                 <li onClick={() => updateFilter("category", "Stan")}>
-                  <Link href="/properties/properties-list?category=stan" className="mb-3 inline-block text-base text-gray hover:text-white">
+                  <Link href="/properties/properties-list?category=stan" className="mb-3 inline-block text-base text-[#8FAFCC] hover:text-white">
                     Prodaja i izdavanje stanova
                   </Link>
                 </li>
                 <li onClick={() => updateFilter("category", "Kuća")}>
-                  <Link href="/properties/properties-list?category=Kuća" className="mb-3 inline-block text-base text-gray hover:text-white">
+                  <Link href="/properties/properties-list?category=Kuća" className="mb-3 inline-block text-base text-[#8FAFCC] hover:text-white">
                     Prodaja i izdavanje kuća
                   </Link>
                 </li>
                 <li onClick={() => updateFilter("category", "Kancelarija")}>
-                  <Link href="/properties/properties-list?category=Kancelarija" className="mb-3 inline-block text-base text-gray hover:text-white">
+                  <Link href="/properties/properties-list?category=Kancelarija" className="mb-3 inline-block text-base text-[#8FAFCC] hover:text-white">
                     Poslovni prostor na prodaju
                   </Link>
                 </li>
                 <li onClick={() => updateFilter("category", "Lokal")}>
-                  <Link href="/properties/properties-list?category=Lokal" className="mb-3 inline-block text-base text-gray hover:text-white">
+                  <Link href="/properties/properties-list?category=Lokal" className="mb-3 inline-block text-base text-[#8FAFCC] hover:text-white">
                     Lokali za izdavanje
                   </Link>
                 </li>
@@ -94,11 +94,11 @@ const Footer = () => {
             <div className="flex lg:flex-nowrap flex-wrap lg:flex-row lg:gap-11 gap-4 text-base sm:text-lg md:text-xl text-black text-opacity-50">
               <p className="text-white">
                 Telefon: 
-                <Link href="tel:+381642225543" className="text-gray hover:text-white"> +381 64 222 5543</Link>
+                <Link href="tel:+381642225543" className="text-[#8FAFCC] hover:text-white"> +381 64 222 5543</Link>
               </p>
               <p className="text-white">
                 Email: 
-                <Link href="mailto:offic@artopolis369.rs" className="text-gray hover:text-white"> offic@artopolis369.rs</Link>
+                <Link href="mailto:offic@artopolis369.rs" className="text-[#8FAFCC] hover:text-white"> offic@artopolis369.rs</Link>
               </p>
             </div>
           </div>
@@ -123,7 +123,7 @@ const Footer = () => {
 
         {/* ================= COPYRIGHT ================= */}
         <div className="mt-6 border-t border-border dark:border-dark_border pt-4 text-center text-sm text-white">
-          &copy; {new Date().getFullYear()} Artopolis. Dizajn by{" "}
+          &copy; {new Date().getFullYear()} ARTOPOLIS <span className="text-[#00bfff] Family=Arial, sans-serif">369</span>. Dizajn by{" "}
           <a href="tel:+381695546541" className="text-white hover:text-primary font-semibold">
             M. Sudani
           </a>

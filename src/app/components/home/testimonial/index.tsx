@@ -9,12 +9,12 @@ export default function Testimonials() {
         {/* Slika tima */}
         <div className="flex-1 flex justify-center md:justify-start" data-aos="fade-right">
           <Image
-            src="/images/testimonial/mage_Jan_30__2026__09_47_22_AM-removebg-preview.png"
+            src="/images/testimonial/vector-smart.png"
             alt="testimonial"
             width={451}
             height={470}
             quality={100}
-            className="w-full max-w-[451px] h-auto"
+    className="hidden lg:block w-full max-w-[451px] h-auto"
           />
         </div>
 
@@ -25,8 +25,8 @@ export default function Testimonials() {
             src="/images/testimonial/quote.svg"
             alt="quote"
             className="mb-4 md:mb-6"
-            height={135}
-            width={135}
+            height={100}
+            width={100}
           />
 
           {/* Glavni tekst */}
@@ -37,8 +37,15 @@ export default function Testimonials() {
           </p>
 
           {/* Ime tima */}
-          <p className="text-lg md:text-2xl">ARTOPOLIS 369</p>
-          <p className="text-gray text-lg md:text-xl">Tim za nekretnine</p>
+<p className="text-lg md:text-2xl">
+  <span className="text-[#002f55] dark:text-white font-sans font-semibold">
+    ARTOPOLIS
+  </span>{" "}
+  <span className="text-[#00bfff] font-sans font-semibold">
+    369
+  </span>
+</p>
+<p className="text-gray text-lg md:text-xl">Tim za nekretnine</p>
         </div>
 
       </div>

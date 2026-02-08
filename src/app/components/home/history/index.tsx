@@ -35,22 +35,7 @@ Siguran put do pravog doma
           </Link>
         </div>
 
-        <div
-          className="hidden lg:block 5xl:col-span-4 5xl:ml-11 col-span-1 lg:col-span-5"
-          data-aos="fade-left"
-        >
-        <div className="relative bg-white dark:bg-darklight p-4 max-w-80   border-4 border-primary rounded-lg overflow-hidden">
-  <video
-   src="/images/history/belgrade.mp4"
-    autoPlay
-    muted
-    loop
-    playsInline
-    className="w-full h-full object-cover"
-  />
-  <div className="absolute inset-0 bg-black/20"></div>
-</div>
-        </div>
+      
       </div>
     </section>
   );
