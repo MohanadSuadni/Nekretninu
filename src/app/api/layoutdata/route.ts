@@ -7,7 +7,7 @@ const headerData = [
     href: "#",
     submenu: [
       { label: "Lista nekretnina", href: "/properties/properties-list" },
-      { label: "Detalji nekretnine", href: "/properties/properties-list/modern-apartment" },
+      { label: "Stručni savetnik", href: "/documentation" },
     ],
   },
   {

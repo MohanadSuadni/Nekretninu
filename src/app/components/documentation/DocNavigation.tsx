@@ -17,22 +17,22 @@ export const DocNavigation = () => {
     const DocsNav = [
         {
             id:1,
-            navItem:"Package Versions",
+            navItem:"POREZ NA PRENOS",
             hash:"version"
         },
         {
             id:2,
-            navItem:"Pacakge Structure",
+            navItem:"PRVA NE KRTNINA",
             hash:"structure"
         },
         {
             id:3,
-            navItem:"Quick Start",
+            navItem:" KOJE PLAĆA TROŠKOVE ",
             hash:"start"
         },
         {
             id:4,
-            navItem:"Project Configuration",
+            navItem:"",
             hash:"configuration"
         },
     ]

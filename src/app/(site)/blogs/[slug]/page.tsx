@@ -59,7 +59,7 @@ export default async function BlogPage({ params }: Props) {
               />
               <div>
                 <p className="font-bold text-midnight_text dark:text-white">{post.author}</p>
-                  <p className="text-sm text-gray-500"> +381 64 222 5543</p>
+                  <p className="text-sm text-gray-500"> +38169638006</p>
 
                 <p className="text-sm text-gray-500">Agent</p>
               </div>
@@ -112,10 +112,13 @@ export default async function BlogPage({ params }: Props) {
   {adorImages.length > 0 && (
     <div className="mt-12">
       <AdorImageSlider images={adorImages} />
+  <p>{post.excerpt}</p>
+
+
     </div>
   )}
 </div>
-          </div>
+ </div>
 
           {/* ===== SIDEBAR ===== */}
           <div className="w-full lg:w-4/12 px-4">

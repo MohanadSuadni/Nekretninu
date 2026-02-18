@@ -44,9 +44,12 @@ export default function AdminBlog() {
 
   const editor = useEditor({
     extensions: [StarterKit],
+    
     content: form.content,
     onUpdate: ({ editor }) => setForm(prev => ({ ...prev, content: editor.getHTML() })),
+    
     immediatelyRender: false,
+    
   });
 
   useEffect(() => {
@@ -158,7 +161,7 @@ export default function AdminBlog() {
       {/* FORM */}
       <div className="grid gap-3 mb-10 bg-white p-4 rounded shadow">
         <input
-          placeholder="Title"
+          placeholder="Naslov"
           className="border p-2 rounded"
           value={form.title}
           onChange={e => {
@@ -171,19 +174,19 @@ export default function AdminBlog() {
           }}
         />
         <input placeholder="Slug" className="border p-2 rounded" value={form.slug} onChange={e => setForm(prev => ({ ...prev, slug: e.target.value }))} />
-        <input placeholder="Author" className="border p-2 rounded" value={form.author} onChange={e => setForm(prev => ({ ...prev, author: e.target.value }))} />
-        <textarea placeholder="Excerpt" className="border p-2 rounded" value={form.excerpt} onChange={e => setForm(prev => ({ ...prev, excerpt: e.target.value }))} />
+        <input placeholder="Ima agenta" className="border p-2 rounded" value={form.author} onChange={e => setForm(prev => ({ ...prev, author: e.target.value }))} />
+        <textarea placeholder="Opis" className="border p-2 rounded" value={form.excerpt} onChange={e => setForm(prev => ({ ...prev, excerpt: e.target.value }))} />
 
         <label>
-          Cover Image
+          Glavna slika
           <input type="file" accept="image/*" onChange={handleCoverChange} className="mt-1 border rounded p-1 w-full" />
         </label>
         <label>
-          Author Image
+         profilna slika agenta
           <input type="file" accept="image/*" onChange={handleAuthorChange} className="mt-1 border rounded p-1 w-full" />
         </label>
         <label>
-          Adorm Images
+          Slike za galeriju / slider
           <input type="file" accept="image/*" multiple onChange={handleAdormChange} className="mt-1 border rounded p-1 w-full" />
         </label>
 
@@ -206,11 +209,12 @@ export default function AdminBlog() {
             </div>
           ))}
         </div>
-
-        <div className="border p-2 rounded">
-          <EditorContent editor={editor} />
+<table>
+  Opis 2
+        <div  className="border p-2 rounded">
+          <EditorContent  editor={editor} />
         </div>
-
+</table>
         <div className="flex gap-2">
           <button onClick={savePost} className="bg-green-600 text-white px-4 py-2 rounded">{editingId ? 'Save Changes' : 'Add Post'}</button>
           {editingId && <button onClick={resetForm} className="bg-gray-300 px-4 py-2 rounded">Cancel</button>}

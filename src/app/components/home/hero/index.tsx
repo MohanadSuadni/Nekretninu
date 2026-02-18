@@ -2,7 +2,6 @@
 import { useState, useRef } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-// 🔥 SWIPER
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
 import "swiper/css";
@@ -50,9 +49,9 @@ const searchOptions = {
 const Hero = () => {
   const router = useRouter();
 
-  const [activeTab, setActiveTab] = useState<"izdavanje" | "prodaja">("izdavanje");
+  const [activeTab, setActiveTab] = useState<"prodaja" | "izdavanje">("prodaja");
   const [location, setLocation] = useState("");
-  const [tag, setTag] = useState("izdavanje");
+  const [tag, setTag] = useState("prodaja");
   const [filteredLocations, setFilteredLocations] = useState(searchOptions.locations);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [error, setError] = useState("");
@@ -99,6 +98,24 @@ router.push(
             <div className="max-w-xl ml-4 sm:w-full">
               {/* TABS */}
               <div className="flex">
+
+<button
+                  className={`px-9 py-3 text-xl rounded-t-md ${
+                    activeTab === "prodaja"
+                      ? "bg-white dark:bg-darkmode border-b border-primary"
+                      : "bg-white bg-opacity-50 dark:bg-darkmode dark:bg-opacity-50"
+                  }`}
+                  onClick={() => {
+                    setActiveTab("prodaja");
+                    setTag("prodaja");
+                  }}
+                >
+                  Kupovina
+                </button>
+
+
+
+
                 <button
                   className={`px-9 py-3 text-xl rounded-t-md ${
                     activeTab === "izdavanje"
@@ -113,19 +130,7 @@ router.push(
                   Izdavanje
                 </button>
 
-                <button
-                  className={`px-9 py-3 text-xl rounded-t-md ${
-                    activeTab === "prodaja"
-                      ? "bg-white dark:bg-darkmode border-b border-primary"
-                      : "bg-white bg-opacity-50 dark:bg-darkmode dark:bg-opacity-50"
-                  }`}
-                  onClick={() => {
-                    setActiveTab("prodaja");
-                    setTag("prodaja");
-                  }}
-                >
-                  Kupovina
-                </button>
+           
               </div>
 
               {/* SEARCH BOX */}

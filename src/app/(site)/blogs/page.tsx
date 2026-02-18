@@ -15,13 +15,13 @@ export default async function NovaGradnjaPage() {
 
   const breadcrumbLinks = [
     { href: "/", text: "Početna" },
-    { href: "/nova-gradnja", text: "Nova gradnja" },
+    { href: "/nova-gradnja", text: "Novagradnja" },
   ];
 
   return (
     <>
       <HeroSub
-        title="Nova gradnja"
+        title="Novagradnja"
         description="Pregled najnovijih projekata novogradnje i aktuelnih ponuda nekretnina."
         breadcrumbLinks={breadcrumbLinks}
       />

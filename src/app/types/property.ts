@@ -7,7 +7,7 @@ export interface Property {
   images?: string[];
   location?: string;
   livingArea?: number;
-  beds?: number;           // dodaj ovo
+  beds?: string;           // dodaj ovo
   bedrooms?: number;       // možeš zadržati ako ti baza ima
   bathrooms?: number;
   floor?: number | string;

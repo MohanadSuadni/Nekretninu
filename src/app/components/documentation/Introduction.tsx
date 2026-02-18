@@ -15,38 +15,8 @@ import { DocNavigation } from "./DocNavigation"
 
 export const Introduction = () => {
     const [docNavbarOpen, setDocNavbarOpen] = useState(false)
-    const PackageVersions = [
-        {
-            id:"1",
-            packageName:"NextJs",
-            img:nextImg,
-            version:"15.1.1"
-        },
-        {
-            id:"2",
-            packageName:"React",
-            img:reactImg,
-            version:"19.0.0"
-        },
-        {
-            id:"3",
-            packageName:"Tailwindcss",
-            img:tailwindImg,
-            version:"3.4.1"
-        },
-        {
-            id:"4",
-            packageName:"NextAuth",
-            img:nextauthImg ,
-            version:"4.24.11"
-        },
-        {
-            id:"5",
-            packageName:"Typescript",
-            img:typescriptImg ,
-            version:"5.6.3"
-        }
-    ]
+   
+    
     return (
         <>
          <div id="version" className="md:scroll-m-[180px] scroll-m-28">
@@ -56,27 +26,15 @@ export const Introduction = () => {
         )}
 
             <div className="flex item-center justify-between">
-            <h3 className=" text-black text-2xl mt-4 font-semibold mb-6 dark:text-white" >Pacakge Versions</h3>
+            <h3 className=" text-black text-2xl mt-4 font-semibold mb-6 dark:text-white" >KOLIKI JE POREZ NA PRENOS APSOLUTNIH PRAVA I KO GA PLAĆA?</h3>
             <button onClick={() => setDocNavbarOpen(true)} className="p-0"> <Icon icon="gg:menu-right" className="text-3xl lg:hidden block" /></button>
             </div>
             
-              <div className="w-full flex justify-between lg:gap-0 gap-6 lg:flex-nowrap flex-wrap p-6 rounded-md border border-border dark:border-darkborder">
-                {
-                    PackageVersions && PackageVersions.map((item)=>{
-                        return(
-                            <div key={item.id} className="lg:w-1/5 md:w-full text-center lg:border-b-0 border-b lg:border-e lg:last:border-e-0 last:border-b-0 border-border dark:border-darkborder">
-                            <Image src={item.img} alt="npm-package"  className=" mx-auto w-10 h-10 " />
-                            <h5 className="text-2xl font-bold mt-3.5 dark:text-white" >{`v${item.version}`}</h5>
-                            <p className="text-base font-medium text-midnight_text dark:text-gray">{item.packageName}</p>
-                        </div>
-                        )
-                    })
-                }
-              </div>
+             
               <div className="mt-5">
-               <p className="text-base font-medium text-midnight_text dark:text-gray">Property Tailwind NextJs Template is built with Tailwindcss and Nextjs.</p>
-               <p className="text-base font-medium text-midnight_text dark:text-gray">These theme is ready to use and you can totally customize as per your requirement.</p>
-               <p className="text-base font-medium text-midnight_text dark:text-gray">For Customize, You should have knowledge of NextJs, ReactJs, Tailwind and JSX to be able to modify these template.</p>
+               <p className="text-base font-medium text-midnight_text dark:text-gray">Porez na prenos apsolutnih prava iznosi **🇷🇸 2,5 % od vrednosti nepokretnosti ili druge imovine koja se prenosi (npr. prava svojine na stan ili kuću)</p>
+               <p className="text-base font-medium text-midnight_text dark:text-gray">Ta vrednost je uglavnom ugovorena cena u kupoprodajnom ugovoru,</p>
+               <p className="text-base font-medium text-midnight_text dark:text-gray">ali ako Poreska uprava smatra da je ta cena preniska, može da utvrdi osnovicu na osnovu tržišne vrednosti.</p>
                </div>
 
          </div>
