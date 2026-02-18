@@ -209,15 +209,13 @@ export default function AdminBlog() {
             </div>
           ))}
         </div>
-<table>
-  Opis 2
+
         <div  className="border p-2 rounded">
           <EditorContent  editor={editor} />
         </div>
-</table>
         <div className="flex gap-2">
-          <button onClick={savePost} className="bg-green-600 text-white px-4 py-2 rounded">{editingId ? 'Save Changes' : 'Add Post'}</button>
-          {editingId && <button onClick={resetForm} className="bg-gray-300 px-4 py-2 rounded">Cancel</button>}
+          <button onClick={savePost} className="bg-green-600 text-white px-4 py-2 rounded">{editingId ? 'Sačuvaj izmene' : 'Dodaj'}</button>
+          {editingId && <button onClick={resetForm} className="bg-gray-300 px-4 py-2 rounded">Otkaži</button>}
         </div>
       </div>
 
@@ -237,8 +235,8 @@ export default function AdminBlog() {
               </div>
             </div>
             <div className="flex gap-2 mt-2 md:mt-0">
-              <button onClick={() => editPost(post)} className="bg-yellow-500 text-white px-3 py-1 rounded">Edit</button>
-              <button onClick={() => deletePost(post.id)} className="bg-red-600 text-white px-3 py-1 rounded">Delete</button>
+              <button onClick={() => editPost(post)} className="bg-yellow-500 text-white px-3 py-1 rounded">Izmeni</button>
+              <button onClick={() => deletePost(post.id)} className="bg-red-600 text-white px-3 py-1 rounded">Obriši</button>
             </div>
           </div>
         ))}
