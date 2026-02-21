@@ -49,7 +49,7 @@ const Footer = () => {
                 </li>
                 <li>
                   <Link href="/blogs" className="mb-3 inline-block text-base text-[#8FAFCC] hover:text-white">
-                    Nova gradnja
+                    Novogradnja
                   </Link>
                 </li>
               </ul>
@@ -70,8 +70,8 @@ const Footer = () => {
                     Prodaja i izdavanje kuća
                   </Link>
                 </li>
-                <li onClick={() => updateFilter("category", "Kancelarija")}>
-                  <Link href="/properties/properties-list?category=Kancelarija" className="mb-3 inline-block text-base text-[#8FAFCC] hover:text-white">
+                <li onClick={() => updateFilter("category", "Poslovni prostor")}>
+                  <Link href="/properties/properties-list?category=Poslovni prostor" className="mb-3 inline-block text-base text-[#8FAFCC] hover:text-white">
                     Poslovni prostor na prodaju
                   </Link>
                 </li>
