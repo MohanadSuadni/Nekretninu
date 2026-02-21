@@ -7,15 +7,16 @@ const headerData = [
     href: "#",
     submenu: [
       { label: "Lista nekretnina", href: "/properties/properties-list" },
-      { label: "Stručni savetnik", href: "/documentation" },
     ],
   },
+    { label: "Stručni savetnik", href: "documentation" },
+
   {
-    label: "Nova gradnja",
+    label: "Novogradnja",
     href: "#",
     submenu: [
-      { label: "Nova gradnja – mrežni prikaz", href: "/blogs" },
-      { label: "Detalji Nova gradnja", href: "/blogs/blog_1" },
+      { label: "Novogradnja – mrežni prikaz", href: "/blogs" },
+      { label: "Detalji Novogradnja", href: "/blogs/blog_1" },
     ],
   },
   { label: "Kontakt", href: "/contact" },

@@ -83,7 +83,7 @@ const searchOptions = {
         { value:'Kancelarija', label: 'Kancelarija' },
         { value:'Lokal', label: 'Lokal' },
         { value:'Kuća', label: 'Kuća' },
-        { value:'Magacin', label: 'Magacin' },
+        { value:'Hala', label: 'Hala' },
     ],
       beds: [
         { value: '', label: ' sobe' },
