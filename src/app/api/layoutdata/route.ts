@@ -9,7 +9,7 @@ const headerData = [
       { label: "Lista nekretnina", href: "/properties/properties-list" },
     ],
   },
-    { label: "Stručni savetnik", href: "documentation" },
+
 
   {
     label: "Novogradnja",
@@ -19,6 +19,8 @@ const headerData = [
       { label: "Detalji Novogradnja", href: "/blogs/blog_1" },
     ],
   },
+      { label: "Stručni savetnik", href: "/documentation" },
+
   { label: "Kontakt", href: "/contact" },
 ];
 

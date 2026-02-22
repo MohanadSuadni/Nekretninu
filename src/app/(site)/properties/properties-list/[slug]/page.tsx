@@ -78,11 +78,11 @@ export default function PropertyDetailsPage() {
       )}
 
       {/* Property Description */}
-                <TextSection description={property.description || ''} />
+               {/* <TextSection description={property.description || ''} />*/}
 
       {/* Tabs + Availability */}
       <Tabbar property={property} />
-      <Availability property={property} />
+     {/*<Availability property={property} />*/} 
     </div>
   );
 }

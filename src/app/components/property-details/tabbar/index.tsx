@@ -2,18 +2,50 @@
 
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
-import { Property } from '@/app/types/property';
 import { Icon } from '@iconify/react';
+import { Property } from '@/app/types/property';
 
 interface TabbarProps {
   property: Property;
 }
 
+const phoneNumber = '+381693693698';
+
+/* ---------- HELPERS ---------- */
+const yesNoColor = (value?: boolean | null) => {
+  if (value === true) return { text: 'Da', className: 'text-emerald-600' };
+  if (value === false) return { text: 'Ne', className: 'text-red-500' };
+  return { text: '-', className: 'text-gray-400' };
+};
+
+/* ---------- LEPA INFO KOMPONENTA SA IKONOM ---------- */
+interface InfoProps {
+  label: string;
+  value: string | number;
+  icon: string;
+  valueClassName?: string;
+}
+
+const Info = ({ label, value, icon, valueClassName }: InfoProps) => (
+  <div className="flex items-center gap-4 rounded-xl border border-gray-100 dark:border-dark_border bg-white dark:bg-darkmode p-4 shadow-sm hover:shadow-md transition">
+    <div className="flex items-center justify-center w-10 h-10 rounded-lg bg-primary/10 text-primary">
+      <Icon icon={icon} className="text-xl" />
+    </div>
+
+    <div className="flex flex-col">
+      <span className="text-xs text-gray-500">{label}</span>
+      <span className={`font-semibold text-gray-900 dark:text-white ${valueClassName || ''}`}>
+        {value}
+      </span>
+    </div>
+  </div>
+);
+
+/* ---------- COMPONENT ---------- */
 export default function Tabbar({ property }: TabbarProps) {
   const [activeTab, setActiveTab] = useState('Osnovne informacije');
   const [activeImage, setActiveImage] = useState<string | null>(null);
 
-  // ESC zatvaranje modala
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
       if (e.key === 'Escape') setActiveImage(null);
@@ -23,8 +55,10 @@ export default function Tabbar({ property }: TabbarProps) {
   }, []);
 
   return (
-    <section className="py-16">
-      <div className="max-w-6xl mx-auto px-4">
+ <section className="bg-[#F0F6FA] dark:bg-[#111929] py-20">
+        <h2 className="text-3xl font-bold text-center mb-3">
+          Dostupne informacije
+        </h2>          <div className="max-w-6xl mx-auto px-4">
         {/* ================= TABS ================= */}
         <div className="flex justify-center gap-2 mb-8 flex-wrap">
           {['Osnovne informacije', 'Galerija', 'Opis'].map((tab) => (
@@ -47,11 +81,52 @@ export default function Tabbar({ property }: TabbarProps) {
 
         {/* ================= CONTENT ================= */}
         <div className="bg-white dark:bg-darkmode rounded-2xl shadow p-6 md:p-10">
-          {/* -------- OSNOVNE INFO -------- */}
+          {/* -------- OSNOVNE INFORMACIJE -------- */}
           {activeTab === 'Osnovne informacije' && (
-            <div className="space-y-3 text-sm">
-              <p><b>Naziv:</b> {property.property_title}</p>
-              <p><b>Lokacija:</b> {property.location || '-'}</p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 text-sm">
+              <Info icon="mdi:home-outline" label="Naziv" value={property.property_title} />
+              <Info icon="mdi:map-marker-outline" label="Lokacija" value={property.location || '-'} />
+              <Info
+                icon="mdi:cash"
+                label="Cena"
+                value={property.property_price && property.property_price.trim() !== ''
+                  ? property.property_price
+                  : 'Na upit'}
+              />
+              <Info
+                icon="mdi:ruler-square"
+                label="Kvadratura"
+                value={property.livingArea ? `${property.livingArea} m²` : '-'}
+              />
+              <Info icon="mdi:bed-outline" label="Sobe" value={property.beds ?? '-'} />
+              <Info icon="mdi:shower" label="Kupatila" value={property.bathrooms ?? '-'} />
+              <Info icon="mdi:stairs" label="Sprat" value={property.floor ?? '-'} />
+              <Info icon="mdi:car-outline" label="Parking" value={property.garages ?? '-'} />
+              <Info
+                icon="mdi:elevator"
+                label="Lift"
+                value={yesNoColor(property.has_elevator).text}
+                valueClassName={yesNoColor(property.has_elevator).className}
+              />
+              <Info
+                icon="mdi:file-check-outline"
+                label="Uknjižen"
+                value={yesNoColor(property.Uknjižen).text}
+                valueClassName={yesNoColor(property.Uknjižen).className}
+              />
+              <Info icon="mdi:bus" label="Prevoz" value={property.bus_line || '-'} />
+              <Info
+                icon="mdi:school-outline"
+                label="Škola"
+                value={yesNoColor(property.has_school).text}
+                valueClassName={yesNoColor(property.has_school).className}
+              />
+              <Info
+                icon="mdi:baby-face-outline"
+                label="Vrtić"
+                value={yesNoColor(property.has_kindergarten).text}
+                valueClassName={yesNoColor(property.has_kindergarten).className}
+              />
             </div>
           )}
 
@@ -85,9 +160,30 @@ export default function Tabbar({ property }: TabbarProps) {
 
           {/* -------- OPIS -------- */}
           {activeTab === 'Opis' && (
-            <p className="leading-relaxed text-gray-700 dark:text-gray-300 whitespace-pre-line">
-              {property.description || 'Nema opisa.'}
-            </p>
+            <div className="space-y-6">
+              <p className="leading-relaxed text-gray-700 dark:text-gray-300 whitespace-pre-line">
+                {property.description || 'Nema opisa.'}
+              </p>
+
+              {/* CALL / SMS DUGMAD */}
+              <div className="flex flex-col sm:flex-row gap-4">
+                <a
+                  href={`tel:${phoneNumber}`}
+                  className="flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-emerald-500 text-white font-medium hover:bg-emerald-600 transition"
+                >
+                  <Icon icon="mdi:phone" className="text-xl" />
+                  Pozovi
+                </a>
+
+                <a
+                  href={`sms:${phoneNumber}`}
+                  className="flex items-center justify-center gap-2 px-6 py-3 rounded-xl bg-sky-500 text-white font-medium hover:bg-sky-600 transition"
+                >
+                  <Icon icon="mdi:message-text" className="text-xl" />
+                  Pošalji SMS
+                </a>
+              </div>
+            </div>
           )}
         </div>
       </div>

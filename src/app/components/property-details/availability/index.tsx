@@ -33,7 +33,7 @@ export default function Availability({ property }: AvailabilityProps) {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-4">
             <Info label="Naziv" value={property.property_title} />
             <Info label="Lokacija" value={property.location || '-'} />
-            <Info label="Kvadratura" value={`${property.livingArea ?? '-'} m²`} />
+            <Info label="Kvadratura" value={`${property.livingArea ?? '-'} `} />
             <Info label="Sobe" value={property.beds ?? '-'} />
             <Info label="Kupatila" value={property.bathrooms ?? '-'} />
             <Info label="Sprat" value={property.floor ?? '-'} />

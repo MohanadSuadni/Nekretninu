@@ -94,7 +94,7 @@ const Footer = () => {
             <div className="flex lg:flex-nowrap flex-wrap lg:flex-row lg:gap-11 gap-4 text-base sm:text-lg md:text-xl text-black text-opacity-50">
               <p className="text-white">
                 Telefon: 
-                <Link href="tel:+38169638006" className="text-[#8FAFCC] hover:text-white"> +381 69 638 006</Link>
+                <Link href="tel:+381693693698" className="text-[#8FAFCC] hover:text-white"> +381 69 369 3698</Link>
               </p>
               <p className="text-white">
                 Email: 

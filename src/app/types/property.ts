@@ -13,6 +13,7 @@ export interface Property {
   floor?: number | string;
   has_elevator?: boolean;
   Uknjižen?: boolean;
+  property_price: string;
 
   bus_line?: string;
   has_school?: boolean;
