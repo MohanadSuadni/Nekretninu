@@ -81,17 +81,22 @@ export default function AdvanceSearch({
         return categoryMatch && locationMatch && tagMatch;
     });
 
-    const sortedProperties = [...filteredProperties].sort((a, b) => {
-        const titleA = a.property_title?.toLowerCase() || "";
-        const titleB = b.property_title?.toLowerCase() || "";
-
-        if (sortOrder === "asc") {
-            return titleA.localeCompare(titleB);
-        } else if (sortOrder === "desc") {
-            return titleB.localeCompare(titleA);
-        }
-        return 0;
-    });
+   const sortedProperties = [...filteredProperties].sort((a, b) => {
+  if (sortOrder === "asc") {
+    return (a.property_title || "").toLowerCase().localeCompare((b.property_title || "").toLowerCase());
+  } else if (sortOrder === "desc") {
+    return (b.property_title || "").toLowerCase().localeCompare((a.property_title || "").toLowerCase());
+  } else if (sortOrder === "price-asc") {
+    const priceA = Number((a.property_price || '').toString().replace(/[^0-9.-]+/g,""));
+    const priceB = Number((b.property_price || '').toString().replace(/[^0-9.-]+/g,""));
+    return priceA - priceB;
+  } else if (sortOrder === "price-desc") {
+    const priceA = Number((a.property_price || '').toString().replace(/[^0-9.-]+/g,""));
+    const priceB = Number((b.property_price || '').toString().replace(/[^0-9.-]+/g,""));
+    return priceB - priceA;
+  }
+  return 0;
+});
 
     const filteredCount = sortedProperties.length;
 
@@ -291,18 +296,18 @@ description="Pregled aktuelne ponude nekretnina – stanovi, kuće i poslovni pr
                                         </span>
                                     </p>
                                 </div>
-                                <div className="flex-1 flex gap-3 px-4">
-                                    <select
-                                        name="short"
-                                        className="custom-select border border-border dark:border-dark_border dark:bg-darkmode text-midnight_text focus:border-primary rounded-lg p-3 pr-9"
-                                        value={sortOrder}
-                                        onChange={(e) => setSortOrder(e.target.value)}
-                                    >
-                                        <option value="none">Sortiraj po nazivu</option>
-                                        <option value="asc">Naziv (A-Z)</option>
-                                        <option value="desc">Naziv (Z-A)</option>
-                                    </select>
-
+                               <div className="flex-1 flex gap-3 px-4">
+  <select
+    name="short"
+    className="custom-select border border-border dark:border-dark_border dark:bg-darkmode text-midnight_text focus:border-primary rounded-lg p-3 pr-9"
+    value={sortOrder}
+    onChange={(e) => setSortOrder(e.target.value)}
+  >
+  <option value="none">Sortiraj po ceni</option>
+   
+   <option value="price-asc">Cena (najniža → najviša)</option>
+<option value="price-desc">Cena (najviša → najniža)</option>
+  </select>
                                     <button onClick={() => setViewMode('list')} className={`${viewMode == "list" ? 'bg-primary text-white' : 'bg-transparent text-primary'} p-3 border border-primary text-primary hover:text-white rounded-lg hover:bg-primary text-base`}>
                                         <Icon
                                             icon="famicons:list"

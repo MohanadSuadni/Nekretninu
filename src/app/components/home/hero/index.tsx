@@ -163,7 +163,7 @@ const Hero = () => {
                     setTag("prodaja");
                   }}
                 >
-                  Kupovina
+                  Prodaja
                 </button>
 
                 <button

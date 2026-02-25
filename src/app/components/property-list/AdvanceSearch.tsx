@@ -68,7 +68,7 @@ export default function AdvanceSearch({ category, location = '', tag = '' }: Pro
                 breadcrumbLinks={breadcrumbLinks}
             />
 
-            <section className='dark:bg-darkmode px-4'>
+            <section className='dark:bg-darkmode  px-4'>
                 <div className='lg:max-w-screen-xl max-w-screen-md mx-auto'>
                     {/* OFF CANVAS & Filters omitted for brevity */}
                     <div className='lg:grid lg:grid-cols-12 gap-4'>
@@ -109,7 +109,7 @@ export default function AdvanceSearch({ category, location = '', tag = '' }: Pro
                             </div>
 
                             {filteredProperties.length > 0 ?
-                                <div className={`${viewMode === 'grid' ? 'grid sm:grid-cols-2' : 'flex flex-col'} gap-6 px-4`}>
+                                <div className={`${viewMode === 'grid' ? 'grid sm:grid-cols-2 '  : 'flex flex-col'} gap-6 px-4`}>
                                     {sortedProperties.map((data: any, index: any) => (
                                         <PropertyCard key={index} property={data} viewMode={viewMode} />
                                     ))}

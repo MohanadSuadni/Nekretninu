@@ -6,7 +6,7 @@ export default function Testimonials() {
     <section className="px-4 md:px-0 dark:bg-darkmode">
       <div className="container lg:max-w-screen-xl md:max-w-screen-md px-8 mx-auto py-16 flex flex-col md:flex-row items-center justify-between gap-8">
         
-        {/* Slika tima */}
+        {/* Slika tima
         <div className="flex-1 flex justify-center md:justify-start" data-aos="fade-right">
           <Image
             src="/images/testimonial/vector-smart.png"
@@ -17,7 +17,7 @@ export default function Testimonials() {
     className="hidden lg:block w-full max-w-[451px] h-auto"
           />
         </div>
-
+ */}
         {/* Tekst */}
         <div className="flex-1" data-aos="fade-left">
           {/* Quote */}

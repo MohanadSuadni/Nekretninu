@@ -56,17 +56,15 @@ export default function PropertyDetailsPage() {
 
       {/* Image Slider */}
       {sliderImages.length > 0 && (
-        <section>
           
           <div className="container mx-auto">
             
 <div
-  className="
+  className="mt-8
     relative w-full max-w-5xl mx-auto
-    h-[200px] sm:h-[300px] md:h-[420px] lg:h-[580px]
+    h-[200px] sm:h-[300px] md:h-[420px] lg:h-[480px]
     px-4 sm:px-0
     rounded-2xl overflow-hidden
-    shadow-lg sm:shadow-none
   "
 >
    
@@ -74,13 +72,13 @@ export default function PropertyDetailsPage() {
             </div>
           </div>
 
-        </section>
-      )}
+      )}<br />
 
       {/* Property Description */}
                {/* <TextSection description={property.description || ''} />*/}
 
       {/* Tabs + Availability */}
+
       <Tabbar property={property} />
      {/*<Availability property={property} />*/} 
     </div>
