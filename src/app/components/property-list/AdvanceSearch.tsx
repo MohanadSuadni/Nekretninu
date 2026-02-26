@@ -68,7 +68,7 @@ export default function AdvanceSearch({ category, location = '', tag = '' }: Pro
                 breadcrumbLinks={breadcrumbLinks}
             />
 
-            <section className='dark:bg-darkmode  px-4'>
+            <section className='dark:bg-darkmode px-4'>
                 <div className='lg:max-w-screen-xl max-w-screen-md mx-auto'>
                     {/* OFF CANVAS & Filters omitted for brevity */}
                     <div className='lg:grid lg:grid-cols-12 gap-4'>

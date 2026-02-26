@@ -5,6 +5,7 @@ import Image from 'next/image';
 import HeroSub from '../../shared/hero-sub';
 import { PropertyContext } from '@/context-api/PropertyContext';
 import PropertyCard from '../../home/property-list/property-card';
+import Link from "next/link";
 
 type AdvanceSearchProps = {
   category?: string;
@@ -45,6 +46,27 @@ export default function AdvanceSearch({
         { href: "/", text: "Početna" },
         { href: "/properties/properties-list", text: "Lista nekretnina" },
     ];
+
+    
+
+    // ✅ DODATO – reset pretrage
+    const handleResetSearch = () => {
+        updateFilter('keyword', '');
+        updateFilter('location', '');
+        updateFilter('tag', '');
+        updateFilter('category', '');
+        updateFilter('beds', '');
+
+        
+                window.history.pushState({}, "", "/properties/properties-list");
+
+    };
+
+
+
+
+
+
 
     const handlePriceChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setPrice(Number(event.target.value));
@@ -111,6 +133,7 @@ description="Pregled aktuelne ponude nekretnina – stanovi, kuće i poslovni pr
                 <div className='lg:max-w-screen-xl max-w-screen-md mx-auto'>
                     <div className='flex lg:hidden justify-between items-center mb-4'>
                         <span className='text-2xl ml-4'>Napredna pretraga</span>
+                        
                         <button onClick={toggleOffCanvas} className='bg-blue-500 mr-4 text-white py-3 px-6 text-base rounded-lg'>
                             <svg xmlns="http://www.w3.org/2000/svg" className='w-6 h-6' viewBox="0 0 24 24">
                                 <path fill="none" stroke="currentColor" strokeLinecap="round" strokeMiterlimit="10" strokeWidth="1.5"
@@ -167,7 +190,7 @@ description="Pregled aktuelne ponude nekretnina – stanovi, kuće i poslovni pr
                                         </select>
                                     </div>
 
-                                    <div>
+                                  {/*  <div>
                                         <p className='text-gray dark:text-gray font-medium'>
                                             Rastojanje: {price} milja
                                         </p>
@@ -180,7 +203,7 @@ description="Pregled aktuelne ponude nekretnina – stanovi, kuće i poslovni pr
                                             onChange={handlePriceChange}
                                             className="w-full h-0.5 bg-lightborder dark:bg-dark_border mt-2 rounded-lg appearance-none cursor-pointer"
                                         />
-                                    </div>
+                                    </div>*/}
 
                                     {Object.entries(searchData).map(([key, options]) => (
                                         key !== 'keywords' && key !== 'locations' && (
@@ -202,7 +225,7 @@ description="Pregled aktuelne ponude nekretnina – stanovi, kuće i poslovni pr
                                         )
                                     ))}
 
-                                    <div>
+                                    {/*<div>
                                         <p className='text-gray dark:text-gray'>
                                             Od ${price1} do $8000
                                         </p>
@@ -216,11 +239,14 @@ description="Pregled aktuelne ponude nekretnina – stanovi, kuće i poslovni pr
                                             className="w-full h-0.5 bg-lightborder dark:bg-dark_border mt-2 rounded-lg appearance-none cursor-pointer"
                                         />
                                     </div>
-
+                                    */}
                                     <div>
-                                        <button className='bg-blue-500 text-white w-full py-3 px-6 text-base rounded-lg'>
-                                            Pronađi nekretninu
-                                        </button>
+                                         <button
+                                    onClick={handleResetSearch}
+                                    className="mb-6 w-full border border-red-500 text-red-500 py-2 rounded-lg hover:bg-red-500 hover:text-white transition"
+                                >
+                                    Uništi prethodnu pretragu
+                                </button>
                                     </div>
                                 </div>
                             </div>
@@ -274,9 +300,12 @@ description="Pregled aktuelne ponude nekretnina – stanovi, kuće i poslovni pr
                                     ))}
 
                                     <div>
-                                        <button className='bg-primary hover:bg-blue-700 text-white w-full py-3 px-6 text-base rounded-lg'>
-                                            Pronađi nekretninu
-                                        </button>
+  <button
+                                    onClick={handleResetSearch}
+                                    className="mb-6 w-full border border-red-500 text-red-500 py-2 rounded-lg hover:bg-red-500 hover:text-white transition"
+                                >
+                                    Uništi prethodnu pretragu
+                                </button>
                                     </div>
                                 </div>
                             </div>

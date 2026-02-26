@@ -96,7 +96,7 @@ export default function Tabbar({ property }: TabbarProps) {
               <Info
                 icon="mdi:ruler-square"
                 label="Kvadratura"
-                value={property.livingArea ? `${property.livingArea} m²` : '-'}
+                value={property.livingArea ? `${property.livingArea} ` : '-'}
               />
               <Info icon="mdi:bed-outline" label="Sobe" value={property.beds ?? '-'} />
               <Info icon="mdi:shower" label="Kupatila" value={property.bathrooms ?? '-'} />
@@ -117,13 +117,13 @@ export default function Tabbar({ property }: TabbarProps) {
               <Info icon="mdi:bus" label="Prevoz" value={property.bus_line || '-'} />
               <Info
                 icon="mdi:school-outline"
-                label="Škola"
+                label="Škola u blizini"
                 value={yesNoColor(property.has_school).text}
                 valueClassName={yesNoColor(property.has_school).className}
               />
               <Info
                 icon="mdi:baby-face-outline"
-                label="Vrtić"
+                label="Vrtić u blizini"
                 value={yesNoColor(property.has_kindergarten).text}
                 valueClassName={yesNoColor(property.has_kindergarten).className}
               />

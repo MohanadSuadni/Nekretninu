@@ -1,6 +1,4 @@
 
-
-
 "use client"
 import Image from "next/image"
 import nextImg from "/public/images/documentation/Categories=Nextjs.svg"

@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export default function History() {
   return (
-    <section className="history-bg">
+    <section id="history" className="history-bg">
       <div className="container lg:max-w-screen-xl md:max-w-screen-md dark:text-black mx-auto grid grid-cols-1 lg:grid-cols-12 py-40">
         <div
           className="col-span-1 lg:col-span-7 5xl:col-span-8 px-4"
@@ -31,8 +31,7 @@ Siguran put do pravog doma
             href="/properties/properties-list"
             className="text-xl px-9 py-3 border border-primary text-primary hover:text-white hover:bg-primary rounded-lg"
           >
-            Saznajte više
-          </Link>
+Lista nekretnina          </Link>
         </div>
 
       

@@ -45,6 +45,8 @@ const searchOptions = {
         { value: 'Izdavanje', label: 'Izdavanje' },
     ],
 
+    
+
  locations: [
   { value: '', label: 'Lokacija' },
   { value: 'Beograd', label: 'Beograd' },

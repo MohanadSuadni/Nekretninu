@@ -248,12 +248,44 @@ const Hero = () => {
                 ))}
               </div>
 
-              <div data-aos="fade-left">
-                <p className="text-lg dark:text-white text-black">
-                  4.9/5
-                  <span className="text-gray-400"> - na osnovu 658 recenzija</span>
-                </p>
-              </div>
+ <div data-aos="fade-left" className="flex flex-col gap-4">
+  <p className="text-lg dark:text-white text-black">
+    4.9/5
+    <span className="text-gray-400"> – na osnovu 658 recenzija</span>
+  </p>
+
+  <a
+    href="#history"
+    className="
+      inline-flex items-center gap-2
+      bg-blue-500 text-white
+      px-6 py-3
+      rounded-lg
+      text-sm font-medium
+      hover:bg-blue-600
+      transition
+      duration-300
+      group
+      overflow-hidden
+    "
+  >
+    Saznajte više o našoj agenciji
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      className="w-4 h-4 ml-2 transition-transform duration-300 group-hover:translate-x-1"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+      strokeWidth="2"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M17 8l4 4m0 0l-4 4m4-4H3"
+      />
+    </svg>
+  </a>
+</div>
             </div>
           </div>
 

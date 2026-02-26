@@ -9,7 +9,7 @@ import Logo from "./logo";
 import HeaderLink from "./navigation/HeaderLink";
 import MobileHeaderLink from "./navigation/MobileHeaderLink";
 
-const PHONE = "+381601234567";
+const PHONE = "+381693693698";
 
 const Header: React.FC = () => {
   const pathUrl = usePathname();
